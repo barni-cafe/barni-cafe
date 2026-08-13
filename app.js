@@ -168,3 +168,47 @@ clearCartButton.addEventListener("click", () => {
 renderCategories();
 renderMenu();
 renderCart();
+// ===============================
+// إرسال الطلب إلى Supabase
+// ===============================
+
+async function submitOrder() {
+  if (cart.length === 0) {
+    alert("السلة فارغة");
+    return;
+  }
+
+  const tableNumber = prompt("اكتب رقم الطاولة:");
+  if (!tableNumber) return;
+
+  const phone = prompt("اكتب رقم الجوال:");
+  if (!phone) return;
+
+  const orderNumber =
+    "BRN-" + Date.now().toString().slice(-6);
+
+  const { error } = await supabase
+    .from("orders")
+    .insert({
+      order_number: orderNumber,
+      table_number: tableNumber,
+      phone: phone,
+      items: cart,
+      total: getCartTotal(),
+      status: "new"
+    });
+
+  if (error) {
+    console.error(error);
+    alert("حدث خطأ في إرسال الطلب");
+    return;
+  }
+
+  alert(
+    "تم إرسال الطلب بنجاح 🎉\nرقم الطلب: " +
+    orderNumber
+  );
+
+  cart = [];
+  renderCart();
+}
