@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلبات برني كافيه</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f0e8;
+      color: #2b211b;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #orders {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .order {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 15px 0;
+      box-shadow: 0 4px 15px #00000015;
+    }
+
+    .order h2 {
+      margin-top: 0;
+    }
+
+    .status {
+      color: #8b5e3c;
+      font-weight: bold;
+    }
+
+    .item {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>☕ طلبات برني كافيه</h1>
+
+  <div id="orders">
+    <p>جاري تحميل الطلبات...</p>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://yxojtouxwoztjwtmzbys.supabase.co";
+    const SUPABASE_KEY = "ضع_مفتاح_Supabase_هنا";
+
+    async function loadOrders() {
+      const response = await fetch(
+        SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc",
+        {
+          headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": "Bearer " + SUPABASE_KEY
+          }
+        }
+      );
+
+      const orders = await response.json();
+
+      const container = document.getElementById("orders");
+
+      if (!orders.length) {
+        container.innerHTML = "<p>ما فيه طلبات حاليًا ☕</p>";
+        return;
+      }
+
+      container.innerHTML = orders.map(order => `
+        <div class="order">
+          <h2>طلب ${order.order_number}</h2>
+
+          <p>🪑 الطاولة: ${order.table_number}</p>
+          <p>📱 الجوال: ${order.phone}</p>
+
+          <p class="status">الحالة: ${order.status}</p>
+
+          <h3>الطلبات:</h3>
+
+          ${(order.items || []).map(item => `
+            <div class="item">
+              ${item.name} × ${item.quantity}
+            </div>
+          `).join("")}
+
+          <div class="total">
+            الإجمالي: ${Number(order.total).toFixed(3)} ر.ع
+          </div>
+        </div>
+      `).join("");
+    }
+
+    loadOrders();
+  </script>
+
+</body>
+</html>
