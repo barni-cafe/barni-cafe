@@ -163,68 +163,113 @@ clearCartButton.addEventListener("click", () => {
   cart = [];
   renderCart();
 });
-document.getElementById("checkoutButton").addEventListener("click", submitOrder);
+// ===============================
+// نظام الطلبات - برني كافيه
+// ===============================
 
-function submitOrder() {
+const SUPABASE_URL = "https://yxojtouxwoztjwtmzbys.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
+
+let supabaseClient = null;
+
+function loadSupabase() {
+  return new Promise((resolve, reject) => {
+    if (window.supabase) {
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+      resolve();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+    script.onload = () => {
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+      resolve();
+    };
+    script.onerror = () => reject(new Error("تعذر تحميل Supabase"));
+    document.head.appendChild(script);
+  });
+}
+
+function getCartTotal() {
+  return cart.reduce(
+    (sum, item) => sum + Number(item.price) * Number(item.quantity),
+    0
+  );
+}
+
+async function submitOrder() {
   if (cart.length === 0) {
-    alert("السلة فارغة");
+    alert("السلة فاضية ☕");
     return;
   }
 
   const tableNumber = prompt("اكتب رقم الطاولة:");
-  if (!tableNumber) return;
+  if (!tableNumber || !tableNumber.trim()) return;
 
-  const phone = prompt("اكتب رقم الهاتف:");
-  if (!phone) return;
+  const phone = prompt("اكتب رقم الجوال:");
+  if (!phone || !phone.trim()) return;
 
-  alert("تم استلام الطلب ✅");
+  const notes = prompt("ملاحظات للطلب؟ (اختياري)") || "";
+
+  try {
+    if (!supabaseClient) {
+      await loadSupabase();
+    }
+
+    const orderNumber = "BRN-" + Date.now().toString().slice(-6);
+
+    const items = cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      price: Number(item.price)
+    }));
+
+    const total = Number(getCartTotal().toFixed(3));
+
+    const { error } = await supabaseClient
+      .from("orders")
+      .insert({
+        order_number: orderNumber,
+        table_number: tableNumber.trim(),
+        phone: phone.trim(),
+        items: items,
+        total: total,
+        status: "new",
+        notes: notes.trim() || null
+      });
+
+    if (error) {
+      console.error(error);
+      alert("ما قدرنا نرسل الطلب. حاول مرة ثانية.");
+      return;
+    }
+
+    alert("تم إرسال طلبك بنجاح ✅\nرقم الطلب: " + orderNumber);
+    cart = [];
+    renderCart();
+  } catch (error) {
+    console.error(error);
+    alert("حدث خطأ أثناء إرسال الطلب.");
+  }
 }
+
+const checkoutButton = document.getElementById("checkoutButton");
+if (checkoutButton) {
+  checkoutButton.addEventListener("click", submitOrder);
+}
+
+loadSupabase().catch(error => console.error("Supabase:", error));
+
 
 // تشغيل الموقع
 renderCategories();
 renderMenu();
 renderCart();
-// ===============================
-// إرسال الطلب إلى Supabase
-// ===============================
-
-async function submitOrder() {
-  if (cart.length === 0) {
-    alert("السلة فارغة");
-    return;
-  }
-
-  const tableNumber = prompt("اكتب رقم الطاولة:");
-  if (!tableNumber) return;
-
-  const phone = prompt("اكتب رقم الجوال:");
-  if (!phone) return;
-
-  const orderNumber =
-    "BRN-" + Date.now().toString().slice(-6);
-
-  const { error } = await supabase
-    .from("orders")
-    .insert({
-      order_number: orderNumber,
-      table_number: tableNumber,
-      phone: phone,
-      items: cart,
-      total: getCartTotal(),
-      status: "new"
-    });
-
-  if (error) {
-    console.error(error);
-    alert("حدث خطأ في إرسال الطلب");
-    return;
-  }
-
-  alert(
-    "تم إرسال الطلب بنجاح 🎉\nرقم الطلب: " +
-    orderNumber
-  );
-
-  cart = [];
-  renderCart();
-}
