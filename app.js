@@ -1,1092 +1,170 @@
 // ===============================
-// برني كافيه - نظام الطلبات
+// برني كافيه - منيو يعمل بالكامل
 // ===============================
 
-const SUPABASE_URL = "https://yxojtouxwoztjwtmzbys.supabase.co";
-const SUPABASE_KEY = "sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
+const products = [
+  // القهوة الحارة
+  { id: 1, category: "القهوة الحارة", name: "إسبريسو", desc: "قهوة إسبريسو مركزة", price: 1.500 },
+  { id: 2, category: "القهوة الحارة", name: "لاتيه", desc: "إسبريسو مع حليب ناعم", price: 2.000 },
+  { id: 3, category: "القهوة الحارة", name: "كابتشينو", desc: "إسبريسو وحليب ورغوة", price: 2.000 },
+  { id: 4, category: "القهوة الحارة", name: "قهوة تركية", desc: "قهوة تركية على الطريقة التقليدية", price: 1.500 },
+  { id: 5, category: "القهوة الحارة", name: "أمريكانو", desc: "إسبريسو مع ماء ساخن", price: 1.500 },
 
+  // القهوة الباردة
+  { id: 6, category: "القهوة الباردة", name: "آيس لاتيه", desc: "إسبريسو وحليب مع الثلج", price: 2.200 },
+  { id: 7, category: "القهوة الباردة", name: "آيس أمريكانو", desc: "إسبريسو بارد مع الثلج", price: 1.800 },
+  { id: 8, category: "القهوة الباردة", name: "كولد برو", desc: "قهوة مستخلصة على البارد", price: 2.500 },
 
-// ===============================
-// تحميل Supabase تلقائيًا
-// ===============================
+  // الشاي
+  { id: 9, category: "الشاي", name: "شاي أحمر", desc: "شاي كلاسيكي ساخن", price: 1.000 },
+  { id: 10, category: "الشاي", name: "شاي كرك", desc: "شاي بالحليب والهيل", price: 1.200 },
+  { id: 11, category: "الشاي", name: "شاي أخضر", desc: "شاي أخضر خفيف", price: 1.000 },
 
-function loadSupabase() {
-  return new Promise((resolve, reject) => {
+  // المشروبات
+  { id: 12, category: "المشروبات", name: "موهيتو", desc: "مشروب منعش بالليمون والنعناع", price: 2.000 },
+  { id: 13, category: "المشروبات", name: "ليمون بالنعناع", desc: "ليمون طازج مع النعناع", price: 1.800 },
+  { id: 14, category: "المشروبات", name: "ماء", desc: "مياه معدنية", price: 0.300 },
 
-    if (window.supabase) {
-      resolve();
-      return;
-    }
+  // الحلويات
+  { id: 15, category: "الحلويات", name: "تشيز كيك", desc: "قطعة تشيز كيك كريمية", price: 2.200 },
+  { id: 16, category: "الحلويات", name: "براوني", desc: "براوني شوكولاتة", price: 1.800 },
+  { id: 17, category: "الحلويات", name: "كوكيز", desc: "كوكيز طازج بالشوكولاتة", price: 1.200 }
+];
 
-    const script = document.createElement("script");
+const categories = ["الكل", ...new Set(products.map(product => product.category))];
 
-    script.src =
-      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+let currentCategory = "الكل";
+let cart = [];
 
-    script.onload = resolve;
+const categoriesElement = document.getElementById("categories");
+const menuElement = document.getElementById("menu");
+const cartItemsElement = document.getElementById("cartItems");
+const cartCountElement = document.getElementById("cartCount");
+const cartTotalElement = document.getElementById("cartTotal");
+const clearCartButton = document.getElementById("clearCart");
 
-    script.onerror = () => {
-      reject(new Error("تعذر تحميل Supabase"));
-    };
+function formatPrice(price) {
+  return price.toFixed(3) + " ر.ع";
+}
 
-    document.head.appendChild(script);
+function renderCategories() {
+  categoriesElement.innerHTML = categories.map(category => `
+    <button
+      type="button"
+      class="category ${category === currentCategory ? "active" : ""}"
+      data-category="${category}">
+      ${category}
+    </button>
+  `).join("");
+
+  document.querySelectorAll(".category").forEach(button => {
+    button.addEventListener("click", () => {
+      currentCategory = button.dataset.category;
+      renderCategories();
+      renderMenu();
+    });
   });
 }
 
+function renderMenu() {
+  const visibleProducts = currentCategory === "الكل"
+    ? products
+    : products.filter(product => product.category === currentCategory);
 
-// ===============================
-// المنيو
-// ===============================
-
-const menu = [
-
-  {
-    name: "إسبريسو",
-    desc: "قهوة إسبريسو مركزة",
-    price: 1.500,
-    category: "قهوة حارة"
-  },
-
-  {
-    name: "لاتيه",
-    desc: "إسبريسو مع حليب ناعم",
-    price: 2.000,
-    category: "قهوة حارة"
-  },
-
-  {
-    name: "كابتشينو",
-    desc: "إسبريسو وحليب ورغوة",
-    price: 2.000,
-    category: "قهوة حارة"
-  },
-
-  {
-    name: "قهوة تركية",
-    desc: "قهوة تركية على الطريقة التقليدية",
-    price: 1.500,
-    category: "قهوة حارة"
-  },
-
-  {
-    name: "آيس لاتيه",
-    desc: "إسبريسو وحليب بارد مع الثلج",
-    price: 2.000,
-    category: "قهوة باردة"
-  },
-
-  {
-    name: "كولد برو",
-    desc: "قهوة باردة محضرة ببطء",
-    price: 2.200,
-    category: "قهوة باردة"
-  },
-
-  {
-    name: "موهيتو",
-    desc: "مشروب منعش بالنعناع والليمون",
-    price: 1.500,
-    category: "موهيتو"
-  },
-
-  {
-    name: "شاي",
-    desc: "شاي ساخن",
-    price: 1.000,
-    category: "شاي"
-  },
-
-  {
-    name: "كيكة شوكولاتة",
-    desc: "قطعة كيكة شوكولاتة",
-    price: 1.800,
-    category: "حلويات"
+  if (visibleProducts.length === 0) {
+    menuElement.innerHTML = `<p class="empty">ما فيه منتجات في هذا القسم حاليًا.</p>`;
+    return;
   }
 
-];
-
-
-// ===============================
-// السلة
-// ===============================
-
-let cart = [];
-
-
-// ===============================
-// رقم الطلب
-// ===============================
-
-function generateOrderNumber() {
-
-  return "BRN-" +
-    Date.now().toString().slice(-6);
-
-}
-
-
-// ===============================
-// عرض المنيو
-// ===============================
-
-const menuElement =
-  document.getElementById("menu");
-
-let currentCategory = "عرض الكل";
-
-
-function renderMenu() {
-
-  if (!menuElement) return;
-
-  const filteredMenu =
-    currentCategory === "عرض الكل"
-      ? menu
-      : menu.filter(
-          item => item.category === currentCategory
-        );
-
-
-  menuElement.innerHTML = filteredMenu.map(item => {
-
-    const index = menu.indexOf(item);
-
-    return `
-      <div class="item">
-
-        <div class="item-info">
-
-          <div class="item-name">
-            ${item.name}
-          </div>
-
-          <div style="
-            color:#777;
-            font-size:14px;
-            margin-bottom:18px;
-          ">
-            ${item.desc}
-          </div>
-
-          <div class="price">
-            ${item.price.toFixed(3)} ر.ع
-          </div>
-
-        </div>
-
-        <button
-          class="add"
-          data-index="${index}"
-          aria-label="إضافة ${item.name}"
-        >
-          +
-        </button>
-
+  menuElement.innerHTML = visibleProducts.map(product => `
+    <article class="item">
+      <div>
+        <h3>${product.name}</h3>
+        <p>${product.desc}</p>
       </div>
-    `;
+      <div class="item-right">
+        <div class="price">${formatPrice(product.price)}</div>
+        <button type="button" class="add-btn" data-id="${product.id}">
+          أضف للسلة
+        </button>
+      </div>
+    </article>
+  `).join("");
 
-  }).join("");
-
-
-  document.querySelectorAll(".add")
-    .forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const index =
-          Number(button.dataset.index);
-
-        addToCart(index);
-
-      });
-
+  document.querySelectorAll(".add-btn").forEach(button => {
+    button.addEventListener("click", () => {
+      addToCart(Number(button.dataset.id));
     });
-
+  });
 }
 
+function addToCart(productId) {
+  const product = products.find(item => item.id === productId);
+  if (!product) return;
 
-// ===============================
-// التصنيفات
-// ===============================
-
-function setupCategories() {
-
-  document
-    .querySelectorAll(".category")
-    .forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        document
-          .querySelectorAll(".category")
-          .forEach(btn =>
-            btn.classList.remove("active")
-          );
-
-        button.classList.add("active");
-
-        currentCategory =
-          button.textContent.trim();
-
-        renderMenu();
-
-      });
-
-    });
-
-}
-
-
-// ===============================
-// إضافة للسلة
-// ===============================
-
-function addToCart(index) {
-
-  const item = menu[index];
-
-  const existing =
-    cart.find(product =>
-      product.name === item.name
-    );
-
+  const existing = cart.find(item => item.id === productId);
 
   if (existing) {
-
-    existing.quantity++;
-
+    existing.quantity += 1;
   } else {
-
-    cart.push({
-
-      name: item.name,
-      price: item.price,
-      quantity: 1
-
-    });
-
+    cart.push({ ...product, quantity: 1 });
   }
-
-
-  updateCart();
-
-}
-
-
-// ===============================
-// حساب الإجمالي
-// ===============================
-
-function getCartTotal() {
-
-  return cart.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
-    0
-  );
-
-}
-
-
-// ===============================
-// عدد المنتجات
-// ===============================
-
-function getCartCount() {
-
-  return cart.reduce(
-    (count, item) =>
-      count + item.quantity,
-    0
-  );
-
-}
-
-
-// ===============================
-// إنشاء زر السلة
-// ===============================
-
-function createCartBar() {
-
-  let cartBar =
-    document.getElementById("barni-cart-bar");
-
-  if (cartBar) return;
-
-
-  cartBar =
-    document.createElement("button");
-
-  cartBar.id =
-    "barni-cart-bar";
-
-  cartBar.style.cssText = `
-    position:fixed;
-    bottom:15px;
-    left:15px;
-    right:15px;
-    max-width:720px;
-    margin:auto;
-    background:#d7a34a;
-    color:white;
-    border:0;
-    border-radius:22px;
-    padding:18px 25px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:18px;
-    font-weight:bold;
-    box-shadow:0 5px 20px rgba(0,0,0,.18);
-    z-index:1000;
-    cursor:pointer;
-  `;
-
-
-  cartBar.addEventListener(
-    "click",
-    openCart
-  );
-
-
-  document.body.appendChild(cartBar);
-
-}
-
-
-// ===============================
-// تحديث زر السلة
-// ===============================
-
-function updateCartBar() {
-
-  const cartBar =
-    document.getElementById("barni-cart-bar");
-
-  if (!cartBar) return;
-
-
-  const count =
-    getCartCount();
-
-  const total =
-    getCartTotal();
-
-
-  cartBar.innerHTML = `
-    <span>🛍️ السلة (${count})</span>
-    <span>${total.toFixed(3)} ر.ع　›</span>
-  `;
-
-}
-
-
-// ===============================
-// نافذة السلة
-// ===============================
-
-function createCartModal() {
-
-  if (
-    document.getElementById(
-      "barni-cart-modal"
-    )
-  ) return;
-
-
-  const modal =
-    document.createElement("div");
-
-  modal.id =
-    "barni-cart-modal";
-
-
-  modal.style.cssText = `
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:2000;
-    padding:20px;
-    align-items:flex-end;
-    justify-content:center;
-  `;
-
-
-  modal.innerHTML = `
-
-    <div style="
-      background:white;
-      width:100%;
-      max-width:600px;
-      max-height:85vh;
-      overflow:auto;
-      border-radius:25px 25px 0 0;
-      padding:25px;
-      direction:rtl;
-    ">
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:20px;
-      ">
-
-        <h2 style="margin:0">
-          طلبك 🛍️
-        </h2>
-
-        <button
-          id="close-cart"
-          style="
-            border:0;
-            background:#eee;
-            width:42px;
-            height:42px;
-            border-radius:50%;
-            font-size:22px;
-            cursor:pointer;
-          "
-        >
-          ×
-        </button>
-
-      </div>
-
-      <div id="cart-items"></div>
-
-      <div id="cart-total"></div>
-
-      <button
-        id="checkout-button"
-        style="
-          width:100%;
-          border:0;
-          background:#d7a34a;
-          color:white;
-          padding:17px;
-          border-radius:15px;
-          font-size:18px;
-          font-weight:bold;
-          cursor:pointer;
-          margin-top:15px;
-        "
-      >
-        تنفيذ الطلب
-      </button>
-
-    </div>
-  `;
-
-
-  document.body.appendChild(modal);
-
-
-  document
-    .getElementById("close-cart")
-    .addEventListener(
-      "click",
-      closeCart
-    );
-
-
-  document
-    .getElementById("checkout-button")
-    .addEventListener(
-      "click",
-      sendOrder
-    );
-
-
-  modal.addEventListener(
-    "click",
-    event => {
-
-      if (event.target === modal) {
-        closeCart();
-      }
-
-    }
-  );
-
-}
-
-
-// ===============================
-// فتح السلة
-// ===============================
-
-function openCart() {
-
-  createCartModal();
-
-  const modal =
-    document.getElementById(
-      "barni-cart-modal"
-    );
-
-
-  modal.style.display =
-    "flex";
-
 
   renderCart();
-
 }
 
+function changeQuantity(productId, change) {
+  const item = cart.find(product => product.id === productId);
+  if (!item) return;
 
-// ===============================
-// إغلاق السلة
-// ===============================
+  item.quantity += change;
 
-function closeCart() {
-
-  const modal =
-    document.getElementById(
-      "barni-cart-modal"
-    );
-
-
-  if (modal) {
-    modal.style.display =
-      "none";
+  if (item.quantity <= 0) {
+    cart = cart.filter(product => product.id !== productId);
   }
 
+  renderCart();
 }
-
-
-// ===============================
-// عرض محتوى السلة
-// ===============================
 
 function renderCart() {
-
-  const itemsElement =
-    document.getElementById(
-      "cart-items"
-    );
-
-  const totalElement =
-    document.getElementById(
-      "cart-total"
-    );
-
-
-  if (!itemsElement) return;
-
-
   if (cart.length === 0) {
-
-    itemsElement.innerHTML = `
-      <div style="
-        text-align:center;
-        padding:40px 10px;
-        color:#777;
-      ">
-        السلة فارغة 🛍️
-      </div>
-    `;
-
-    totalElement.innerHTML = "";
-
-    return;
-
-  }
-
-
-  itemsElement.innerHTML =
-    cart.map((item, index) => {
-
-      const itemTotal =
-        item.price * item.quantity;
-
-
-      return `
-
-        <div style="
-          border-bottom:1px solid #eee;
-          padding:15px 0;
-        ">
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            gap:10px;
-          ">
-
-            <strong>
-              ${item.name}
-            </strong>
-
-            <strong>
-              ${itemTotal.toFixed(3)} ر.ع
-            </strong>
-
-          </div>
-
-
-          <div style="
-            display:flex;
-            align-items:center;
-            gap:10px;
-            margin-top:12px;
-          ">
-
-            <button
-              class="quantity-button"
-              data-action="minus"
-              data-index="${index}"
-            >
-              −
-            </button>
-
-            <span>
-              ${item.quantity}
-            </span>
-
-            <button
-              class="quantity-button"
-              data-action="plus"
-              data-index="${index}"
-            >
-              +
-            </button>
-
-            <button
-              class="delete-button"
-              data-index="${index}"
-              style="
-                margin-right:auto;
-                border:0;
-                background:#f5eeee;
-                color:#b33;
-                padding:9px 14px;
-                border-radius:10px;
-                cursor:pointer;
-              "
-            >
-              حذف
-            </button>
-
-          </div>
-
+    cartItemsElement.innerHTML = `<p class="empty">السلة فاضية ☕</p>`;
+  } else {
+    cartItemsElement.innerHTML = cart.map(item => `
+      <div class="cart-row">
+        <div class="cart-row-top">
+          <strong>${item.name}</strong>
+          <span>${formatPrice(item.price * item.quantity)}</span>
         </div>
-
-      `;
-
-    }).join("");
-
-
-  const total =
-    getCartTotal();
-
-
-  totalElement.innerHTML = `
-
-    <div style="
-      display:flex;
-      justify-content:space-between;
-      font-size:20px;
-      font-weight:bold;
-      padding-top:20px;
-    ">
-
-      <span>الإجمالي</span>
-
-      <span>
-        ${total.toFixed(3)} ر.ع
-      </span>
-
-    </div>
-
-  `;
-
-
-  document
-    .querySelectorAll(".quantity-button")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const index =
-            Number(button.dataset.index);
-
-          const action =
-            button.dataset.action;
-
-
-          if (action === "plus") {
-
-            cart[index].quantity++;
-
-          }
-
-
-          if (action === "minus") {
-
-            cart[index].quantity--;
-
-            if (
-              cart[index].quantity <= 0
-            ) {
-              cart.splice(index, 1);
-            }
-
-          }
-
-
-          updateCart();
-
-          renderCart();
-
-        }
-      );
-
-    });
-
-
-  document
-    .querySelectorAll(".delete-button")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const index =
-            Number(button.dataset.index);
-
-          cart.splice(index, 1);
-
-          updateCart();
-
-          renderCart();
-
-        }
-      );
-
-    });
-
-}
-
-
-// ===============================
-// تحديث كل شيء
-// ===============================
-
-function updateCart() {
-
-  updateCartBar();
-
-  renderCart();
-
-}
-
-
-// ===============================
-// إرسال الطلب
-// ===============================
-
-async function sendOrder() {
-
-  if (cart.length === 0) {
-
-    alert("السلة فارغة 😅");
-
-    return;
-
-  }
-
-
-  const customerName =
-    prompt("اكتب اسمك:");
-
-
-  if (!customerName) return;
-
-
-  const customerPhone =
-    prompt("اكتب رقم هاتفك:");
-
-
-  if (!customerPhone) return;
-
-
-  const total =
-    getCartTotal();
-
-
-  const orderItems =
-    cart.map(item => ({
-
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity
-
-    }));
-
-
-  const orderNumber =
-    generateOrderNumber();
-
-
-  try {
-
-    await loadSupabase();
-
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-
-
-    const { data, error } =
-      await supabaseClient
-        .from("orders")
-        .insert([
-          {
-            customer_name:
-              customerName,
-
-            customer_phone:
-              customerPhone,
-
-            items:
-              orderItems,
-
-            total:
-              total
-          }
-        ])
-        .select();
-
-
-    if (error) {
-
-      console.error(error);
-
-      alert(
-        "صار خطأ في إرسال الطلب ❌\n\n" +
-        error.message
-      );
-
-      return;
-
-    }
-
-
-    const realOrderId =
-      data &&
-      data[0] &&
-      data[0].id
-        ? data[0].id
-        : orderNumber;
-
-
-    showOrderSuccess(
-      realOrderId,
-      customerName,
-      orderItems,
-      total
-    );
-
-
-    cart = [];
-
-    updateCart();
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    alert(
-      "تعذر الاتصال بالخادم ❌"
-    );
-
-  }
-
-}
-
-
-// ===============================
-// شاشة نجاح الطلب
-// ===============================
-
-function showOrderSuccess(
-  orderNumber,
-  customerName,
-  items,
-  total
-) {
-
-  const modal =
-    document.getElementById(
-      "barni-cart-modal"
-    );
-
-
-  if (!modal) return;
-
-
-  const itemsHtml =
-    items.map(item => `
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        padding:10px 0;
-        border-bottom:1px solid #eee;
-      ">
-
-        <span>
-          ${item.name} × ${item.quantity}
-        </span>
-
-        <strong>
-          ${(item.price * item.quantity).toFixed(3)}
-          ر.ع
-        </strong>
-
+        <small>${formatPrice(item.price)} للحبة</small>
+        <div class="qty">
+          <button type="button" data-action="minus" data-id="${item.id}">−</button>
+          <span>${item.quantity}</span>
+          <button type="button" data-action="plus" data-id="${item.id}">+</button>
+        </div>
       </div>
-
     `).join("");
 
+    cartItemsElement.querySelectorAll("button").forEach(button => {
+      const id = Number(button.dataset.id);
+      const change = button.dataset.action === "plus" ? 1 : -1;
+      button.addEventListener("click", () => changeQuantity(id, change));
+    });
+  }
 
-  modal.innerHTML = `
+  const count = cart.reduce((total, item) => total + item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    <div style="
-      background:white;
-      width:100%;
-      max-width:600px;
-      max-height:85vh;
-      overflow:auto;
-      border-radius:25px;
-      padding:30px;
-      direction:rtl;
-      text-align:right;
-    ">
-
-      <div style="
-        text-align:center;
-        font-size:55px;
-      ">
-        ✅
-      </div>
-
-      <h2 style="
-        text-align:center;
-        margin-bottom:5px;
-      ">
-        تم تنفيذ طلبك
-      </h2>
-
-      <p style="
-        text-align:center;
-        color:#777;
-      ">
-        شكرًا لك يا ${customerName} ☕
-      </p>
-
-      <div style="
-        background:#fff8e9;
-        padding:15px;
-        border-radius:15px;
-        text-align:center;
-        margin:20px 0;
-      ">
-
-        <div style="
-          color:#777;
-          font-size:14px;
-        ">
-          رقم الطلب
-        </div>
-
-        <strong style="
-          font-size:24px;
-        ">
-          ${orderNumber}
-        </strong>
-
-      </div>
-
-      <h3>
-        تفاصيل الطلب
-      </h3>
-
-      ${itemsHtml}
-
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        font-size:20px;
-        font-weight:bold;
-        padding:20px 0;
-      ">
-
-        <span>
-          الإجمالي
-        </span>
-
-        <span>
-          ${total.toFixed(3)} ر.ع
-        </span>
-
-      </div>
-
-      <button
-        id="success-close"
-        style="
-          width:100%;
-          border:0;
-          background:#d7a34a;
-          color:white;
-          padding:17px;
-          border-radius:15px;
-          font-size:18px;
-          font-weight:bold;
-          cursor:pointer;
-        "
-      >
-        تم
-      </button>
-
-    </div>
-  `;
-
-
-  modal.style.display =
-    "flex";
-
-
-  document
-    .getElementById("success-close")
-    .addEventListener(
-      "click",
-      closeCart
-    );
-
+  cartCountElement.textContent = count;
+  cartTotalElement.textContent = formatPrice(total);
 }
 
+clearCartButton.addEventListener("click", () => {
+  cart = [];
+  renderCart();
+});
 
-// ===============================
 // تشغيل الموقع
-// ===============================
-
-createCartBar();
-
-createCartModal();
-
+renderCategories();
 renderMenu();
-
-setupCategories();
-
-updateCart();
+renderCart();
