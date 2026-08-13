@@ -3,20 +3,262 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barni Cafe | برني كافيه</title>
-  <link rel="stylesheet" href="style.css">
+
+  <title>برني كافيه | Barni Cafe</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #202020;
+    }
+
+    header {
+      background: #ffffff;
+      text-align: center;
+      padding: 35px 20px 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      width: 95px;
+      height: 95px;
+      border-radius: 24px;
+      margin: auto;
+      background: #2f2a25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    header h1 {
+      margin: 18px 0 5px;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 0;
+      color: #777;
+      font-size: 16px;
+    }
+
+    .top-bar {
+      background: white;
+      padding: 15px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #eee;
+    }
+
+    .category {
+      border: none;
+      background: #f1f1f1;
+      padding: 12px 20px;
+      border-radius: 25px;
+      white-space: nowrap;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .category.active {
+      background: #d7a34a;
+      color: white;
+    }
+
+    main {
+      max-width: 750px;
+      margin: auto;
+      padding: 25px 15px 110px;
+    }
+
+    .section-title {
+      background: #fff8e9;
+      border-right: 5px solid #d7a34a;
+      padding: 14px 18px;
+      border-radius: 0 18px 18px 0;
+      margin: 10px 0 20px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .item {
+      background: white;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 150px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .item-info {
+      text-align: right;
+      flex: 1;
+      padding-left: 15px;
+    }
+
+    .item-name {
+      font-size: 20px;
+      margin-bottom: 35px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .item-image {
+      width: 125px;
+      height: 125px;
+      border-radius: 15px;
+      background: #ddd;
+      object-fit: cover;
+    }
+
+    .add {
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      background: #d7a34a;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      margin-right: -22px;
+    }
+
+    .cart {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      right: 15px;
+      max-width: 720px;
+      margin: auto;
+      background: #d7a34a;
+      color: white;
+      border-radius: 22px;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 19px;
+      font-weight: bold;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+      z-index: 20;
+    }
+
+    @media (max-width: 500px) {
+      header {
+        padding-top: 25px;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+      }
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .item-image {
+        width: 105px;
+        height: 105px;
+      }
+
+      .item-name {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
   <header>
+    <div class="logo">ب</div>
     <h1>برني كافيه</h1>
     <p>قهوة تجمعنا ☕</p>
   </header>
 
+  <div class="top-bar">
+    <button class="category active">عرض الكل</button>
+    <button class="category">قهوة حارة</button>
+    <button class="category">قهوة باردة</button>
+    <button class="category">موهيتو</button>
+    <button class="category">شاي</button>
+    <button class="category">حلويات</button>
+    <button class="category">عصائر</button>
+  </div>
+
   <main>
-    <h2>المنيو</h2>
-    <div id="menu"></div>
+
+    <div class="section-title">
+      القهوة الحارة
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">إسبريسو</div>
+        <div class="price">1.000 ر.ع</div>
+      </div>
+
+      <img class="item-image"
+           src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+           alt="إسبريسو">
+
+      <button class="add">+</button>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">لاتيه</div>
+        <div class="price">1.300 ر.ع</div>
+      </div>
+
+      <img class="item-image"
+           src="https://images.unsplash.com/photo-1561882468-9110e03e0f78?auto=format&fit=crop&w=400&q=80"
+           alt="لاتيه">
+
+      <button class="add">+</button>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">كابتشينو</div>
+        <div class="price">1.300 ر.ع</div>
+      </div>
+
+      <img class="item-image"
+           src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80"
+           alt="كابتشينو">
+
+      <button class="add">+</button>
+    </div>
+
   </main>
 
+  <div class="cart">
+    <span>🛍️ السلة</span>
+    <span>0.000 ر.ع　›</span>
+  </div>
+
   <script src="app.js"></script>
+
 </body>
 </html>
