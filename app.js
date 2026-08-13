@@ -163,6 +163,22 @@ clearCartButton.addEventListener("click", () => {
   cart = [];
   renderCart();
 });
+document.getElementById("checkoutButton").addEventListener("click", submitOrder);
+
+function submitOrder() {
+  if (cart.length === 0) {
+    alert("السلة فارغة");
+    return;
+  }
+
+  const tableNumber = prompt("اكتب رقم الطاولة:");
+  if (!tableNumber) return;
+
+  const phone = prompt("اكتب رقم الهاتف:");
+  if (!phone) return;
+
+  alert("تم استلام الطلب ✅");
+}
 
 // تشغيل الموقع
 renderCategories();
