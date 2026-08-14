@@ -8,7 +8,7 @@ const products=[
 {id:4,cat:"الحلويات",name:"كيك التمر",en:"Date Cake",desc:"كيكة تمر مع لمسة من التوابل العطرية.",price:1.5,img:"date-cake.jpg",code:"DATE"}
 ];
 
-let category="القهوة الساخنة",cart=[],table=6,submitting=false;
+let category="القهوة الساخنة",cart=[],table=6,submitting=false,orderType="";
 
 const $=id=>document.getElementById(id);
 
@@ -307,6 +307,19 @@ $("heroMenu").onclick=()=>{
 };
 
 
+/* اختيار طريقة الطلب */
+
+$("carOrderBtn").onclick=()=>{
+  orderType="car";
+  show("home");
+};
+
+$("insideOrderBtn").onclick=()=>{
+  orderType="inside";
+  show("home");
+};
+
+
 $("backHome").onclick=()=>{
   show("home");
 };
@@ -472,5 +485,5 @@ setTimeout(
       .getElementById("splash")
       .classList.add("hidden");
   },
-  1800
+  3500
 );
