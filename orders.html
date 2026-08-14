@@ -1,115 +1,127 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>طلبات برني كافيه</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f0e8;
-      color: #2b211b;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طلبات برني كافيه</title>
 
-    h1 {
-      text-align: center;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f5f0e8;
+  color: #2b211b;
+  padding: 20px;
+}
 
-    #orders {
-      max-width: 800px;
-      margin: auto;
-    }
+h1 {
+  text-align: center;
+}
 
-    .order {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      margin: 15px 0;
-      box-shadow: 0 4px 15px #00000015;
-    }
+#orders {
+  max-width: 800px;
+  margin: auto;
+}
 
-    .order h2 {
-      margin-top: 0;
-    }
+.order {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 4px 15px #0002;
+}
 
-    .status {
-      color: #8b5e3c;
-      font-weight: bold;
-    }
+.item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
 
-    .item {
-      padding: 6px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .total {
-      font-weight: bold;
-      font-size: 20px;
-      margin-top: 12px;
-    }
-  </style>
+.error {
+  color: red;
+  text-align: center;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>☕ طلبات برني كافيه</h1>
+<h1>☕ طلبات برني كافيه</h1>
 
-  <div id="orders">
-    <p>جاري تحميل الطلبات...</p>
-  </div>
+<div id="orders">
+  جاري تحميل الطلبات...
+</div>
 
-  <script>
-    const SUPABASE_URL = "https://yxojtouxwoztjwtmzbys.supabase.co";
-    const SUPABASE_KEY = "ضع_مفتاح_Supabase_هنا";
+<script>
 
-    async function loadOrders() {
-      const response = await fetch(
-        SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc",
-        {
-          headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": "Bearer " + SUPABASE_KEY
-          }
-        }
-      );
+const SUPABASE_URL =
+"https://yxojtouxwoztjwtmzbys.supabase.co";
 
-      const orders = await response.json();
+const SUPABASE_KEY =
+"ضع_المفتاح_هنا";
 
-      const container = document.getElementById("orders");
+async function loadOrders() {
 
-      if (!orders.length) {
-        container.innerHTML = "<p>ما فيه طلبات حاليًا ☕</p>";
-        return;
+  const response = await fetch(
+    SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc",
+    {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
       }
+    }
+  );
 
-      container.innerHTML = orders.map(order => `
-        <div class="order">
-          <h2>طلب ${order.order_number}</h2>
+  const orders = await response.json();
 
-          <p>🪑 الطاولة: ${order.table_number}</p>
-          <p>📱 الجوال: ${order.phone}</p>
+  const box = document.getElementById("orders");
 
-          <p class="status">الحالة: ${order.status}</p>
+  if (!orders.length) {
+    box.innerHTML = "<p>ما فيه طلبات حاليًا ☕</p>";
+    return;
+  }
 
-          <h3>الطلبات:</h3>
+  box.innerHTML = orders.map(order => {
 
-          ${(order.items || []).map(item => `
-            <div class="item">
-              ${item.name} × ${item.quantity}
-            </div>
-          `).join("")}
+    let items = order.items || [];
 
-          <div class="total">
-            الإجمالي: ${Number(order.total).toFixed(3)} ر.ع
-          </div>
-        </div>
-      `).join("");
+    if (typeof items === "string") {
+      try {
+        items = JSON.parse(items);
+      } catch {
+        items = [];
+      }
     }
 
-    loadOrders();
-  </script>
+    return `
+      <div class="order">
+
+        <h2>🧾 طلب #${order.id}</h2>
+
+        <p>🪑 الطاولة: ${order.table_number || "غير محددة"}</p>
+
+        <p>👤 العميل: ${order.customer_name || "غير مسجل"}</p>
+
+        <h3>☕ المنتجات:</h3>
+
+        ${
+          Array.isArray(items)
+          ? items.map(item => `
+              <div class="item">
+                ${item.name || "منتج"} × ${item.quantity || 1}
+              </div>
+            `).join("")
+          : ""
+        }
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+loadOrders();
+
+</script>
 
 </body>
 </html>
