@@ -1,248 +1,134 @@
-// ===============================
-// برني كافيه - تجربة طلب كاملة
-// ===============================
+const SUPABASE_URL="https://yxojtouxwoztjwtmzbys.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
 
-// شاشة افتتاحية برني
-(function(){
-  const splashStyle = document.createElement("style");
-
-  splashStyle.textContent = `
-    #barniSplash{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      background:#111315;
-      display:grid;
-      place-items:center;
-      opacity:1;
-      transition:opacity .7s ease;
-    }
-
-    #barniSplash .barniSplashLogo{
-      color:#f8b700;
-      font-family:"Cairo",Tahoma,Arial,sans-serif;
-      font-size:clamp(58px,16vw,92px);
-      font-weight:800;
-      opacity:0;
-      transform:scale(.96);
-      animation:barniLogoIn .55s ease forwards;
-    }
-
-    @keyframes barniLogoIn{
-      to{
-        opacity:1;
-        transform:scale(1);
-      }
-    }
-
-    #barniSplash.hide{
-      opacity:0;
-      pointer-events:none;
-    }
-  `;
-
-  document.head.appendChild(splashStyle);
-
-  const splash = document.createElement("div");
-
-  splash.id = "barniSplash";
-
-  splash.innerHTML = `
-    <div class="barniSplashLogo">برني</div>
-  `;
-
-  document.body.appendChild(splash);
-
-  setTimeout(() => {
-    splash.classList.add("hide");
-  }, 1500);
-
-  setTimeout(() => {
-    splash.remove();
-  }, 2250);
-})();
-
-
-const SUPABASE_URL = "https://yxojtouxwoztjwtmzbys.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
-
-
-const products = [
-  {id:1,category:"القهوة الحارة",name:"إسبريسو",desc:"قهوة إسبريسو مركزة",price:1.500,icon:"☕"},
-  {id:2,category:"القهوة الحارة",name:"لاتيه",desc:"إسبريسو مع حليب ناعم",price:2.000,icon:"🥛"},
-  {id:3,category:"القهوة الحارة",name:"كابتشينو",desc:"إسبريسو وحليب ورغوة",price:2.000,icon:"☕"},
-  {id:4,category:"القهوة الحارة",name:"قهوة تركية",desc:"قهوة تركية على الطريقة التقليدية",price:1.500,icon:"🫖"},
-  {id:5,category:"القهوة الحارة",name:"أمريكانو",desc:"إسبريسو مع ماء ساخن",price:1.500,icon:"☕"},
-
-  {id:6,category:"القهوة الباردة",name:"آيس لاتيه",desc:"إسبريسو وحليب مع الثلج",price:2.200,icon:"🧊"},
-  {id:7,category:"القهوة الباردة",name:"آيس أمريكانو",desc:"إسبريسو بارد مع الثلج",price:1.800,icon:"🧊"},
-  {id:8,category:"القهوة الباردة",name:"كولد برو",desc:"قهوة مستخلصة على البارد",price:2.500,icon:"🧊"},
-
-  {id:9,category:"الشاي",name:"شاي أحمر",desc:"شاي كلاسيكي ساخن",price:1.000,icon:"🫖"},
-  {id:10,category:"الشاي",name:"شاي كرك",desc:"شاي بالحليب والهيل",price:1.200,icon:"🫖"},
-  {id:11,category:"الشاي",name:"شاي أخضر",desc:"شاي أخضر خفيف",price:1.000,icon:"🍵"},
-
-  {id:12,category:"المشروبات",name:"موهيتو",desc:"ليمون ونعناع وانتعاش",price:2.000,icon:"🥤"},
-  {id:13,category:"المشروبات",name:"ليمون بالنعناع",desc:"ليمون طازج مع النعناع",price:1.800,icon:"🍋"},
-  {id:14,category:"المشروبات",name:"ماء",desc:"مياه معدنية",price:0.300,icon:"💧"},
-
-  {id:15,category:"الحلويات",name:"تشيز كيك",desc:"قطعة كريمية ناعمة",price:2.200,icon:"🍰"},
-  {id:16,category:"الحلويات",name:"براوني",desc:"براوني شوكولاتة",price:1.800,icon:"🍫"},
-  {id:17,category:"الحلويات",name:"كوكيز",desc:"كوكيز طازج بالشوكولاتة",price:1.200,icon:"🍪"}
+const products=[
+{id:1,cat:"القهوة الساخنة",name:"إسبريسو",en:"Espresso",desc:"مركز، غني، ومحضر من حبوب مختارة.",price:1.2,img:"espresso.jpg",code:"ESP"},
+{id:2,cat:"القهوة الساخنة",name:"لاتيه برني",en:"Latte",desc:"إسبريسو ناعم مع حليب مخملي.",price:1.8,img:"latte.jpg",code:"LAT"},
+{id:3,cat:"القهوة الساخنة",name:"كولد برو",en:"Cold Brew",desc:"بارد، منعش، متبوع بنكهة أعمق.",price:1.9,img:"cold-brew.jpg",code:"CB"},
+{id:4,cat:"الحلويات",name:"كيك التمر",en:"Date Cake",desc:"كيكة تمر مع لمسة من التوابل العطرية.",price:1.5,img:"date-cake.jpg",code:"DATE"}
 ];
 
+let category="القهوة الساخنة",cart=[],table=6,submitting=false;
 
-const categoryIcons = {
-  "الكل":"▦",
-  "القهوة الحارة":"☕",
-  "القهوة الباردة":"🧊",
-  "الشاي":"🍵",
-  "المشروبات":"🥤",
-  "الحلويات":"🍰"
-};
+const $=id=>document.getElementById(id);
 
-const categories = ["الكل", ...new Set(products.map(p => p.category))];
+const money=n=>Number(n).toFixed(3)+" ر.ع";
 
-let currentCategory = "القهوة الحارة";
-let cart = [];
-let orderMode = "cafe";
-let supabaseClient = null;
-let submitting = false;
+const total=()=>cart.reduce((s,i)=>s+i.price*i.quantity,0);
 
 
-const $ = id => document.getElementById(id);
+function renderCats(){
 
-const money = n => Number(n).toFixed(3) + " ر.ع";
+  const cats=[
+    "القهوة الساخنة",
+    "القهوة الباردة",
+    "المشروبات",
+    "الحلويات"
+  ];
 
-const total = () => cart.reduce((s,i) => s + i.price * i.quantity, 0);
-
-
-function renderCategories(){
-
-  $("categories").innerHTML = categories.map(c => `
+  $("categories").innerHTML=cats.map(c=>`
     <button
-      class="category ${c === currentCategory ? 'active' : ''}"
-      data-category="${c}"
+      class="cat ${c===category?"active":""}"
+      data-cat="${c}"
     >
-      <div class="category-icon">
-        ${categoryIcons[c] || '•'}
-      </div>
-
-      <span>${c}</span>
+      ${c}
     </button>
   `).join("");
 
-  document.querySelectorAll(".category").forEach(b => {
+  document
+    .querySelectorAll("[data-cat]")
+    .forEach(b=>{
 
-    b.onclick = () => {
+      b.onclick=()=>{
+        category=b.dataset.cat;
+        renderCats();
+        renderProducts();
+      };
 
-      currentCategory = b.dataset.category;
-
-      renderCategories();
-
-      renderMenu();
-
-      window.scrollTo({
-        top:120,
-        behavior:"smooth"
-      });
-
-    };
-
-  });
+    });
 
 }
 
 
-function renderMenu(){
+function renderProducts(){
 
-  const visible =
-    currentCategory === "الكل"
-      ? products
-      : products.filter(p => p.category === currentCategory);
+  const list=
+    products.filter(
+      p=>category==="القهوة الساخنة"
+        ?p.cat===category
+        :true
+    );
 
-  $("categoryTitle").textContent = currentCategory;
+  $("products").innerHTML=list.map((p,i)=>`
 
-  $("menu").innerHTML = visible.map(p => `
-    <article class="item">
+    <article class="product">
 
-      <div class="item-info">
+      ${
+        i===0&&category==="القهوة الساخنة"
+        ?'<span class="popular">الأكثر طلباً</span>'
+        :""
+      }
 
-        <h3>${p.name}</h3>
+      <img
+        src="${p.img}"
+        alt="${p.name}"
+      >
 
-        <p>${p.desc}</p>
+      <div class="product-info">
 
-        <div class="price">
-          ${money(p.price)}
+        <div class="product-name">
+          <span>${p.name}</span>
+          <span class="product-en">${p.en}</span>
         </div>
 
-      </div>
-
-      <div class="item-image">
-
-        <div class="cup">
-          ${p.icon}
+        <div class="product-desc">
+          ${p.desc}
         </div>
 
-        <button
-          class="add-btn"
-          data-add="${p.id}"
-          aria-label="إضافة ${p.name}"
-        >
-          +
-        </button>
+        <div class="product-bottom">
+
+          <span class="price">
+            ${money(p.price)}
+          </span>
+
+          <button
+            class="add"
+            data-add="${p.id}"
+          >
+            +
+          </button>
+
+        </div>
 
       </div>
 
     </article>
+
   `).join("");
 
-  document.querySelectorAll("[data-add]").forEach(b => {
-
-    b.onclick = e => {
-
-      e.stopPropagation();
-
-      add(Number(b.dataset.add));
-
-    };
-
-  });
+  document
+    .querySelectorAll("[data-add]")
+    .forEach(b=>{
+      b.onclick=()=>{
+        add(+b.dataset.add);
+      };
+    });
 
 }
 
 
 function add(id){
 
-  const p = products.find(x => x.id === id);
+  const p=products.find(x=>x.id===id);
 
-  if(!p) return;
-
-  const old = cart.find(x => x.id === id);
+  const old=cart.find(x=>x.id===id);
 
   old
-    ? old.quantity++
-    : cart.push({...p, quantity:1});
-
-  renderCart();
-
-  toast(`تمت إضافة ${p.name} للسلة`);
-
-}
-
-
-function changeQty(id,d){
-
-  const i = cart.find(x => x.id === id);
-
-  if(!i) return;
-
-  i.quantity += d;
-
-  if(i.quantity < 1){
-    cart = cart.filter(x => x.id !== id);
-  }
+    ?old.quantity++
+    :cart.push({
+      ...p,
+      quantity:1
+    });
 
   renderCart();
 
@@ -251,32 +137,58 @@ function changeQty(id,d){
 
 function renderCart(){
 
-  const count =
-    cart.reduce((s,i) => s + i.quantity, 0);
+  const c=
+    cart.reduce(
+      (s,i)=>s+i.quantity,
+      0
+    );
 
-  const t = total();
+  $("cartCount").textContent=c;
 
-  $("cartCount").textContent = count;
+  $("cartTotal").textContent=
+    money(total());
 
-  $("cartTotal").textContent = money(t);
+  $("openReview").textContent=
+    c
+      ?"عرض الطلب"
+      :"عرض الطلب";
 
-  $("sheetTotal").textContent = money(t);
-
-  $("sheetGrandTotal").textContent = money(t);
-
-  $("checkoutTotal").textContent = money(t);
-
-  $("bottomCart").hidden = count === 0;
+}
 
 
-  $("cartItems").innerHTML = cart.length
+function renderReview(){
 
-    ? cart.map(i => `
-      <div class="cart-row">
+  $("reviewCount").textContent=
+    cart.reduce(
+      (s,i)=>s+i.quantity,
+      0
+    );
+
+  $("reviewTotal").textContent=
+    money(total());
+
+  $("chosenTable").textContent=
+    table;
+
+
+  $("reviewItems").innerHTML=
+    cart.map(i=>`
+
+      <div class="review-item">
+
+        <div class="thumb">
+          ${i.code}
+        </div>
 
         <div>
 
-          <strong>${i.name}</strong>
+          <div class="review-name">
+            ${i.name}
+          </div>
+
+          <div class="review-desc">
+            ${i.desc}
+          </div>
 
           <div class="qty">
 
@@ -287,7 +199,9 @@ function renderCart(){
               −
             </button>
 
-            <span>${i.quantity}</span>
+            <span>
+              ${i.quantity}
+            </span>
 
             <button
               data-q="${i.id}"
@@ -300,63 +214,71 @@ function renderCart(){
 
         </div>
 
-        <span class="line-price">
-          ${money(i.price * i.quantity)}
-        </span>
+        <div class="review-price">
+          ${money(i.price*i.quantity)}
+        </div>
 
       </div>
-    `).join("")
 
-    : `<div class="empty">السلة فاضية ☕</div>`;
-
-
-  document.querySelectorAll("[data-q]").forEach(b => {
-
-    b.onclick = () => {
-
-      changeQty(
-        Number(b.dataset.q),
-        Number(b.dataset.d)
-      );
-
-    };
-
-  });
-
-
-  const rec = products
-    .filter(p => !cart.some(i => i.id === p.id))
-    .slice(0,4);
-
-
-  $("suggestions").innerHTML = rec.map(p => `
-    <button
-      class="suggestion"
-      data-add="${p.id}"
-    >
-
-      <div class="suggestion-image">
-        ${p.icon}
-      </div>
-
-      <div class="suggestion-name">
-        ${p.name}
-      </div>
-
-      <div class="suggestion-price">
-        ${money(p.price)}
-      </div>
-
-    </button>
-  `).join("");
+    `).join("");
 
 
   document
-    .querySelectorAll(".suggestion[data-add]")
-    .forEach(b => {
+    .querySelectorAll("[data-q]")
+    .forEach(b=>{
 
-      b.onclick = () => {
-        add(Number(b.dataset.add));
+      b.onclick=()=>{
+
+        const x=
+          cart.find(
+            i=>i.id===+b.dataset.q
+          );
+
+        x.quantity+=+b.dataset.d;
+
+        if(x.quantity<1){
+
+          cart=cart.filter(
+            i=>i.id!==x.id
+          );
+
+        }
+
+        renderCart();
+        renderReview();
+
+      };
+
+    });
+
+
+  $("tables").innerHTML=
+    [4,5,6,7,8,9]
+      .map(n=>`
+
+        <button
+          class="table-btn ${
+            n===table?"active":""
+          }"
+          data-table="${n}"
+        >
+          ${n}
+        </button>
+
+      `)
+      .join("");
+
+
+  document
+    .querySelectorAll("[data-table]")
+    .forEach(b=>{
+
+      b.onclick=()=>{
+
+        table=+b.dataset.table;
+
+        renderReview();
+
       };
 
     });
@@ -364,414 +286,191 @@ function renderCart(){
 }
 
 
-function openSheet(id){
-
-  $("overlay").hidden = false;
-
-  $(id).classList.add("open");
-
-  $(id).setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-  document.body.style.overflow = "hidden";
-
-}
-
-
-function closeSheets(){
+function show(id){
 
   document
-    .querySelectorAll(".sheet.open")
-    .forEach(s => {
-
-      s.classList.remove("open");
-
-      s.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-    });
-
-  $("overlay").hidden = true;
-
-  document.body.style.overflow = "";
-
-}
-
-
-function showModeSheet(){
-
-  document
-    .querySelectorAll(".mode-option")
-    .forEach(b => {
-
-      b.classList.toggle(
-        "selected",
-        b.dataset.mode === orderMode
-      );
-
-    });
-
-  openSheet("modeSheet");
-
-}
-
-
-function setMode(mode){
-
-  orderMode = mode;
-
-  $("modeLabel").textContent =
-    mode === "car"
-      ? "من السيارة"
-      : "داخل المقهى";
-
-  $("checkoutModeLabel").textContent =
-    mode === "car"
-      ? "من السيارة"
-      : "داخل المقهى";
-
-  $("pickupHint").textContent =
-    mode === "car"
-      ? "أضف بيانات سيارتك لنتعرف عليها عند الوصول"
-      : "حدد رقم الطاولة بالأسفل";
-
-  $("cafeFields").hidden = mode !== "cafe";
-
-  $("carFields").hidden = mode !== "car";
-
-  closeSheets();
-
-}
-
-
-async function loadSupabase(){
-
-  if(supabaseClient) return;
-
-  await new Promise((resolve,reject) => {
-
-    const s = document.createElement("script");
-
-    s.src =
-      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-
-    s.onload = resolve;
-
-    s.onerror = () =>
-      reject(
-        new Error("تعذر تحميل Supabase")
-      );
-
-    document.head.appendChild(s);
-
-  });
-
-  supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+    .querySelectorAll(".screen")
+    .forEach(
+      s=>s.classList.add("hidden")
     );
 
+  $(id).classList.remove("hidden");
+
+  window.scrollTo(0,0);
+
 }
 
 
-function validate(){
+$("homeMenu").onclick=
+$("heroMenu").onclick=()=>{
+  show("menuScreen");
+};
+
+
+$("backHome").onclick=()=>{
+  show("home");
+};
+
+
+$("openReview").onclick=()=>{
 
   if(!cart.length){
-
-    toast("السلة فاضية");
-
-    return false;
-
+    add(1);
   }
 
+  renderReview();
 
-  const phone =
-    $("phone").value.trim();
+  show("reviewScreen");
 
-  if(!phone){
-
-    toast("أدخل رقم الجوال");
-
-    $("phone").focus();
-
-    return false;
-
-  }
+};
 
 
-  if(
-    orderMode === "cafe" &&
-    !$("tableNumber").value.trim()
-  ){
-
-    toast("أدخل رقم الطاولة");
-
-    $("tableNumber").focus();
-
-    return false;
-
-  }
+$("backMenu").onclick=()=>{
+  show("menuScreen");
+};
 
 
-  if(orderMode === "car"){
+$("submitOrder").onclick=async()=>{
 
-    for(
-      const id of [
-        "plateNumber",
-        "carType",
-        "carColor"
-      ]
-    ){
+  if(!cart.length)return;
 
-      if(!$(`${id}`).value.trim()){
+  if(submitting)return;
 
-        toast("أكمل تفاصيل السيارة");
+  submitting=true;
 
-        $(`${id}`).focus();
+  $("submitOrder").disabled=true;
 
-        return false;
-
-      }
-
-    }
-
-  }
-
-  return true;
-
-}
-
-
-async function submitOrder(){
-
-  if(
-    submitting ||
-    !validate()
-  ) return;
-
-  submitting = true;
-
-  $("submitOrderButton").disabled = true;
-
-  $("submitOrderButton").textContent =
-    "جارٍ إرسال الطلب...";
+  $("submitOrder").textContent=
+    "جارٍ الإرسال...";
 
 
   try{
 
-    await loadSupabase();
+    await new Promise(
+      (resolve,reject)=>{
 
-    const orderNumber =
-      "BRN-" +
-      Date.now().toString().slice(-6);
+        const s=
+          document.createElement("script");
 
+        s.src=
+          "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
 
-    const vehicle =
-      orderMode === "car"
+        s.onload=resolve;
 
-        ? `طلب من السيارة | اللوحة: ${$("plateNumber").value.trim()} | السيارة: ${$("carType").value.trim()} | اللون: ${$("carColor").value.trim()}`
+        s.onerror=reject;
 
-        : "طلب داخل المقهى";
+        document.head.appendChild(s);
 
-
-    const noteParts = [
-      vehicle,
-      $("orderNotes").value.trim(),
-      $("quickNote").value.trim()
-    ].filter(Boolean);
+      }
+    );
 
 
-    const items = cart.map(i => ({
-      id:i.id,
-      name:i.name,
-      quantity:i.quantity,
-      price:Number(i.price)
-    }));
+    const orderNumber=
+      "BRN-"+
+      Date.now()
+        .toString()
+        .slice(-6);
 
 
-    const payload = {
+    const payload={
 
       order_number:orderNumber,
 
-      table_number:
-        orderMode === "cafe"
-          ? $("tableNumber").value.trim()
-          : "سيارة",
+      table_number:String(table),
 
-      phone:$("phone").value.trim(),
+      phone:"",
 
-      items,
+      items:
+        cart.map(i=>({
+          id:i.id,
+          name:i.name,
+          quantity:i.quantity,
+          price:i.price
+        })),
 
-      total:Number(
-        total().toFixed(3)
-      ),
+      total:
+        Number(
+          total().toFixed(3)
+        ),
 
       status:"new",
 
-      notes:
-        noteParts.join(" | ") || null
+      notes:null
 
     };
 
 
-    const {error} =
-      await supabaseClient
+    const {error}=
+      await window.supabase
+        .createClient(
+          SUPABASE_URL,
+          SUPABASE_PUBLISHABLE_KEY
+        )
         .from("orders")
         .insert(payload);
 
 
-    if(error) throw error;
+    if(error)throw error;
 
 
-    closeSheets();
-
-    $("successOrderNumber").textContent =
-      orderNumber;
+    $("successText").textContent=
+      `رقم طلبك ${orderNumber} • الطاولة ${table}`;
 
 
-    $("successMeta").textContent =
-      orderMode === "car"
-
-        ? "طلب من السيارة • سيتم التعرف على سيارتك عند الوصول"
-
-        : "طلب داخل المقهى • الطاولة " +
-          $("tableNumber").value.trim();
+    $("success").classList.remove(
+      "hidden"
+    );
 
 
-    $("successModal").hidden = false;
-
-    cart = [];
+    cart=[];
 
     renderCart();
 
 
-  }catch(err){
+  }catch(e){
 
-    console.error(err);
+    console.error(e);
 
-    toast(
+    alert(
       "تعذر إرسال الطلب، حاول مرة ثانية"
     );
 
   }finally{
 
-    submitting = false;
+    submitting=false;
 
-    $("submitOrderButton").disabled = false;
+    $("submitOrder").disabled=false;
 
-    $("submitOrderButton").textContent =
-      "قم بتقديم الطلب";
+    $("submitOrder").textContent=
+      "إرسال الطلب";
 
   }
 
-}
+};
 
 
-function toast(text){
+$("successDone").onclick=()=>{
 
-  const t = $("toast");
-
-  t.textContent = text;
-
-  t.classList.add("show");
-
-  clearTimeout(window._toast);
-
-  window._toast = setTimeout(
-    () => t.classList.remove("show"),
-    2200
+  $("success").classList.add(
+    "hidden"
   );
 
-}
-
-
-$("modeButton").onclick =
-  showModeSheet;
-
-
-$("openCartButton").onclick =
-  () => openSheet("cartSheet");
-
-
-$("checkoutButton").onclick = () => {
-
-  closeSheets();
-
-  if(!cart.length){
-
-    toast("السلة فاضية");
-
-    return;
-
-  }
-
-  setMode(orderMode);
-
-  openSheet("checkoutSheet");
+  show("home");
 
 };
 
 
-$("submitOrderButton").onclick =
-  submitOrder;
+renderCats();
 
-
-$("changeMode").onclick = () => {
-
-  closeSheets();
-
-  showModeSheet();
-
-};
-
-
-$("doneButton").onclick = () => {
-
-  $("successModal").hidden = true;
-
-};
-
-
-$("overlay").onclick =
-  closeSheets;
-
-
-document
-  .querySelectorAll("[data-close]")
-  .forEach(b => {
-
-    b.onclick = closeSheets;
-
-  });
-
-
-document
-  .querySelectorAll(".mode-option")
-  .forEach(b => {
-
-    b.onclick = () =>
-      setMode(b.dataset.mode);
-
-  });
-
-
-$("menuButton").onclick = () =>
-  toast("القائمة الرئيسية قريبًا");
-
-
-$("searchButton").onclick = () =>
-  toast("البحث عن المنتجات قريبًا");
-
-
-setMode("cafe");
-
-renderCategories();
-
-renderMenu();
+renderProducts();
 
 renderCart();
+
+setTimeout(
+  ()=>{
+    document
+      .getElementById("splash")
+      .classList.add("hidden");
+  },
+  1800
+);
