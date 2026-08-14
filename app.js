@@ -307,19 +307,6 @@ $("heroMenu").onclick=()=>{
 };
 
 
-/* اختيار طريقة الطلب */
-
-$("carOrderBtn").onclick=()=>{
-  orderType="car";
-  show("home");
-};
-
-$("insideOrderBtn").onclick=()=>{
-  orderType="inside";
-  show("home");
-};
-
-
 $("backHome").onclick=()=>{
   show("home");
 };
@@ -341,6 +328,29 @@ $("openReview").onclick=()=>{
 $("backMenu").onclick=()=>{
   show("menuScreen");
 };
+
+
+/* اختيار طريقة الطلب */
+
+document.addEventListener("click",(e)=>{
+
+  if(e.target.id==="carOrderBtn"){
+
+    orderType="car";
+
+    show("home");
+
+  }
+
+  if(e.target.id==="insideOrderBtn"){
+
+    orderType="inside";
+
+    show("home");
+
+  }
+
+});
 
 
 $("submitOrder").onclick=async()=>{
