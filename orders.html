@@ -6,39 +6,110 @@
 <title>طلبات برني كافيه</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #f5f0e8;
   color: #2b211b;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 h1 {
   text-align: center;
+  margin: 5px 0 25px;
 }
 
 #orders {
-  max-width: 800px;
+  width: min(1100px, 100%);
   margin: auto;
 }
 
 .order {
-  background: white;
+  width: 100%;
+  background: #fff;
   border-radius: 16px;
   padding: 20px;
   margin: 15px 0;
   box-shadow: 0 4px 15px #0002;
+  overflow: hidden;
+}
+
+.order h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin-bottom: 18px;
+}
+
+.detail {
+  min-width: 0;
+  background: #f8f5ef;
+  border-radius: 10px;
+  padding: 10px 12px;
+  overflow-wrap: anywhere;
+}
+
+.detail strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  opacity: .7;
+}
+
+.detail span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.order h3 {
+  margin: 10px 0 8px;
+}
+
+.items {
+  display: grid;
+  gap: 8px;
 }
 
 .item {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  overflow-wrap: anywhere;
 }
 
 .error {
   color: red;
   text-align: center;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 12px;
+  }
+
+  .order {
+    padding: 15px;
+    border-radius: 14px;
+  }
+
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .order h2 {
+    font-size: 19px;
+  }
 }
 </style>
 </head>
@@ -52,75 +123,132 @@ h1 {
 </div>
 
 <script>
-
 const SUPABASE_URL =
 "https://yxojtouxwoztjwtmzbys.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
 
+function valueOrFallback(value, fallback = "غير محدد") {
+  return value === null || value === undefined || value === ""
+    ? fallback
+    : value;
+}
+
 async function loadOrders() {
-
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
-      }
-    }
-  );
-
-  const orders = await response.json();
-
   const box = document.getElementById("orders");
 
-  if (!orders.length) {
-    box.innerHTML = "<p>ما فيه طلبات حاليًا ☕</p>";
-    return;
-  }
-
-  box.innerHTML = orders.map(order => {
-
-    let items = order.items || [];
-
-    if (typeof items === "string") {
-      try {
-        items = JSON.parse(items);
-      } catch {
-        items = [];
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/orders?select=*&order=created_at.desc",
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY
+        }
       }
+    );
+
+    if (!response.ok) {
+      throw new Error("تعذر تحميل الطلبات");
     }
 
-    return `
-      <div class="order">
+    const orders = await response.json();
 
-        <h2>🧾 طلب #${order.id}</h2>
+    if (!orders.length) {
+      box.innerHTML = "<p>ما فيه طلبات حاليًا ☕</p>";
+      return;
+    }
 
-        <p>🪑 الطاولة: ${order.table_number || "غير محددة"}</p>
+    box.innerHTML = orders.map(order => {
+      let items = order.items || [];
 
-        <p>👤 العميل: ${order.customer_name || "غير مسجل"}</p>
-
-        <h3>☕ المنتجات:</h3>
-
-        ${
-          Array.isArray(items)
-          ? items.map(item => `
-              <div class="item">
-                ${item.name || "منتج"} × ${item.quantity || 1}
-              </div>
-            `).join("")
-          : ""
+      if (typeof items === "string") {
+        try {
+          items = JSON.parse(items);
+        } catch {
+          items = [];
         }
+      }
 
-      </div>
-    `;
+      const itemsHtml = Array.isArray(items) && items.length
+        ? items.map(item => `
+            <div class="item">
+              ${valueOrFallback(item.name, "منتج")} × ${valueOrFallback(item.quantity, 1)}
+            </div>
+          `).join("")
+        : `<div class="item">لا توجد منتجات</div>`;
 
-  }).join("");
+      return `
+        <div class="order">
+          <h2>🧾 طلب #${valueOrFallback(order.id)}</h2>
+
+          <div class="details">
+
+            <div class="detail">
+              <strong>🪑 الطاولة</strong>
+              <span>${valueOrFallback(order.table_number)}</span>
+            </div>
+
+            <div class="detail">
+              <strong>👤 العميل</strong>
+              <span>${valueOrFallback(order.customer_name, "غير مسجل")}</span>
+            </div>
+
+            <div class="detail">
+              <strong>📞 الهاتف</strong>
+              <span>${valueOrFallback(
+                order.phone || order.customer_phone,
+                "غير مسجل"
+              )}</span>
+            </div>
+
+            <div class="detail">
+              <strong>🚗 السيارة</strong>
+              <span>${valueOrFallback(
+                order.car_plate || order.plate_number,
+                "غير محددة"
+              )}</span>
+            </div>
+
+            <div class="detail">
+              <strong>📝 الملاحظة</strong>
+              <span>${valueOrFallback(
+                order.notes,
+                "لا توجد ملاحظة"
+              )}</span>
+            </div>
+
+            <div class="detail">
+              <strong>💰 الإجمالي</strong>
+              <span>${valueOrFallback(
+                order.total,
+                "غير محدد"
+              )}</span>
+            </div>
+
+          </div>
+
+          <h3>☕ المنتجات:</h3>
+
+          <div class="items">
+            ${itemsHtml}
+          </div>
+
+        </div>
+      `;
+    }).join("");
+
+  } catch (error) {
+
+    box.innerHTML =
+      `<p class="error">حدث خطأ أثناء تحميل الطلبات</p>`;
+
+    console.error(error);
+  }
 }
 
 loadOrders();
-
 </script>
 
 </body>
