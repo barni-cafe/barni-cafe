@@ -10,12 +10,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="splash-screen" id="splashScreen" aria-label="برني كافيه">
-    <div class="splash-logo">برني</div>
-  </div>
+<body><div class="barni-splash" id="barniSplash"><div>برني</div></div>
+<style>
+body{background:#f5f0e8}
+.barni-splash{position:fixed;inset:0;z-index:99999;background:#f5f0e8;display:grid;place-items:center;animation:barniSplashOut .65s ease 1.15s forwards}
+.barni-splash div{color:#2c2723;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:68px;font-weight:800;letter-spacing:-2px;opacity:0;transform:translateY(5px);animation:barniSplashIn .6s ease .08s forwards}
+@keyframes barniSplashIn{to{opacity:1;transform:translateY(0)}}@keyframes barniSplashOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+.barni-home{min-height:100vh;background:#f5f0e8;color:#2c2723;display:flex;flex-direction:column;align-items:center;padding:70px 24px 50px;transition:opacity .45s ease,transform .45s ease}
+.barni-home-brand{text-align:center;margin-top:15px;margin-bottom:78px}.barni-home-brand h1{margin:0;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:58px;line-height:1;font-weight:800;letter-spacing:-2px}.barni-home-brand p{margin:14px 0 0;color:#9a8b7c;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:16px;font-weight:500}
+.barni-home-options{width:min(700px,100%);display:grid;gap:20px}.barni-home-option{width:100%;min-height:122px;border:1px solid #e3dbd0;border-radius:28px;background:#fffaf5;box-shadow:0 12px 30px #5b4b3a10;display:flex;flex-direction:row-reverse;align-items:center;gap:20px;padding:24px 28px;text-align:right;font-family:"Cairo",Tahoma,Arial,sans-serif;color:#2c2723;cursor:pointer}.barni-option-icon{width:64px;height:64px;flex:0 0 64px;border-radius:20px;background:#f1e9df;display:grid;place-items:center;font-size:31px}.barni-option-text{display:flex;flex-direction:column;gap:2px}.barni-option-text strong{font-size:22px;font-weight:800}.barni-option-text small{color:#a08f7e;font-size:14px;font-weight:500}.barni-home.leave{opacity:0;transform:translateY(-8px)}
+@media(max-width:560px){.barni-home{padding:54px 18px 35px}.barni-home-brand{margin-bottom:62px}.barni-home-brand h1{font-size:52px}.barni-home-option{min-height:112px;border-radius:24px;padding:20px}.barni-option-icon{width:58px;height:58px;flex-basis:58px}.barni-option-text strong{font-size:20px}.barni-splash div{font-size:60px}}
+</style>
 
-  <div class="app-shell">
+<section class="barni-home" id="barniHome">
+  <div class="barni-home-brand"><h1>برني</h1><p>قهوتك، بطريقتك.</p></div>
+  <div class="barni-home-options">
+    <button class="barni-home-option" id="cafeStart" type="button">
+      <span class="barni-option-icon">☕</span><span class="barni-option-text"><strong>داخل المقهى</strong><small>اطلب واستمتع بجلستك</small></span>
+    </button>
+    <button class="barni-home-option" id="carStart" type="button">
+      <span class="barni-option-icon">🚗</span><span class="barni-option-text"><strong>من السيارة</strong><small>اطلب واستلم طلبك من السيارة</small></span>
+    </button>
+  </div>
+</section>
+  <div class="app-shell" id="appShell" hidden>
     <header class="topbar">
       <button class="icon-btn" id="menuButton" aria-label="القائمة">☰</button>
       <div class="topbar-title">برني كافيه</div>
@@ -138,6 +156,19 @@
   </section>
 
   <div class="toast" id="toast"></div>
+
+<script>
+window.addEventListener("DOMContentLoaded",function(){
+  const home=document.getElementById("barniHome"),app=document.getElementById("appShell");
+  function enter(mode){
+    if(typeof setMode==="function")setMode(mode);
+    home.classList.add("leave");
+    setTimeout(function(){home.hidden=true;app.hidden=false;window.scrollTo(0,0)},450);
+  }
+  document.getElementById("cafeStart").onclick=function(){enter("cafe")};
+  document.getElementById("carStart").onclick=function(){enter("car")};
+});
+</script>
   <script src="app.js"></script>
 </body>
 </html>
