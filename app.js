@@ -8,7 +8,11 @@ const products=[
 {id:4,cat:"الحلويات",name:"كيك التمر",en:"Date Cake",desc:"كيكة تمر مع لمسة من التوابل العطرية.",price:1.5,img:"date-cake.jpg",code:"DATE"}
 ];
 
-let category="القهوة الساخنة",cart=[],table=6,submitting=false,orderType="";
+let category="القهوة الساخنة";
+let cart=[];
+let table=6;
+let submitting=false;
+let orderType="";
 
 const $=id=>document.getElementById(id);
 
@@ -149,9 +153,7 @@ function renderCart(){
     money(total());
 
   $("openReview").textContent=
-    c
-      ?"عرض الطلب"
-      :"عرض الطلب";
+    "عرض الطلب";
 
 }
 
@@ -294,12 +296,18 @@ function show(id){
       s=>s.classList.add("hidden")
     );
 
-  $(id).classList.remove("hidden");
+  const screen=$(id);
+
+  if(screen){
+    screen.classList.remove("hidden");
+  }
 
   window.scrollTo(0,0);
 
 }
 
+
+/* الصفحة الرئيسية */
 
 $("homeMenu").onclick=
 $("heroMenu").onclick=()=>{
@@ -307,10 +315,14 @@ $("heroMenu").onclick=()=>{
 };
 
 
+/* الرجوع للرئيسية */
+
 $("backHome").onclick=()=>{
   show("home");
 };
 
+
+/* مراجعة الطلب */
 
 $("openReview").onclick=()=>{
 
@@ -325,33 +337,56 @@ $("openReview").onclick=()=>{
 };
 
 
+/* الرجوع للمنيو */
+
 $("backMenu").onclick=()=>{
   show("menuScreen");
 };
 
 
-/* اختيار طريقة الطلب */
+/* =========================
+   اختيار طريقة الطلب
+========================= */
 
 document.addEventListener("click",(e)=>{
 
-  if(e.target.id==="carOrderBtn"){
+  if(e.target.closest("#carOrderBtn")){
 
     orderType="car";
 
+    const choice=$("order-choice");
+
+    if(choice){
+      choice.classList.add("hidden");
+    }
+
     show("home");
 
+    return;
   }
 
-  if(e.target.id==="insideOrderBtn"){
+
+  if(e.target.closest("#insideOrderBtn")){
 
     orderType="inside";
 
+    const choice=$("order-choice");
+
+    if(choice){
+      choice.classList.add("hidden");
+    }
+
     show("home");
 
+    return;
   }
 
 });
 
+
+/* =========================
+   إرسال الطلب
+========================= */
 
 $("submitOrder").onclick=async()=>{
 
@@ -472,6 +507,8 @@ $("submitOrder").onclick=async()=>{
 };
 
 
+/* إنهاء الطلب */
+
 $("successDone").onclick=()=>{
 
   $("success").classList.add(
@@ -483,17 +520,26 @@ $("successDone").onclick=()=>{
 };
 
 
+/* =========================
+   تشغيل الموقع
+========================= */
+
 renderCats();
 
 renderProducts();
 
 renderCart();
 
+
+/* شاشة البداية */
+
 setTimeout(
   ()=>{
-    document
-      .getElementById("splash")
-      .classList.add("hidden");
+    const splash=$("splash");
+
+    if(splash){
+      splash.classList.add("hidden");
+    }
   },
   3500
 );
