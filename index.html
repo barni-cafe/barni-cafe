@@ -1,116 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f6efe5">
-<title>برني كافيه</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4b2b1d">
+  <title>برني كافيه</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="splash" class="splash">
+    <div class="splash-logo">برني</div>
+    <div class="splash-en">B A R N I&nbsp;&nbsp; C A F E</div>
+    <div class="splash-line"></div>
+  </div>
 
-<div id="splash"><div>برني</div></div>
-<div id="order-choice">
-  <div class="order-choice-content">
-    <h1>برني</h1>
-    <p>كيف تحب تطلب؟</p>
+  <main>
+    <section id="home" class="screen home-screen">
+      <header class="topbar">
+        <button id="tableTop" class="ghost-btn">طاولتك: اختر لاحقًا</button>
+        <div class="brand">
+          <div class="brand-name">برني</div>
+          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
+          <div class="brand-tag">قهوتك على هلك</div>
+        </div>
+      </header>
 
-    <div class="order-choice-buttons">
-      <button>طلب من السيارة</button>
-      <button>طلب من داخل المقهى</button>
+      <div class="hero">
+        <span class="eyebrow">هلا</span>
+        <h1>أهلاً بك في<br>برني كافيه</h1>
+        <p>نكهات مختارة، تحضير دقيق، وضيافة عمانية دافئة تصل إلى طاولتك.</p>
+
+        <div class="hero-card">
+          <div class="cup-art">
+            <div class="cup-steam">〰 〰</div>
+            <div class="cup">☕</div>
+            <div class="cup-label">قهوة برني</div>
+          </div>
+          <button id="heroMenu" class="soft-btn">عرض المنيو</button>
+        </div>
+
+        <button id="homeMenu" class="primary-btn big">عرض المنيو</button>
+      </div>
+    </section>
+
+    <section id="orderChoice" class="screen hidden center-screen">
+      <div class="choice-card">
+        <div class="mini-brand">برني</div>
+        <h2>كيف تحب تطلب؟</h2>
+        <p>اختر طريقة استلام طلبك.</p>
+        <div class="choice-buttons">
+          <button class="choice-btn" data-order-type="car">طلب من السيارة</button>
+          <button class="choice-btn" data-order-type="inside">طلب من داخل المقهى</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="carInfo" class="screen hidden center-screen">
+      <div class="form-card">
+        <button class="back-link" data-back="orderChoice">← رجوع</button>
+        <div class="mini-brand">برني</div>
+        <h2>بيانات طلب السيارة</h2>
+        <p>ما نحتاج رقم لوحة. فقط معلومات تساعدنا نعرف سيارتك عند الاستلام.</p>
+
+        <label>رقم الجوال
+          <input id="carPhone" type="tel" inputmode="tel" placeholder="مثال: 9XXXXXXX">
+        </label>
+
+        <label>نوع السيارة
+          <input id="carType" type="text" placeholder="مثال: لاندكروزر">
+        </label>
+
+        <label>لون السيارة
+          <input id="carColor" type="text" placeholder="مثال: أبيض">
+        </label>
+
+        <label>ملاحظة للطلب
+          <textarea id="carNote" rows="3" placeholder="أي ملاحظة إضافية..."></textarea>
+        </label>
+
+        <button id="carContinue" class="primary-btn">دخول المنيو</button>
+      </div>
+    </section>
+
+    <section id="menuScreen" class="screen hidden menu-screen">
+      <header class="menu-topbar">
+        <button id="backHome" class="outline-btn">← رجوع</button>
+        <div class="brand compact">
+          <div class="brand-name">برني</div>
+          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
+        </div>
+        <button id="changeOrder" class="outline-btn">تغيير الطلب</button>
+      </header>
+
+      <div class="menu-head">
+        <span class="eyebrow">اختياراتك</span>
+        <h2>المنيو</h2>
+        <p>اختياراتك تحضر طازجة وتصل إلى طاولتك بكل عناية.</p>
+      </div>
+
+      <div id="categories" class="categories"></div>
+      <div id="products" class="products"></div>
+
+      <div class="cart-bar">
+        <div>
+          <small>أصناف</small>
+          <strong id="cartCount">0</strong>
+        </div>
+        <div class="cart-total">
+          <small>الإجمالي</small>
+          <strong id="cartTotal">0.000 ر.ع</strong>
+        </div>
+        <button id="openReview" class="light-btn">عرض الطلب</button>
+      </div>
+    </section>
+
+    <section id="reviewScreen" class="screen hidden review-screen">
+      <header class="menu-topbar">
+        <button id="backMenu" class="outline-btn">← المنيو</button>
+        <div class="brand compact">
+          <div class="brand-name">برني</div>
+          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
+        </div>
+        <span></span>
+      </header>
+
+      <div class="review-wrap">
+        <div class="review-head">
+          <span class="eyebrow">آخر خطوة</span>
+          <h2>راجع طلبك</h2>
+          <p>تأكد من التفاصيل قبل إرسال الطلب.</p>
+        </div>
+
+        <div id="orderInfoCard" class="info-card"></div>
+        <div id="reviewItems" class="review-items"></div>
+
+        <div class="review-summary">
+          <span>الإجمالي</span>
+          <strong id="reviewTotal">0.000 ر.ع</strong>
+        </div>
+
+        <button id="submitOrder" class="primary-btn">إرسال الطلب</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="success" class="modal hidden">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <span class="eyebrow">تم الطلب</span>
+      <h2>طلبك وصلنا</h2>
+      <p>احتفظ برقم الطلب عند الاستلام.</p>
+      <div id="successDetails" class="success-details"></div>
+      <button id="successDone" class="primary-btn">تم</button>
     </div>
   </div>
-</div>
-<section id="home" class="screen home-screen">
-  <div class="home-head">
-    <div class="brand">
-      <div class="brand-name">برني</div>
-      <div class="brand-en">B A R N I &nbsp; C A F E</div>
-      <div class="brand-tag">قهوتك على هلك</div>
-    </div>
-    <button class="ghost-pill" id="tableTop">طاولتك: اختر لاحقاً</button>
-  </div>
 
-  <div class="home-copy">
-    <div class="hello">هلا</div>
-    <h1>أهلاً بك في<br>برني كافيه</h1>
-    <p>نكهات مختارة، تحضير دقيق، وضيافة عمانية دافئة تصل إلى طاولتك.</p>
-  </div>
-
-  <div class="hero-wrap">
-    <img src="hero.jpg" alt="قهوة برني">
-    <button class="hero-label" id="heroMenu">عرض المنيو</button>
-  </div>
-
-  <button class="menu-main-btn" id="homeMenu">عرض المنيو</button>
-
-  <div class="notice">
-    <span class="dot"></span>
-    <span>اطلب من طاولتك مباشرة — متوسط التحضير من 7 إلى 10 دقائق.</span>
-  </div>
-</section>
-
-<section id="menuScreen" class="screen menu-screen hidden">
-  <header class="page-head">
-    <button class="back-btn" id="backHome">رجوع <span>←</span></button>
-    <div class="mini-brand"><b>برني</b><small>BARNI CAFE</small></div>
-    <button class="lang-btn">EN</button>
-  </header>
-
-  <div class="menu-intro">
-    <h1>المنيو</h1>
-    <p>اختياراتك تحضر طازجة وتصل إلى طاولتك بكل عناية.</p>
-  </div>
-
-  <div class="categories" id="categories"></div>
-  <div class="products" id="products"></div>
-
-  <div class="cart-bar">
-    <button id="openReview">عرض الطلب</button>
-    <div class="cart-total"><small><span id="cartCount">0</span> أصناف</small><strong id="cartTotal">0.000 ر.ع</strong></div>
-    <div class="bag">▢</div>
-  </div>
-</section>
-
-<section id="reviewScreen" class="screen review-screen hidden">
-  <header class="page-head review-head">
-    <button class="round-back" id="backMenu">→</button>
-    <div class="review-title">
-      <h1>مراجعة الطلب</h1>
-      <small>ORDER REVIEW</small>
-    </div>
-  </header>
-
-  <div class="review-body">
-    <h2><span id="reviewCount">3</span> أصناف في سلتك</h2>
-    <div id="reviewItems"></div>
-
-    <div class="table-card">
-      <h3>اختر رقم الطاولة</h3>
-      <p>سيتم تجهيز طلبك إلى طاولتك عند جهوزيته.</p>
-      <div class="tables" id="tables"></div>
-      <small class="table-note">بالضغط على «إرسال الطلب» تأكد أن رقم طاولتك هو <b id="chosenTable">6</b>، سيظهر رقم الطلب فور الإرسال.</small>
-    </div>
-  </div>
-
-  <div class="review-footer">
-    <div><small>المجموع</small><strong id="reviewTotal">0.000 ر.ع</strong><small>شامل الضريبة</small></div>
-    <button id="submitOrder">إرسال الطلب</button>
-  </div>
-</section>
-
-<div id="success" class="success hidden">
-  <div class="success-card">
-    <div class="check">✓</div>
-    <h2>تم إرسال طلبك</h2>
-    <p id="successText"></p>
-    <button id="successDone">تم</button>
-  </div>
-</div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
