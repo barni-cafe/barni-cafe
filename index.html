@@ -2,42 +2,138 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barni Cafe | برني كافيه</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#111315">
+  <title>برني كافيه | الطلب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="brand">برني كافيه</div>
-    <p>قهوة تجمعنا ☕</p>
-  </header>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="icon-btn" id="menuButton" aria-label="القائمة">☰</button>
+      <div class="topbar-title">برني كافيه</div>
+      <button class="icon-btn" id="searchButton" aria-label="بحث">⌕</button>
+    </header>
 
-  <main>
-    <section class="menu-section">
-      <h1>المنيو</h1>
+    <main>
+      <section class="brand-card">
+        <div class="brand-logo">ب</div>
+        <div class="brand-copy">
+          <h1>برني كافيه</h1>
+          <p>قهوة تجمعنا</p>
+          <span class="open-pill"><i></i> مفتوح الآن</span>
+        </div>
+        <button class="mode-pill" id="modeButton">
+          <span id="modeLabel">داخل المقهى</span><span>⌄</span>
+        </button>
+      </section>
 
-      <div id="categories" class="categories"></div>
+      <section class="category-strip" id="categories"></section>
 
-      <div id="menu" class="menu-grid"></div>
-    </section>
+      <section class="section-head">
+        <h2 id="categoryTitle">القهوة الحارة</h2>
+      </section>
 
-    <aside class="cart">
-      <div class="cart-title">
-        <h2>السلة</h2>
-        <span id="cartCount">0</span>
+      <section id="menu" class="menu-list"></section>
+
+      <section class="details-card">
+        <div class="details-title"><span>ملاحظات الطلب</span><small>اختياري</small></div>
+        <textarea id="quickNote" placeholder="أي ملاحظة تحب نعرفها؟"></textarea>
+      </section>
+    </main>
+
+    <div class="bottom-cart" id="bottomCart" hidden>
+      <div class="bottom-cart-info">
+        <span>السلة</span>
+        <strong id="cartCount">0</strong>
       </div>
-      <div id="cartItems" class="cart-items">
-        <p class="empty">السلة فاضية ☕</p>
-      </div>
-      <div class="cart-total">
-        <span>الإجمالي</span>
-        <strong id="cartTotal">0.000 ر.ع</strong>
-      </div>
-      <button id="clearCart" class="clear-btn">مسح السلة</button>
-      <button id="checkoutButton" class="clear-btn">إتمام الطلب</button>
-    </aside>
-  </main>
+      <div class="bottom-cart-total" id="cartTotal">0.000 ر.ع</div>
+      <button id="openCartButton">عرض السلة <span>←</span></button>
+    </div>
+  </div>
 
+  <div class="overlay" id="overlay" hidden></div>
+
+  <section class="sheet" id="modeSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>كيف تريد استلام طلبك؟</h3><button class="close-btn" data-close>×</button></div>
+    <button class="mode-option" data-mode="cafe">
+      <span class="mode-icon">☕</span><span><b>داخل المقهى</b><small>حدد رقم طاولتك واستمتع بطلبك</small></span><span class="check">✓</span>
+    </button>
+    <button class="mode-option" data-mode="car">
+      <span class="mode-icon">🚗</span><span><b>من السيارة</b><small>نجهز طلبك ونتعرف على سيارتك عند الوصول</small></span><span class="check">✓</span>
+    </button>
+  </section>
+
+  <section class="sheet sheet-large" id="cartSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>السلة</h3><button class="close-btn" data-close>×</button></div>
+    <div id="cartItems" class="cart-list"></div>
+    <div class="suggest-card">
+      <div><b>يمكن يعجبك بعد</b><small>أضفها لطلبك بسرعة</small></div>
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+    <div class="summary-box">
+      <div><span>إجمالي السلة</span><strong id="sheetTotal">0.000 ر.ع</strong></div>
+      <div class="grand"><span>المبلغ الإجمالي</span><strong id="sheetGrandTotal">0.000 ر.ع</strong></div>
+    </div>
+    <div class="sheet-actions"><button class="secondary" data-close>إضافة منتجات</button><button class="primary" id="checkoutButton">إتمام الطلب</button></div>
+  </section>
+
+  <section class="sheet sheet-large checkout-sheet" id="checkoutSheet" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><h3>إتمام الطلب</h3><button class="close-btn" data-close>×</button></div>
+    <div class="checkout-scroll">
+      <div class="pickup-card">
+        <div class="pickup-title"><span>طريقة الاستلام</span><button id="changeMode">تغيير</button></div>
+        <div class="pickup-value"><b id="checkoutModeLabel">داخل المقهى</b><span id="pickupHint">حدد رقم الطاولة بالأسفل</span></div>
+      </div>
+
+      <div class="form-card" id="cafeFields">
+        <label>رقم الطاولة <em>*</em><input id="tableNumber" inputmode="numeric" placeholder="مثال: 12"></label>
+      </div>
+
+      <div class="form-card" id="carFields" hidden>
+        <div class="vehicle-title">تفاصيل السيارة <small>حتى نتعرف على سيارتك عند وصولك</small></div>
+        <label>رقم اللوحة <em>*</em><input id="plateNumber" placeholder="مثال: 1234 أ ب" autocomplete="off"></label>
+        <div class="two-cols">
+          <label>نوع السيارة <em>*</em><input id="carType" placeholder="مثال: تويوتا كامري"></label>
+          <label>اللون <em>*</em><input id="carColor" placeholder="مثال: أبيض"></label>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="vehicle-title">معلومات العميل</div>
+        <label>الاسم <input id="customerName" autocomplete="name" placeholder="اسمك"></label>
+        <label>رقم الجوال <em>*</em><input id="phone" inputmode="tel" autocomplete="tel" placeholder="9XXXXXXX"></label>
+      </div>
+
+      <div class="form-card">
+        <div class="vehicle-title">تفاصيل إضافية <small>اختياري</small></div>
+        <textarea id="orderNotes" placeholder="أي ملاحظة للبارستا؟"></textarea>
+      </div>
+
+      <div class="summary-box">
+        <div><span>إجمالي الطلب</span><strong id="checkoutTotal">0.000 ر.ع</strong></div>
+      </div>
+    </div>
+    <button class="submit-order" id="submitOrderButton">قم بتقديم الطلب</button>
+  </section>
+
+  <section class="success-modal" id="successModal" hidden>
+    <div class="success-icon">✓</div>
+    <span class="success-label">تم استلام طلبك</span>
+    <h2>طلبك وصل لبرني ☕</h2>
+    <p>احتفظ برقم الطلب، وسنجهزه لك بأسرع وقت.</p>
+    <div class="order-number" id="successOrderNumber">BRN-000000</div>
+    <div class="success-meta" id="successMeta"></div>
+    <button class="primary" id="doneButton">تم</button>
+  </section>
+
+  <div class="toast" id="toast"></div>
   <script src="app.js"></script>
 </body>
 </html>
