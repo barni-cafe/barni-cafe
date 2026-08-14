@@ -123,7 +123,7 @@ function setupOrderChoice() {
 
       box.classList.add("hidden");
 
-      show("home");
+     show("menuScreen");
 
     };
 
