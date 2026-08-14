@@ -1,174 +1,106 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#111315">
-  <title>برني كافيه | الطلب</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f6efe5">
+<title>برني كافيه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-<body><div class="barni-splash" id="barniSplash"><div>برني</div></div>
-<style>
-body{background:#f5f0e8}
-.barni-splash{position:fixed;inset:0;z-index:99999;background:#f5f0e8;display:grid;place-items:center;animation:barniSplashOut .65s ease 1.15s forwards}
-.barni-splash div{color:#2c2723;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:68px;font-weight:800;letter-spacing:-2px;opacity:0;transform:translateY(5px);animation:barniSplashIn .6s ease .08s forwards}
-@keyframes barniSplashIn{to{opacity:1;transform:translateY(0)}}@keyframes barniSplashOut{to{opacity:0;visibility:hidden;pointer-events:none}}
-.barni-home{min-height:100vh;background:#f5f0e8;color:#2c2723;display:flex;flex-direction:column;align-items:center;padding:70px 24px 50px;transition:opacity .45s ease,transform .45s ease}
-.barni-home-brand{text-align:center;margin-top:15px;margin-bottom:78px}.barni-home-brand h1{margin:0;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:58px;line-height:1;font-weight:800;letter-spacing:-2px}.barni-home-brand p{margin:14px 0 0;color:#9a8b7c;font-family:"Cairo",Tahoma,Arial,sans-serif;font-size:16px;font-weight:500}
-.barni-home-options{width:min(700px,100%);display:grid;gap:20px}.barni-home-option{width:100%;min-height:122px;border:1px solid #e3dbd0;border-radius:28px;background:#fffaf5;box-shadow:0 12px 30px #5b4b3a10;display:flex;flex-direction:row-reverse;align-items:center;gap:20px;padding:24px 28px;text-align:right;font-family:"Cairo",Tahoma,Arial,sans-serif;color:#2c2723;cursor:pointer}.barni-option-icon{width:64px;height:64px;flex:0 0 64px;border-radius:20px;background:#f1e9df;display:grid;place-items:center;font-size:31px}.barni-option-text{display:flex;flex-direction:column;gap:2px}.barni-option-text strong{font-size:22px;font-weight:800}.barni-option-text small{color:#a08f7e;font-size:14px;font-weight:500}.barni-home.leave{opacity:0;transform:translateY(-8px)}
-@media(max-width:560px){.barni-home{padding:54px 18px 35px}.barni-home-brand{margin-bottom:62px}.barni-home-brand h1{font-size:52px}.barni-home-option{min-height:112px;border-radius:24px;padding:20px}.barni-option-icon{width:58px;height:58px;flex-basis:58px}.barni-option-text strong{font-size:20px}.barni-splash div{font-size:60px}}
-</style>
+<body>
 
-<section class="barni-home" id="barniHome">
-  <div class="barni-home-brand"><h1>برني</h1><p>قهوتك، بطريقتك.</p></div>
-  <div class="barni-home-options">
-    <button class="barni-home-option" id="cafeStart" type="button">
-      <span class="barni-option-icon">☕</span><span class="barni-option-text"><strong>داخل المقهى</strong><small>اطلب واستمتع بجلستك</small></span>
-    </button>
-    <button class="barni-home-option" id="carStart" type="button">
-      <span class="barni-option-icon">🚗</span><span class="barni-option-text"><strong>من السيارة</strong><small>اطلب واستلم طلبك من السيارة</small></span>
-    </button>
+<div id="splash"><div>برني</div></div>
+
+<section id="home" class="screen home-screen">
+  <div class="home-head">
+    <div class="brand">
+      <div class="brand-name">برني</div>
+      <div class="brand-en">B A R N I &nbsp; C A F E</div>
+      <div class="brand-tag">قهوتك على هلك</div>
+    </div>
+    <button class="ghost-pill" id="tableTop">طاولتك: اختر لاحقاً</button>
+  </div>
+
+  <div class="home-copy">
+    <div class="hello">هلا</div>
+    <h1>أهلاً بك في<br>برني كافيه</h1>
+    <p>نكهات مختارة، تحضير دقيق، وضيافة عمانية دافئة تصل إلى طاولتك.</p>
+  </div>
+
+  <div class="hero-wrap">
+    <img src="hero.jpg" alt="قهوة برني">
+    <button class="hero-label" id="heroMenu">عرض المنيو</button>
+  </div>
+
+  <button class="menu-main-btn" id="homeMenu">عرض المنيو</button>
+
+  <div class="notice">
+    <span class="dot"></span>
+    <span>اطلب من طاولتك مباشرة — متوسط التحضير من 7 إلى 10 دقائق.</span>
   </div>
 </section>
-  <div class="app-shell" id="appShell" hidden>
-    <header class="topbar">
-      <button class="icon-btn" id="menuButton" aria-label="القائمة">☰</button>
-      <div class="topbar-title">برني كافيه</div>
-      <button class="icon-btn" id="searchButton" aria-label="بحث">⌕</button>
-    </header>
 
-    <main>
-      <section class="brand-card">
-        <div class="brand-logo">ب</div>
-        <div class="brand-copy">
-          <h1>برني كافيه</h1>
-          <p>قهوة تجمعنا</p>
-          <span class="open-pill"><i></i> مفتوح الآن</span>
-        </div>
-        <button class="mode-pill" id="modeButton">
-          <span id="modeLabel">داخل المقهى</span><span>⌄</span>
-        </button>
-      </section>
+<section id="menuScreen" class="screen menu-screen hidden">
+  <header class="page-head">
+    <button class="back-btn" id="backHome">رجوع <span>←</span></button>
+    <div class="mini-brand"><b>برني</b><small>BARNI CAFE</small></div>
+    <button class="lang-btn">EN</button>
+  </header>
 
-      <section class="category-strip" id="categories"></section>
+  <div class="menu-intro">
+    <h1>المنيو</h1>
+    <p>اختياراتك تحضر طازجة وتصل إلى طاولتك بكل عناية.</p>
+  </div>
 
-      <section class="section-head">
-        <h2 id="categoryTitle">القهوة الحارة</h2>
-      </section>
+  <div class="categories" id="categories"></div>
+  <div class="products" id="products"></div>
 
-      <section id="menu" class="menu-list"></section>
+  <div class="cart-bar">
+    <button id="openReview">عرض الطلب</button>
+    <div class="cart-total"><small><span id="cartCount">0</span> أصناف</small><strong id="cartTotal">0.000 ر.ع</strong></div>
+    <div class="bag">▢</div>
+  </div>
+</section>
 
-      <section class="details-card">
-        <div class="details-title"><span>ملاحظات الطلب</span><small>اختياري</small></div>
-        <textarea id="quickNote" placeholder="أي ملاحظة تحب نعرفها؟"></textarea>
-      </section>
-    </main>
+<section id="reviewScreen" class="screen review-screen hidden">
+  <header class="page-head review-head">
+    <button class="round-back" id="backMenu">→</button>
+    <div class="review-title">
+      <h1>مراجعة الطلب</h1>
+      <small>ORDER REVIEW</small>
+    </div>
+  </header>
 
-    <div class="bottom-cart" id="bottomCart" hidden>
-      <div class="bottom-cart-info">
-        <span>السلة</span>
-        <strong id="cartCount">0</strong>
-      </div>
-      <div class="bottom-cart-total" id="cartTotal">0.000 ر.ع</div>
-      <button id="openCartButton">عرض السلة <span>←</span></button>
+  <div class="review-body">
+    <h2><span id="reviewCount">3</span> أصناف في سلتك</h2>
+    <div id="reviewItems"></div>
+
+    <div class="table-card">
+      <h3>اختر رقم الطاولة</h3>
+      <p>سيتم تجهيز طلبك إلى طاولتك عند جهوزيته.</p>
+      <div class="tables" id="tables"></div>
+      <small class="table-note">بالضغط على «إرسال الطلب» تأكد أن رقم طاولتك هو <b id="chosenTable">6</b>، سيظهر رقم الطلب فور الإرسال.</small>
     </div>
   </div>
 
-  <div class="overlay" id="overlay" hidden></div>
+  <div class="review-footer">
+    <div><small>المجموع</small><strong id="reviewTotal">0.000 ر.ع</strong><small>شامل الضريبة</small></div>
+    <button id="submitOrder">إرسال الطلب</button>
+  </div>
+</section>
 
-  <section class="sheet" id="modeSheet" aria-hidden="true">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head"><h3>كيف تريد استلام طلبك؟</h3><button class="close-btn" data-close>×</button></div>
-    <button class="mode-option" data-mode="cafe">
-      <span class="mode-icon">☕</span><span><b>داخل المقهى</b><small>حدد رقم طاولتك واستمتع بطلبك</small></span><span class="check">✓</span>
-    </button>
-    <button class="mode-option" data-mode="car">
-      <span class="mode-icon">🚗</span><span><b>من السيارة</b><small>نجهز طلبك ونتعرف على سيارتك عند الوصول</small></span><span class="check">✓</span>
-    </button>
-  </section>
+<div id="success" class="success hidden">
+  <div class="success-card">
+    <div class="check">✓</div>
+    <h2>تم إرسال طلبك</h2>
+    <p id="successText"></p>
+    <button id="successDone">تم</button>
+  </div>
+</div>
 
-  <section class="sheet sheet-large" id="cartSheet" aria-hidden="true">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head"><h3>السلة</h3><button class="close-btn" data-close>×</button></div>
-    <div id="cartItems" class="cart-list"></div>
-    <div class="suggest-card">
-      <div><b>يمكن يعجبك بعد</b><small>أضفها لطلبك بسرعة</small></div>
-      <div id="suggestions" class="suggestions"></div>
-    </div>
-    <div class="summary-box">
-      <div><span>إجمالي السلة</span><strong id="sheetTotal">0.000 ر.ع</strong></div>
-      <div class="grand"><span>المبلغ الإجمالي</span><strong id="sheetGrandTotal">0.000 ر.ع</strong></div>
-    </div>
-    <div class="sheet-actions"><button class="secondary" data-close>إضافة منتجات</button><button class="primary" id="checkoutButton">إتمام الطلب</button></div>
-  </section>
-
-  <section class="sheet sheet-large checkout-sheet" id="checkoutSheet" aria-hidden="true">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head"><h3>إتمام الطلب</h3><button class="close-btn" data-close>×</button></div>
-    <div class="checkout-scroll">
-      <div class="pickup-card">
-        <div class="pickup-title"><span>طريقة الاستلام</span><button id="changeMode">تغيير</button></div>
-        <div class="pickup-value"><b id="checkoutModeLabel">داخل المقهى</b><span id="pickupHint">حدد رقم الطاولة بالأسفل</span></div>
-      </div>
-
-      <div class="form-card" id="cafeFields">
-        <label>رقم الطاولة <em>*</em><input id="tableNumber" inputmode="numeric" placeholder="مثال: 12"></label>
-      </div>
-
-      <div class="form-card" id="carFields" hidden>
-        <div class="vehicle-title">تفاصيل السيارة <small>حتى نتعرف على سيارتك عند وصولك</small></div>
-        <label>رقم اللوحة <em>*</em><input id="plateNumber" placeholder="مثال: 1234 أ ب" autocomplete="off"></label>
-        <div class="two-cols">
-          <label>نوع السيارة <em>*</em><input id="carType" placeholder="مثال: تويوتا كامري"></label>
-          <label>اللون <em>*</em><input id="carColor" placeholder="مثال: أبيض"></label>
-        </div>
-      </div>
-
-      <div class="form-card">
-        <div class="vehicle-title">معلومات العميل</div>
-        <label>الاسم <input id="customerName" autocomplete="name" placeholder="اسمك"></label>
-        <label>رقم الجوال <em>*</em><input id="phone" inputmode="tel" autocomplete="tel" placeholder="9XXXXXXX"></label>
-      </div>
-
-      <div class="form-card">
-        <div class="vehicle-title">تفاصيل إضافية <small>اختياري</small></div>
-        <textarea id="orderNotes" placeholder="أي ملاحظة للبارستا؟"></textarea>
-      </div>
-
-      <div class="summary-box">
-        <div><span>إجمالي الطلب</span><strong id="checkoutTotal">0.000 ر.ع</strong></div>
-      </div>
-    </div>
-    <button class="submit-order" id="submitOrderButton">قم بتقديم الطلب</button>
-  </section>
-
-  <section class="success-modal" id="successModal" hidden>
-    <div class="success-icon">✓</div>
-    <span class="success-label">تم استلام طلبك</span>
-    <h2>طلبك وصل لبرني ☕</h2>
-    <p>احتفظ برقم الطلب، وسنجهزه لك بأسرع وقت.</p>
-    <div class="order-number" id="successOrderNumber">BRN-000000</div>
-    <div class="success-meta" id="successMeta"></div>
-    <button class="primary" id="doneButton">تم</button>
-  </section>
-
-  <div class="toast" id="toast"></div>
-
-<script>
-window.addEventListener("DOMContentLoaded",function(){
-  const home=document.getElementById("barniHome"),app=document.getElementById("appShell");
-  function enter(mode){
-    if(typeof setMode==="function")setMode(mode);
-    home.classList.add("leave");
-    setTimeout(function(){home.hidden=true;app.hidden=false;window.scrollTo(0,0)},450);
-  }
-  document.getElementById("cafeStart").onclick=function(){enter("cafe")};
-  document.getElementById("carStart").onclick=function(){enter("car")};
-});
-</script>
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
