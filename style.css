@@ -35,3 +35,45 @@
     pointer-events: none;
   }
 }
+#order-choice {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5eee3;
+  color: #4a2d20;
+  text-align: center;
+}
+
+.order-choice-content h1 {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+.order-choice-content p {
+  margin: 8px 0 35px;
+  font-size: 20px;
+  color: #8b7565;
+}
+
+.order-choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(340px, 85vw);
+}
+
+.order-choice-buttons button {
+  border: 0;
+  border-radius: 18px;
+  padding: 18px 20px;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  background: #4a2d20;
+  color: #fffaf3;
+  cursor: pointer;
+}
