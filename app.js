@@ -274,66 +274,6 @@ async function submitOrder() {
 }
 
 const checkoutButton = document.getElementById("checkoutButton");
-  if (checkoutButton) checkoutButton.disabled = true;
-
-  try {
-    if (cart.length === 0) {
-    alert("السلة فاضية ☕");
-    return;
-  }
-
-  const tableNumber = prompt("اكتب رقم الطاولة:");
-  if (!tableNumber || !tableNumber.trim()) return;
-
-  const phone = prompt("اكتب رقم الجوال:");
-  if (!phone || !phone.trim()) return;
-
-  const notes = prompt("ملاحظات للطلب؟ (اختياري)") || "";
-
-  try {
-    if (!supabaseClient) {
-      await loadSupabase();
-    }
-
-    const orderNumber = "BRN-" + Date.now().toString().slice(-6);
-
-    const items = cart.map(item => ({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity,
-      price: Number(item.price)
-    }));
-
-    const total = Number(getCartTotal().toFixed(3));
-
-    const { error } = await supabaseClient
-      .from("orders")
-      .insert({
-        order_number: orderNumber,
-        table_number: tableNumber.trim(),
-        phone: phone.trim(),
-        items: items,
-        total: total,
-        status: "new",
-        notes: notes.trim() || null
-      });
-
-    if (error) {
-      console.error(error);
-      alert("ما قدرنا نرسل الطلب. حاول مرة ثانية.");
-      return;
-    }
-
-    alert("تم إرسال طلبك بنجاح ✅\nرقم الطلب: " + orderNumber);
-    cart = [];
-    renderCart();
-  } catch (error) {
-    console.error(error);
-    alert("حدث خطأ أثناء إرسال الطلب.");
-  }
-}
-
-const checkoutButton = document.getElementById("checkoutButton");
 if (checkoutButton) {
   checkoutButton.addEventListener("click", submitOrder);
 }
