@@ -1,160 +1,95 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#4b2b1d">
-  <title>برني كافيه</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="splash" class="splash">
-    <div class="splash-logo">برني</div>
-    <div class="splash-en">B A R N I&nbsp;&nbsp; C A F E</div>
-    <div class="splash-line"></div>
-  </div>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6efe5;color:#34271f;font-family:"Cairo",Tahoma,Arial,sans-serif}
+.screen{width:min(100%,430px);min-height:100vh;margin:auto;background:#f6efe5;position:relative;padding-bottom:100px}
+.hidden{display:none!important}
+button{font:inherit;cursor:pointer}
+.home-screen{padding:18px 10px 28px}
+.home-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.brand{text-align:right}
+.brand-name{font-size:30px;line-height:1;font-weight:800;color:#b77a22}
+.brand-en{font-size:7px;letter-spacing:3px;font-weight:800;margin-top:12px}
+.ghost-pill{border:1px solid #e5d9c8;background:#fffaf3;border-radius:20px;padding:8px 13px;font-size:11px;color:#6d5948}
+.home-copy{text-align:right;margin:6px 18px 22px}
+.home-copy h1{font-size:34px;line-height:1.35;margin:0;font-weight:800;letter-spacing:-1px}
+.hero-wrap{position:relative;border-radius:22px;overflow:hidden;height:308px;box-shadow:0 8px 24px #5b46301a}
+.hero-wrap img{width:100%;height:100%;object-fit:cover}
+.menu-main-btn{width:100%;height:48px;border:0;border-radius:8px;background:#442719;color:#fff;font-weight:800;margin-top:18px}
+.notice{height:44px;background:#fffaf4;border:1px solid #eee2d4;border-radius:17px;margin-top:16px;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:10px;color:#6d5948}
+.dot{width:7px;height:7px;border-radius:50%;background:#c58a34;flex:0 0 7px}
 
-  <main>
-    <section id="home" class="screen home-screen">
-      <header class="topbar">
-        <button id="tableTop" class="ghost-btn">طاولتك: اختر لاحقًا</button>
-        <div class="brand">
-          <div class="brand-name">برني</div>
-          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
-          <div class="brand-tag">قهوتك على هلك</div>
-        </div>
-      </header>
+#splash{position:fixed;inset:0;z-index:999;background:#c79a7f;display:grid;place-items:center;transition:opacity .5s ease,visibility .5s ease}
+#splash.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.splash-name{color:#fff;font-size:70px;font-weight:800;text-align:center;line-height:1}
+.splash-en{color:#fff;font-size:8px;letter-spacing:5px;font-weight:800;margin-top:18px;text-align:center}
 
-      <div class="hero">
-        <span class="eyebrow">هلا</span>
-        <h1>أهلاً بك في<br>برني كافيه</h1>
-        <p>نكهات مختارة، تحضير دقيق، وضيافة عمانية دافئة تصل إلى طاولتك.</p>
+.page-head{height:68px;padding:13px 10px 8px;display:grid;grid-template-columns:1fr auto 1fr;align-items:start}
+.back-btn{justify-self:start;border:1px solid #e7dac9;background:#fffaf4;border-radius:10px;padding:7px 11px;color:#6a5644;font-size:11px}
+.mini-brand{text-align:center;line-height:1}
+.mini-brand b{display:block;font-size:24px}
+.mini-brand small{font-size:6px;letter-spacing:3px;color:#b87b25;font-weight:800}
+.lang-btn{justify-self:end;border:1px solid #e7dac9;background:#fffaf4;border-radius:10px;padding:8px 12px;font-size:11px}
+.menu-intro{padding:4px 14px 10px;text-align:right}
+.menu-intro h1{margin:0;font-size:28px}
+.menu-intro p{margin:3px 0;color:#9b8877;font-size:11px}
+.categories{display:flex;gap:6px;padding:0 10px 12px;overflow:auto;scrollbar-width:none}
+.categories::-webkit-scrollbar{display:none}
+.cat{white-space:nowrap;border:1px solid #e2d3c1;background:#fffaf4;border-radius:18px;padding:8px 13px;font-size:11px;color:#705d4c}
+.cat.active{background:#442719;color:#fff;border-color:#442719;font-weight:800}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 10px}
+.product{background:#fffaf4;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px #5b46300e;position:relative}
+.product-media{width:100%;height:126px;background:linear-gradient(135deg,#d9d0c8,#81776f);display:grid;place-items:center;font-size:48px}
+.product-info{padding:8px 10px 10px}
+.product-name{display:flex;justify-content:space-between;gap:5px;font-weight:800;font-size:12px}
+.product-en{font-size:7px;color:#aa9a8c}
+.product-desc{font-size:9px;color:#9b8877;line-height:1.5;min-height:28px;margin-top:3px}
+.product-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
+.price{font-size:12px;font-weight:800}
+.add{width:28px;height:28px;border:0;border-radius:9px;background:#c68b36;color:#fff;font-size:22px;line-height:1}
+.popular{position:absolute;top:8px;right:8px;background:#fffaf4dd;border-radius:10px;padding:4px 7px;font-size:8px;color:#7c654f}
+.cart-bar{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:min(410px,calc(100% - 20px));height:74px;border-radius:20px;background:#442719;color:#fff;display:flex;align-items:center;padding:9px 12px;gap:10px;z-index:20;box-shadow:0 10px 25px #0002}
+.cart-bar button{background:#fffaf4;color:#442719;border:0;border-radius:10px;padding:12px 14px;font-weight:800;font-size:12px}
+.cart-total{margin-right:auto;text-align:right;display:flex;flex-direction:column}
+.cart-total small{font-size:9px;color:#d7c9bc}
+.cart-total strong{font-size:15px}
+.bag{width:30px;height:30px;border:1px solid #d9c5b2;border-radius:9px;display:grid;place-items:center}
+.review-screen{padding-bottom:95px}
+.review-head{height:83px}
+.round-back{width:40px;height:40px;border:1px solid #e7dac9;border-radius:50%;background:#fffaf4;font-size:20px}
+.review-title{text-align:center}
+.review-title h1{margin:0;font-size:22px}
+.review-title small{font-size:8px;color:#b87927;letter-spacing:1px}
+.review-body{padding:0 7px}
+.review-body>h2{font-size:14px;font-weight:500;margin:3px 6px 12px}
+.review-item{min-height:88px;background:#fffaf4;border-radius:15px;margin-bottom:9px;display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:9px;padding:8px}
+.thumb{width:54px;height:54px;border-radius:12px;background:#e7f3fc;display:grid;place-items:center;color:#5c9ec4;font-weight:800;font-size:22px}
+.review-name{font-size:11px;font-weight:800}
+.review-desc{font-size:8px;color:#9c8877}
+.qty{display:flex;align-items:center;gap:7px;direction:ltr;margin-top:5px}
+.qty button{width:22px;height:22px;border:1px solid #e2d6c8;background:#fffaf4;border-radius:50%;font-size:13px}
+.qty span{font-size:10px}
+.review-price{font-size:10px;font-weight:800}
+.table-card{background:#fffaf4;border-radius:20px;padding:18px 14px;margin-top:20px}
+.table-card h3{font-size:15px;margin:0}
+.table-card p{font-size:9px;color:#a08d7b;margin:4px 0 13px}
+.tables{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.table-btn{height:38px;border:1px solid #e4d8ca;background:#fffaf4;border-radius:10px;font-size:11px}
+.table-btn.active{background:#442719;color:#fff;border-color:#442719}
+.table-note{display:block;color:#9d8b7b;font-size:8px;line-height:1.8;margin-top:13px}
+.review-footer{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:73px;background:#fffaf4;border-top:1px solid #eee2d5;display:flex;align-items:center;justify-content:space-between;padding:8px;z-index:25}
+.review-footer>div{display:flex;flex-direction:column;text-align:right}
+.review-footer small{font-size:8px;color:#a18f7d}
+.review-footer strong{font-size:16px}
+.review-footer button{height:45px;background:#442719;color:#fff;border:0;border-radius:10px;padding:0 18px;font-size:12px;font-weight:800}
+.success{position:fixed;inset:0;background:#f6efe5dd;backdrop-filter:blur(8px);z-index:100;display:grid;place-items:center;padding:20px}
+.success-card{background:#fffaf4;border-radius:25px;padding:28px;text-align:center;width:min(360px,100%);box-shadow:0 20px 50px #0002}
+.check{width:55px;height:55px;border-radius:50%;background:#e9f5e7;color:#4c9a55;display:grid;place-items:center;margin:auto;font-size:30px}
+.success-card h2{margin:15px 0 5px}
+.success-card p{font-size:12px;color:#8d7b69}
+.success-card button{border:0;background:#442719;color:#fff;border-radius:10px;padding:12px 30px;font-weight:800}
 
-        <div class="hero-card">
-          <div class="cup-art">
-            <div class="cup-steam">〰 〰</div>
-            <div class="cup">☕</div>
-            <div class="cup-label">قهوة برني</div>
-          </div>
-          <button id="heroMenu" class="soft-btn">عرض المنيو</button>
-        </div>
-
-        <button id="homeMenu" class="primary-btn big">عرض المنيو</button>
-      </div>
-    </section>
-
-    <section id="orderChoice" class="screen hidden center-screen">
-      <div class="choice-card">
-        <div class="mini-brand">برني</div>
-        <h2>كيف تحب تطلب؟</h2>
-        <p>اختر طريقة استلام طلبك.</p>
-        <div class="choice-buttons">
-          <button class="choice-btn" data-order-type="car">طلب من السيارة</button>
-          <button class="choice-btn" data-order-type="inside">طلب من داخل المقهى</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="carInfo" class="screen hidden center-screen">
-      <div class="form-card">
-        <button class="back-link" data-back="orderChoice">← رجوع</button>
-        <div class="mini-brand">برني</div>
-        <h2>بيانات طلب السيارة</h2>
-        <p>ما نحتاج رقم لوحة. فقط معلومات تساعدنا نعرف سيارتك عند الاستلام.</p>
-
-        <label>رقم الجوال
-          <input id="carPhone" type="tel" inputmode="tel" placeholder="مثال: 9XXXXXXX">
-        </label>
-
-        <label>نوع السيارة
-          <input id="carType" type="text" placeholder="مثال: لاندكروزر">
-        </label>
-
-        <label>لون السيارة
-          <input id="carColor" type="text" placeholder="مثال: أبيض">
-        </label>
-
-        <label>ملاحظة للطلب
-          <textarea id="carNote" rows="3" placeholder="أي ملاحظة إضافية..."></textarea>
-        </label>
-
-        <button id="carContinue" class="primary-btn">دخول المنيو</button>
-      </div>
-    </section>
-
-    <section id="menuScreen" class="screen hidden menu-screen">
-      <header class="menu-topbar">
-        <button id="backHome" class="outline-btn">← رجوع</button>
-        <div class="brand compact">
-          <div class="brand-name">برني</div>
-          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
-        </div>
-        <button id="changeOrder" class="outline-btn">تغيير الطلب</button>
-      </header>
-
-      <div class="menu-head">
-        <span class="eyebrow">اختياراتك</span>
-        <h2>المنيو</h2>
-        <p>اختياراتك تحضر طازجة وتصل إلى طاولتك بكل عناية.</p>
-      </div>
-
-      <div id="categories" class="categories"></div>
-      <div id="products" class="products"></div>
-
-      <div class="cart-bar">
-        <div>
-          <small>أصناف</small>
-          <strong id="cartCount">0</strong>
-        </div>
-        <div class="cart-total">
-          <small>الإجمالي</small>
-          <strong id="cartTotal">0.000 ر.ع</strong>
-        </div>
-        <button id="openReview" class="light-btn">عرض الطلب</button>
-      </div>
-    </section>
-
-    <section id="reviewScreen" class="screen hidden review-screen">
-      <header class="menu-topbar">
-        <button id="backMenu" class="outline-btn">← المنيو</button>
-        <div class="brand compact">
-          <div class="brand-name">برني</div>
-          <div class="brand-en">B A R N I&nbsp;&nbsp; C A F E</div>
-        </div>
-        <span></span>
-      </header>
-
-      <div class="review-wrap">
-        <div class="review-head">
-          <span class="eyebrow">آخر خطوة</span>
-          <h2>راجع طلبك</h2>
-          <p>تأكد من التفاصيل قبل إرسال الطلب.</p>
-        </div>
-
-        <div id="orderInfoCard" class="info-card"></div>
-        <div id="reviewItems" class="review-items"></div>
-
-        <div class="review-summary">
-          <span>الإجمالي</span>
-          <strong id="reviewTotal">0.000 ر.ع</strong>
-        </div>
-
-        <button id="submitOrder" class="primary-btn">إرسال الطلب</button>
-      </div>
-    </section>
-  </main>
-
-  <div id="success" class="modal hidden">
-    <div class="success-card">
-      <div class="success-icon">✓</div>
-      <span class="eyebrow">تم الطلب</span>
-      <h2>طلبك وصلنا</h2>
-      <p>احتفظ برقم الطلب عند الاستلام.</p>
-      <div id="successDetails" class="success-details"></div>
-      <button id="successDone" class="primary-btn">تم</button>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
+@media(max-width:560px){
+  .home-copy h1{font-size:32px}
+  .products{grid-template-columns:1fr 1fr}
+  .tables{grid-template-columns:repeat(3,1fr)}
+}
