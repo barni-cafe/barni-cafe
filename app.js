@@ -113,7 +113,10 @@ $("#checkoutForm").onsubmit=async e=>{
     $("#successNumber").textContent=number;
     $("#successMeta").textContent=orderMode==="cafe"?`الطاولة ${payload.table_number} · ${fmt(payload.total)}`:`استلام من السيارة · ${fmt(payload.total)}`;
     $("#successModal").hidden=false;document.body.style.overflow="hidden";
-  }catch(err){console.error(err);toast("تعذر إرسال الطلب. تأكد من اتصال الموقع بقاعدة البيانات.");}
+}catch(err){
+  console.error("SUPABASE ERROR:",err);
+  toast("خطأ: "+(err.message||"خطأ غير معروف"));
+}
   finally{btn.disabled=false;btn.textContent="تأكيد وإرسال الطلب";}
 };
 
