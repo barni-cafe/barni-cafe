@@ -2,272 +2,147 @@ const SUPABASE_URL="https://yxojtouxwoztjwtmzbys.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_G4P7-79B7uwYO-xe5fsBTA_7VK7BxQ-";
 
 const products=[
-  {id:1,cat:"القهوة الساخنة",name:"إسبريسو",en:"Espresso",desc:"مركز، غني، ومحضر من حبوب مختارة.",price:1.2,code:"ESP"},
-  {id:2,cat:"القهوة الساخنة",name:"لاتيه برني",en:"Latte",desc:"إسبريسو ناعم مع حليب مخملي.",price:1.8,code:"LAT"},
-  {id:3,cat:"القهوة الباردة",name:"كولد برو",en:"Cold Brew",desc:"بارد، منعش، بنكهة أعمق.",price:1.9,code:"CB"},
-  {id:4,cat:"المشروبات",name:"ماء",en:"Water",desc:"ماء بارد ومنعش.",price:.3,code:"WTR"},
-  {id:5,cat:"الحلويات",name:"كيك التمر",en:"Date Cake",desc:"كيكة تمر مع لمسة من التوابل العطرية.",price:1.5,code:"DATE"}
+{id:1,cat:"القهوة الساخنة",name:"إسبريسو",en:"Espresso",desc:"قهوة إسبريسو مركزة",price:1.500,icon:"☕",code:"ESP"},
+{id:2,cat:"القهوة الساخنة",name:"لاتيه",en:"Latte",desc:"إسبريسو مع حليب ناعم",price:2.000,icon:"🥛",code:"LAT"},
+{id:3,cat:"القهوة الساخنة",name:"كابتشينو",en:"Cappuccino",desc:"إسبريسو وحليب ورغوة",price:2.000,icon:"☕",code:"CAP"},
+{id:4,cat:"القهوة الساخنة",name:"قهوة تركية",en:"Turkish Coffee",desc:"قهوة تركية على الطريقة التقليدية",price:1.500,icon:"🫖",code:"TRK"},
+{id:5,cat:"القهوة الساخنة",name:"أمريكانو",en:"Americano",desc:"إسبريسو مع ماء ساخن",price:1.500,icon:"☕",code:"AME"},
+{id:6,cat:"القهوة الباردة",name:"آيس لاتيه",en:"Iced Latte",desc:"إسبريسو وحليب مع الثلج",price:2.200,icon:"🧊",code:"ICL"},
+{id:7,cat:"القهوة الباردة",name:"آيس أمريكانو",en:"Iced Americano",desc:"إسبريسو بارد مع الثلج",price:1.800,icon:"🧊",code:"ICA"},
+{id:8,cat:"القهوة الباردة",name:"كولد برو",en:"Cold Brew",desc:"قهوة مستخلصة على البارد",price:2.500,icon:"🧊",code:"CB"},
+{id:9,cat:"الشاي",name:"شاي أحمر",en:"Black Tea",desc:"شاي كلاسيكي ساخن",price:1.000,icon:"🫖",code:"BT"},
+{id:10,cat:"الشاي",name:"شاي كرك",en:"Karak Tea",desc:"شاي بالحليب والهيل",price:1.200,icon:"🫖",code:"KT"},
+{id:11,cat:"الشاي",name:"شاي أخضر",en:"Green Tea",desc:"شاي أخضر خفيف",price:1.000,icon:"🍵",code:"GT"},
+{id:12,cat:"المشروبات",name:"موهيتو",en:"Mojito",desc:"ليمون ونعناع وانتعاش",price:2.000,icon:"🥤",code:"MOJ"},
+{id:13,cat:"المشروبات",name:"ليمون بالنعناع",en:"Mint Lemon",desc:"ليمون طازج مع النعناع",price:1.800,icon:"🍋",code:"ML"},
+{id:14,cat:"المشروبات",name:"ماء",en:"Water",desc:"مياه معدنية",price:0.300,icon:"💧",code:"WTR"},
+{id:15,cat:"الحلويات",name:"تشيز كيك",en:"Cheesecake",desc:"قطعة كريمية ناعمة",price:2.200,icon:"🍰",code:"CHK"},
+{id:16,cat:"الحلويات",name:"براوني",en:"Brownie",desc:"براوني شوكولاتة",price:1.800,icon:"🍫",code:"BRW"},
+{id:17,cat:"الحلويات",name:"كوكيز",en:"Cookies",desc:"كوكيز طازج بالشوكولاتة",price:1.200,icon:"🍪",code:"CK"}
 ];
 
-let category="القهوة الساخنة";
-let cart=[];
-let table=6;
-let submitting=false;
-let orderType="";
-let customer={phone:"",carType:"",carColor:"",note:""};
-
+let category="القهوة الساخنة",cart=[],table=6,submitting=false;
 const $=id=>document.getElementById(id);
 const money=n=>Number(n).toFixed(3)+" ر.ع";
 const total=()=>cart.reduce((s,i)=>s+i.price*i.quantity,0);
-const cartCount=()=>cart.reduce((s,i)=>s+i.quantity,0);
-
-function show(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
-  $(id).classList.remove("hidden");
-  window.scrollTo({top:0,behavior:"instant"});
-}
 
 function renderCats(){
-  const cats=["القهوة الساخنة","القهوة الباردة","المشروبات","الحلويات"];
-  $("categories").innerHTML=cats.map(c=>`
-    <button class="cat ${c===category?"active":""}" data-cat="${c}">${c}</button>
-  `).join("");
-  document.querySelectorAll("[data-cat]").forEach(b=>{
-    b.onclick=()=>{
-      category=b.dataset.cat;
-      renderCats();
-      renderProducts();
-    };
-  });
+  const cats=["القهوة الساخنة","القهوة الباردة","الشاي","المشروبات","الحلويات"];
+  $("categories").innerHTML=cats.map(c=>`<button class="cat ${c===category?"active":""}" data-cat="${c}">${c}</button>`).join("");
+  document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{category=b.dataset.cat;renderCats();renderProducts();});
 }
 
 function renderProducts(){
   const list=products.filter(p=>p.cat===category);
-  $("products").innerHTML=list.map((p,i)=>`
-    <article class="product">
-      ${i===0&&category==="القهوة الساخنة"?'<span class="popular">الأكثر طلباً</span>':""}
+  $("products").innerHTML=list.map((p,i)=>`<article class="product">
+    ${i===0&&category==="القهوة الساخنة"?'<span class="popular">الأكثر طلباً</span>':""}
+    <div class="product-media">${p.icon}</div>
+    <div class="product-info">
       <div class="product-name"><span>${p.name}</span><span class="product-en">${p.en}</span></div>
       <div class="product-desc">${p.desc}</div>
-      <div class="product-bottom">
-        <span class="price">${money(p.price)}</span>
-        <button class="add" data-add="${p.id}">+</button>
-      </div>
-    </article>
-  `).join("");
-  document.querySelectorAll("[data-add]").forEach(b=>{
-    b.onclick=()=>add(Number(b.dataset.add));
-  });
+      <div class="product-bottom"><span class="price">${money(p.price)}</span><button class="add" data-add="${p.id}">+</button></div>
+    </div>
+  </article>`).join("");
+  document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>add(+b.dataset.add));
 }
 
 function add(id){
   const p=products.find(x=>x.id===id);
+  if(!p)return;
   const old=cart.find(x=>x.id===id);
-  if(old) old.quantity++;
-  else cart.push({...p,quantity:1});
+  old?old.quantity++:cart.push({...p,quantity:1});
   renderCart();
 }
 
 function renderCart(){
-  $("cartCount").textContent=cartCount();
+  const c=cart.reduce((s,i)=>s+i.quantity,0);
+  $("cartCount").textContent=c;
   $("cartTotal").textContent=money(total());
 }
 
 function renderReview(){
-  $("reviewItems").innerHTML=cart.map(i=>`
-    <div class="review-item">
-      <div>
-        <div class="review-name">${i.name}</div>
-        <div class="review-desc">${i.desc}</div>
-        <div class="qty">
-          <button data-q="${i.id}" data-d="-1">−</button>
-          <span>${i.quantity}</span>
-          <button data-q="${i.id}" data-d="1">+</button>
-        </div>
-      </div>
-      <div class="review-price">${money(i.price*i.quantity)}</div>
-    </div>
-  `).join("");
-
-  document.querySelectorAll("[data-q]").forEach(b=>{
-    b.onclick=()=>{
-      const x=cart.find(i=>i.id===Number(b.dataset.q));
-      x.quantity+=Number(b.dataset.d);
-      if(x.quantity<1) cart=cart.filter(i=>i.id!==x.id);
-      renderCart();
-      renderReview();
-    };
-  });
-
+  $("reviewCount").textContent=cart.reduce((s,i)=>s+i.quantity,0);
   $("reviewTotal").textContent=money(total());
+  $("chosenTable").textContent=table;
+  $("reviewItems").innerHTML=cart.length?cart.map(i=>`<div class="review-item">
+    <div class="thumb">${i.icon}</div>
+    <div>
+      <div class="review-name">${i.name}</div>
+      <div class="review-desc">${i.desc}</div>
+      <div class="qty"><button data-q="${i.id}" data-d="-1">−</button><span>${i.quantity}</span><button data-q="${i.id}" data-d="1">+</button></div>
+    </div>
+    <div class="review-price">${money(i.price*i.quantity)}</div>
+  </div>`).join(""):`<div class="review-item"><div class="thumb">☕</div><div><div class="review-name">السلة فاضية</div><div class="review-desc">أضف منتجات من المنيو أولاً.</div></div></div>`;
 
-  let html="";
-  if(orderType==="car"){
-    html+=info("طريقة الطلب","من السيارة");
-    html+=info("رقم الجوال",customer.phone||"غير مضاف");
-    html+=info("نوع السيارة",customer.carType||"غير مضاف");
-    html+=info("لون السيارة",customer.carColor||"غير مضاف");
-    html+=info("الملاحظة",customer.note||"لا توجد");
-  }else{
-    html+=info("طريقة الطلب","داخل المقهى");
-    html+=info("رقم الطاولة",String(table));
-  }
-  $("orderInfoCard").innerHTML=html;
-}
-
-function info(label,value){
-  return `<div class="info-row"><small>${label}</small><strong>${escapeHtml(value)}</strong></div>`;
-}
-
-function escapeHtml(v){
-  return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
-
-function buildNotes(){
-  const lines=[`طريقة الطلب: ${orderType==="car"?"من السيارة":"داخل المقهى"}`];
-  if(orderType==="car"){
-    lines.push(`نوع السيارة: ${customer.carType||"غير مضاف"}`);
-    lines.push(`لون السيارة: ${customer.carColor||"غير مضاف"}`);
-    if(customer.note) lines.push(`ملاحظة: ${customer.note}`);
-  }
-  return lines.join(" | ");
-}
-
-async function getSupabase(){
-  if(window.supabase) return window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-  await new Promise((resolve,reject)=>{
-    const s=document.createElement("script");
-    s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-    s.onload=resolve;
-    s.onerror=reject;
-    document.head.appendChild(s);
+  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{
+    const x=cart.find(i=>i.id===+b.dataset.q);
+    if(!x)return;
+    x.quantity+=+b.dataset.d;
+    if(x.quantity<1)cart=cart.filter(i=>i.id!==x.id);
+    renderCart();renderReview();
   });
-  return window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+
+  $("tables").innerHTML=[4,5,6,7,8,9].map(n=>`<button class="table-btn ${n===table?"active":""}" data-table="${n}">${n}</button>`).join("");
+  document.querySelectorAll("[data-table]").forEach(b=>b.onclick=()=>{table=+b.dataset.table;renderReview();});
 }
 
-async function submitOrder(){
-  if(!cart.length || submitting) return;
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
+  $(id).classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+
+$("homeMenu").onclick=()=>show("menuScreen");
+$("backHome").onclick=()=>show("home");
+$("openReview").onclick=()=>{
+  if(!cart.length){
+    alert("السلة فاضية، أضف منتجاً من المنيو أولاً.");
+    return;
+  }
+  renderReview();show("reviewScreen");
+};
+$("backMenu").onclick=()=>show("menuScreen");
+
+$("submitOrder").onclick=async()=>{
+  if(!cart.length)return;
+  if(submitting)return;
   submitting=true;
   $("submitOrder").disabled=true;
-  $("submitOrder").textContent="جارٍ إرسال الطلب...";
-
+  $("submitOrder").textContent="جارٍ الإرسال...";
   try{
-    const client=await getSupabase();
+    await new Promise((resolve,reject)=>{
+      const s=document.createElement("script");
+      s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+      s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+    });
     const orderNumber="BRN-"+Date.now().toString().slice(-6);
     const payload={
       order_number:orderNumber,
-      table_number:orderType==="inside"?String(table):"CAR",
-      phone:orderType==="car"?customer.phone:"",
+      table_number:String(table),
+      phone:"",
       items:cart.map(i=>({id:i.id,name:i.name,quantity:i.quantity,price:i.price})),
       total:Number(total().toFixed(3)),
       status:"new",
-      notes:buildNotes()
+      notes:null
     };
-
-    const {error}=await client.from("orders").insert(payload);
-    if(error) throw error;
-
-    const rows=[
-      ["رقم الطلب",orderNumber],
-      ["طريقة الطلب",orderType==="car"?"من السيارة":"داخل المقهى"]
-    ];
-    if(orderType==="car"){
-      rows.push(["رقم الجوال",customer.phone||"غير مضاف"]);
-      rows.push(["نوع السيارة",customer.carType||"غير مضاف"]);
-      rows.push(["لون السيارة",customer.carColor||"غير مضاف"]);
-      rows.push(["الملاحظة",customer.note||"لا توجد"]);
-    }else{
-      rows.push(["رقم الطاولة",String(table)]);
-    }
-    rows.push(["الإجمالي",money(total())]);
-
-    $("successDetails").innerHTML=rows.map(r=>`
-      <div class="success-row"><span>${r[0]}</span><strong>${escapeHtml(r[1])}</strong></div>
-    `).join("");
-
+    const {error}=await window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY).from("orders").insert(payload);
+    if(error)throw error;
+    $("successText").textContent=`رقم طلبك ${orderNumber} • الطاولة ${table}`;
     $("success").classList.remove("hidden");
-    cart=[];
-    renderCart();
+    cart=[];renderCart();
   }catch(e){
     console.error(e);
-    alert("تعذر إرسال الطلب. تأكد من اتصال Supabase ثم حاول مرة ثانية.");
+    alert("تعذر إرسال الطلب، حاول مرة ثانية");
   }finally{
     submitting=false;
     $("submitOrder").disabled=false;
     $("submitOrder").textContent="إرسال الطلب";
   }
-}
+};
 
-function resetOrder(){
-  orderType="";
-  customer={phone:"",carType:"",carColor:"",note:""};
-  cart=[];
-  table=6;
-  renderCart();
-}
+$("successDone").onclick=()=>{$("success").classList.add("hidden");show("home");};
 
-document.addEventListener("DOMContentLoaded",()=>{
-  renderCats();
-  renderProducts();
-  renderCart();
-
-  setTimeout(()=>{$("splash")?.classList.add("hidden")},1800);
-
-  $("homeMenu").onclick=()=>show("orderChoice");
-  $("heroMenu").onclick=()=>show("orderChoice");
-
-  document.querySelectorAll("[data-order-type]").forEach(b=>{
-    b.onclick=()=>{
-      orderType=b.dataset.orderType;
-      if(orderType==="car") show("carInfo");
-      else show("menuScreen");
-    };
-  });
-
-  $("carContinue").onclick=()=>{
-    customer.phone=$("carPhone").value.trim();
-    customer.carType=$("carType").value.trim();
-    customer.carColor=$("carColor").value.trim();
-    customer.note=$("carNote").value.trim();
-    if(!customer.phone||!customer.carType||!customer.carColor){
-      alert("اكتب رقم الجوال ونوع السيارة واللون أولاً.");
-      return;
-    }
-    show("menuScreen");
-  };
-
-  document.querySelectorAll("[data-back]").forEach(b=>{
-    b.onclick=()=>show(b.dataset.back);
-  });
-
-  $("backHome").onclick=()=>show("home");
-  $("changeOrder").onclick=()=>{
-    resetOrder();
-    show("orderChoice");
-  };
-  $("backMenu").onclick=()=>show("menuScreen");
-
-  $("openReview").onclick=()=>{
-    if(!cart.length){
-      alert("أضف صنف واحد على الأقل قبل مراجعة الطلب.");
-      return;
-    }
-    renderReview();
-    show("reviewScreen");
-  };
-
-  $("submitOrder").onclick=submitOrder;
-
-  $("successDone").onclick=()=>{
-    $("success").classList.add("hidden");
-    resetOrder();
-    show("home");
-  };
-
-  $("tableTop").onclick=()=>{
-    if(orderType==="inside"){
-      alert("رقم الطاولة يتم اختياره داخل مراجعة الطلب.");
-    }else{
-      show("orderChoice");
-    }
-  };
-});
+renderCats();
+renderProducts();
+renderCart();
+setTimeout(()=>$("splash").classList.add("hidden"),1800);
