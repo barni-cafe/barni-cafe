@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>برني | Barni Cafe</title>
 
@@ -11,46 +11,61 @@
 
 <style>
 
+/* =========================
+   GENERAL
+========================= */
+
 *{
-box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 html{
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-margin:0;
-background:#f6f0e8;
-color:#302720;
-font-family:Arial,Tahoma,sans-serif;
+    margin:0;
+    background:#f6f0e8;
+    color:#302720;
+    font-family:Arial,Tahoma,sans-serif;
 }
 
 button,
 input,
 textarea{
-font-family:inherit;
+    font-family:inherit;
 }
 
 button{
-cursor:pointer;
+    cursor:pointer;
 }
 
 .hidden{
-display:none!important;
+    display:none !important;
 }
 
-.app{
-min-height:100vh;
-}
+
+/* =========================
+   PAGES
+========================= */
+
+/*
+   مهم جدًا:
+   نخفي كل الصفحات بالقوة،
+   ونظهر صفحة واحدة فقط.
+*/
 
 .page{
-display:none;
-min-height:100vh;
+    display:none !important;
+    min-height:100vh;
 }
 
 .page.active{
-display:block;
+    display:block !important;
+}
+
+.page.active.confirm-page{
+    display:flex !important;
 }
 
 
@@ -59,168 +74,203 @@ display:block;
 ========================= */
 
 .home{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:45px 18px 25px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:45px 18px 25px;
 }
 
 .language{
-position:fixed;
-top:18px;
-left:18px;
-z-index:50;
-border:1px solid #dfd2c4;
-background:#fffaf5;
-color:#302720;
-padding:9px 15px;
-border-radius:30px;
-font-weight:800;
-box-shadow:0 5px 20px rgba(60,40,25,.08);
+    position:fixed;
+    top:18px;
+    left:18px;
+    z-index:50;
+
+    border:1px solid #dfd2c4;
+    background:#fffaf5;
+    color:#302720;
+
+    padding:9px 15px;
+    border-radius:30px;
+
+    font-weight:800;
+
+    box-shadow:0 5px 20px rgba(60,40,25,.08);
 }
 
 .brand{
-text-align:center;
-margin-top:40px;
-margin-bottom:65px;
-animation:fadeLogo 2.5s ease forwards;
+    text-align:center;
+    margin-top:40px;
+    margin-bottom:65px;
+
+    animation:fadeLogo 2.5s ease forwards;
 }
 
 .brand-name{
-font-size:82px;
-font-weight:900;
-margin:0;
-letter-spacing:-5px;
+    font-size:82px;
+    font-weight:900;
+    margin:0;
+    letter-spacing:-5px;
 }
 
 .brand-subtitle{
-font-size:18px;
-color:#a69586;
-margin-top:-5px;
+    font-size:18px;
+    color:#a69586;
+    margin-top:-5px;
 }
 
 @keyframes fadeLogo{
-0%{
-opacity:0;
-transform:translateY(15px);
-}
-100%{
-opacity:1;
-transform:translateY(0);
-}
+
+    0%{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
 .home-options{
-width:min(650px,100%);
-display:flex;
-flex-direction:column;
-gap:22px;
+    width:min(650px,100%);
+
+    display:flex;
+    flex-direction:column;
+    gap:22px;
 }
 
 .mode-button{
-width:100%;
-border:1px solid #e2d5c7;
-background:#fffaf5;
-border-radius:34px;
-padding:25px 28px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-color:#302720;
-box-shadow:0 15px 35px rgba(60,40,25,.07);
-transition:.25s;
-text-align:right;
+    width:100%;
+
+    border:1px solid #e2d5c7;
+    background:#fffaf5;
+
+    border-radius:34px;
+
+    padding:25px 28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    color:#302720;
+
+    box-shadow:0 15px 35px rgba(60,40,25,.07);
+
+    transition:.25s;
+
+    text-align:right;
 }
 
 .mode-button:hover{
-transform:translateY(-4px);
-box-shadow:0 20px 40px rgba(60,40,25,.12);
+    transform:translateY(-4px);
 }
 
 .mode-icon{
-width:68px;
-height:68px;
-border-radius:23px;
-background:#eee4d8;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:35px;
-flex-shrink:0;
+    width:68px;
+    height:68px;
+
+    border-radius:23px;
+
+    background:#eee4d8;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:35px;
+
+    flex-shrink:0;
 }
 
 .mode-text{
-flex:1;
-padding-right:20px;
+    flex:1;
+    padding-right:20px;
 }
 
 .mode-text h2{
-margin:0 0 5px;
-font-size:26px;
+    margin:0 0 5px;
+    font-size:26px;
 }
 
 .mode-text p{
-margin:0;
-color:#a18f80;
-font-size:14px;
+    margin:0;
+    color:#a18f80;
+    font-size:14px;
 }
 
 .footer{
-margin-top:auto;
-padding-top:70px;
-letter-spacing:7px;
-font-size:12px;
-color:#b9aa9c;
+    margin-top:auto;
+    padding-top:70px;
+
+    letter-spacing:7px;
+    font-size:12px;
+    color:#b9aa9c;
 }
 
 
 /* =========================
-   HEADER
+   TOP BAR
 ========================= */
 
 .topbar{
-position:sticky;
-top:0;
-z-index:30;
-background:rgba(246,240,232,.94);
-backdrop-filter:blur(12px);
-border-bottom:1px solid #e3d7ca;
-padding:14px 18px;
-display:flex;
-align-items:center;
-justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:30;
+
+    background:rgba(246,240,232,.94);
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid #e3d7ca;
+
+    padding:14px 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .top-brand{
-font-size:25px;
-font-weight:900;
+    font-size:25px;
+    font-weight:900;
 }
 
 .back{
-border:0;
-background:#eadfd3;
-width:42px;
-height:42px;
-border-radius:50%;
-font-size:22px;
+    border:0;
+    background:#eadfd3;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    font-size:22px;
 }
 
 .cart-button{
-border:0;
-background:#4b2d20;
-color:white;
-border-radius:25px;
-padding:11px 17px;
-font-weight:800;
+    border:0;
+    background:#4b2d20;
+    color:white;
+
+    border-radius:25px;
+
+    padding:11px 17px;
+
+    font-weight:800;
 }
 
 .cart-count{
-background:#d9b783;
-color:#302720;
-padding:2px 7px;
-border-radius:20px;
-margin-right:4px;
+    background:#d9b783;
+    color:#302720;
+
+    padding:2px 7px;
+
+    border-radius:20px;
+
+    margin-right:4px;
 }
 
 
@@ -229,119 +279,143 @@ margin-right:4px;
 ========================= */
 
 .menu-page{
-padding-bottom:110px;
+    padding-bottom:110px;
 }
 
 .menu-wrap{
-width:min(1000px,100%);
-margin:auto;
-padding:25px 18px;
+    width:min(1000px,100%);
+    margin:auto;
+    padding:25px 18px;
 }
 
 .menu-title{
-margin:5px 0 20px;
+    margin:5px 0 20px;
 }
 
 .menu-title h1{
-font-size:34px;
-margin:0;
+    font-size:34px;
+    margin:0;
 }
 
 .menu-title p{
-margin:7px 0;
-color:#9c8b7d;
+    margin:7px 0;
+    color:#9c8b7d;
 }
 
 .categories{
-display:flex;
-gap:9px;
-overflow-x:auto;
-padding-bottom:12px;
-scrollbar-width:none;
+    display:flex;
+    gap:9px;
+
+    overflow-x:auto;
+
+    padding-bottom:12px;
+
+    scrollbar-width:none;
 }
 
 .categories::-webkit-scrollbar{
-display:none;
+    display:none;
 }
 
 .category{
-border:1px solid #dfd1c3;
-background:#fffaf5;
-color:#554237;
-padding:11px 18px;
-border-radius:30px;
-white-space:nowrap;
-font-weight:700;
+    border:1px solid #dfd1c3;
+    background:#fffaf5;
+    color:#554237;
+
+    padding:11px 18px;
+
+    border-radius:30px;
+
+    white-space:nowrap;
+
+    font-weight:700;
 }
 
 .category.active{
-background:#4b2d20;
-color:white;
-border-color:#4b2d20;
+    background:#4b2d20;
+    color:white;
+
+    border-color:#4b2d20;
 }
 
 .products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
-margin-top:20px;
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-top:20px;
 }
 
 .product{
-background:#fffaf5;
-border:1px solid #e5d9cc;
-border-radius:25px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(60,40,25,.06);
+    background:#fffaf5;
+
+    border:1px solid #e5d9cc;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(60,40,25,.06);
 }
 
 .product-image{
-height:180px;
-background:
-radial-gradient(circle at 30% 30%,#d7c0a7 0 12%,transparent 13%),
-radial-gradient(circle at 70% 70%,#9e775b 0 20%,transparent 21%),
-linear-gradient(135deg,#eee1d2,#c9b09a);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:65px;
+    height:180px;
+
+    background:
+        radial-gradient(circle at 30% 30%,#d7c0a7 0 12%,transparent 13%),
+        radial-gradient(circle at 70% 70%,#9e775b 0 20%,transparent 21%),
+        linear-gradient(135deg,#eee1d2,#c9b09a);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:65px;
 }
 
 .product-body{
-padding:15px;
+    padding:15px;
 }
 
 .product-name{
-font-size:20px;
-font-weight:900;
-margin-bottom:5px;
+    font-size:20px;
+    font-weight:900;
+    margin-bottom:5px;
 }
 
 .product-desc{
-font-size:12px;
-color:#a08d7d;
-min-height:30px;
+    font-size:12px;
+    color:#a08d7d;
+    min-height:30px;
 }
 
 .product-bottom{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:8px;
-margin-top:15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:8px;
+
+    margin-top:15px;
 }
 
 .price{
-font-weight:900;
+    font-weight:900;
 }
 
 .add{
-border:0;
-background:#4b2d20;
-color:white;
-padding:10px 15px;
-border-radius:14px;
-font-weight:800;
+    border:0;
+
+    background:#4b2d20;
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:14px;
+
+    font-weight:800;
 }
 
 
@@ -350,128 +424,167 @@ font-weight:800;
 ========================= */
 
 .panel{
-position:fixed;
-inset:0;
-z-index:100;
-background:rgba(30,20,15,.45);
-display:none;
-align-items:flex-end;
-justify-content:center;
+    position:fixed;
+    inset:0;
+
+    z-index:100;
+
+    background:rgba(30,20,15,.45);
+
+    display:none;
+
+    align-items:flex-end;
+    justify-content:center;
 }
 
 .panel.open{
-display:flex;
+    display:flex;
 }
 
 .panel-box{
-background:#f8f1e8;
-width:min(650px,100%);
-max-height:90vh;
-overflow:auto;
-border-radius:30px 30px 0 0;
-padding:22px;
-animation:slideUp .25s ease;
+    background:#f8f1e8;
+
+    width:min(650px,100%);
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    border-radius:30px 30px 0 0;
+
+    padding:22px;
+
+    animation:slideUp .25s ease;
 }
 
 @keyframes slideUp{
-from{
-transform:translateY(100%);
-}
-to{
-transform:translateY(0);
-}
+
+    from{
+        transform:translateY(100%);
+    }
+
+    to{
+        transform:translateY(0);
+    }
+
 }
 
 .panel-head{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
 }
 
 .panel-head h2{
-margin:0;
-font-size:28px;
+    margin:0;
+    font-size:28px;
 }
 
 .close{
-border:0;
-background:#e9ded2;
-width:42px;
-height:42px;
-border-radius:50%;
-font-size:22px;
+    border:0;
+
+    background:#e9ded2;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    font-size:22px;
 }
 
 .cart-items{
-display:flex;
-flex-direction:column;
-gap:10px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
 .cart-item{
-background:#fffaf5;
-border:1px solid #e2d6ca;
-border-radius:18px;
-padding:14px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
+    background:#fffaf5;
+
+    border:1px solid #e2d6ca;
+
+    border-radius:18px;
+
+    padding:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
 }
 
 .cart-info{
-flex:1;
+    flex:1;
 }
 
 .cart-name{
-font-weight:900;
+    font-weight:900;
 }
 
 .cart-price{
-font-size:12px;
-color:#998677;
-margin-top:4px;
+    font-size:12px;
+    color:#998677;
+
+    margin-top:4px;
 }
 
 .qty{
-display:flex;
-align-items:center;
-gap:7px;
+    display:flex;
+    align-items:center;
+    gap:7px;
 }
 
 .qty button{
-border:0;
-background:#e8ddd1;
-width:31px;
-height:31px;
-border-radius:10px;
-font-weight:900;
+    border:0;
+
+    background:#e8ddd1;
+
+    width:31px;
+    height:31px;
+
+    border-radius:10px;
+
+    font-weight:900;
 }
 
 .total{
-display:flex;
-justify-content:space-between;
-padding:20px 0;
-font-size:20px;
-font-weight:900;
+    display:flex;
+    justify-content:space-between;
+
+    padding:20px 0;
+
+    font-size:20px;
+
+    font-weight:900;
 }
 
 .primary{
-width:100%;
-border:0;
-background:#4b2d20;
-color:white;
-padding:16px;
-border-radius:17px;
-font-size:17px;
-font-weight:900;
+    width:100%;
+
+    border:0;
+
+    background:#4b2d20;
+    color:white;
+
+    padding:16px;
+
+    border-radius:17px;
+
+    font-size:17px;
+
+    font-weight:900;
 }
 
 .empty-cart{
-text-align:center;
-padding:45px 10px;
-color:#9c8b7d;
+    text-align:center;
+
+    padding:45px 10px;
+
+    color:#9c8b7d;
 }
 
 
@@ -480,61 +593,87 @@ color:#9c8b7d;
 ========================= */
 
 .form-page{
-min-height:100vh;
-padding-bottom:50px;
+    padding-bottom:50px;
 }
 
 .form-wrap{
-width:min(650px,100%);
-margin:auto;
-padding:25px 18px;
+    width:min(650px,100%);
+
+    margin:auto;
+
+    padding:25px 18px;
 }
 
 .form-title{
-font-size:32px;
-font-weight:900;
-margin-bottom:30px;
+    font-size:32px;
+
+    font-weight:900;
+
+    margin-bottom:30px;
 }
 
 .field{
-margin-bottom:20px;
+    margin-bottom:20px;
 }
 
 .field label{
-display:block;
-font-weight:900;
-font-size:18px;
-margin-bottom:9px;
+    display:block;
+
+    font-weight:900;
+
+    font-size:18px;
+
+    margin-bottom:9px;
 }
 
 .field input,
 .field textarea{
-width:100%;
-border:1px solid #ddcfc1;
-background:#fffaf5;
-border-radius:18px;
-padding:17px;
-font-size:17px;
-outline:none;
-color:#302720;
+    width:100%;
+
+    border:1px solid #ddcfc1;
+
+    background:#fffaf5;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    font-size:17px;
+
+    outline:none;
+
+    color:#302720;
 }
 
 .field textarea{
-height:125px;
-resize:vertical;
+    height:125px;
+
+    resize:vertical;
 }
 
 .field input:focus,
 .field textarea:focus{
-border-color:#a78464;
+    border-color:#a78464;
 }
 
 .required{
-color:#a34c3d;
+    color:#a34c3d;
 }
 
 .submit{
-margin-top:10px;
+    margin-top:10px;
+}
+
+.error{
+    background:#f3d8d3;
+
+    color:#783d35;
+
+    padding:14px;
+
+    border-radius:15px;
+
+    margin-top:12px;
 }
 
 
@@ -543,86 +682,120 @@ margin-top:10px;
 ========================= */
 
 .confirm-page{
-min-height:100vh;
-padding:30px 18px;
-display:flex;
-align-items:center;
-justify-content:center;
+    min-height:100vh;
+
+    padding:30px 18px;
+
+    align-items:center;
+
+    justify-content:center;
 }
 
 .confirm-box{
-width:min(650px,100%);
-background:#fffaf5;
-border:1px solid #e0d4c8;
-border-radius:32px;
-padding:35px 25px;
-text-align:center;
-box-shadow:0 20px 50px rgba(60,40,25,.1);
+    width:min(650px,100%);
+
+    background:#fffaf5;
+
+    border:1px solid #e0d4c8;
+
+    border-radius:32px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    box-shadow:0 20px 50px rgba(60,40,25,.1);
 }
 
 .check{
-width:78px;
-height:78px;
-border-radius:50%;
-background:#315d39;
-color:#c9e3cc;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:42px;
-margin:0 auto 20px;
+    width:78px;
+    height:78px;
+
+    border-radius:50%;
+
+    background:#315d39;
+
+    color:#c9e3cc;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+
+    margin:0 auto 20px;
 }
 
 .eyebrow{
-letter-spacing:4px;
-font-size:11px;
-font-weight:900;
-color:#b18a54;
+    letter-spacing:4px;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    color:#b18a54;
 }
 
 .confirm-box h1{
-font-size:34px;
-margin:10px 0;
+    font-size:34px;
+
+    margin:10px 0;
 }
 
 .confirm-box p{
-color:#998779;
+    color:#998779;
 }
 
 .order-number{
-font-size:35px;
-font-weight:900;
-margin:25px 0;
+    font-size:35px;
+
+    font-weight:900;
+
+    margin:25px 0;
 }
 
 .info-card{
-text-align:right;
-background:#f4ebe1;
-border-radius:20px;
-padding:16px;
-margin:15px 0 22px;
+    text-align:right;
+
+    background:#f4ebe1;
+
+    border-radius:20px;
+
+    padding:16px;
+
+    margin:15px 0 22px;
 }
 
 .info-row{
-display:flex;
-justify-content:space-between;
-gap:15px;
-padding:8px 0;
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:8px 0;
 }
 
 .info-row span:first-child{
-color:#9a8879;
+    color:#9a8879;
 }
 
 .secondary{
-width:100%;
-border:1px solid #d9cbbd;
-background:#fffaf5;
-color:#302720;
-padding:15px;
-border-radius:16px;
-font-weight:900;
-margin-top:10px;
+    width:100%;
+
+    border:1px solid #d9cbbd;
+
+    background:#fffaf5;
+
+    color:#302720;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    font-weight:900;
+
+    margin-top:10px;
 }
 
 
@@ -631,123 +804,150 @@ margin-top:10px;
 ========================= */
 
 .track-page{
-min-height:100vh;
-padding:25px 18px 50px;
+    min-height:100vh;
+
+    padding:25px 18px 50px;
 }
 
 .track-wrap{
-width:min(650px,100%);
-margin:auto;
+    width:min(650px,100%);
+
+    margin:auto;
 }
 
 .track-title{
-font-size:32px;
-font-weight:900;
-margin-bottom:25px;
+    font-size:32px;
+
+    font-weight:900;
+
+    margin-bottom:25px;
 }
 
 .track-form{
-background:#fffaf5;
-border:1px solid #e0d4c8;
-border-radius:24px;
-padding:20px;
+    background:#fffaf5;
+
+    border:1px solid #e0d4c8;
+
+    border-radius:24px;
+
+    padding:20px;
 }
 
 .track-form input{
-width:100%;
-padding:16px;
-border:1px solid #ddd0c3;
-border-radius:15px;
-background:#f8f1e8;
-font-size:17px;
-margin-bottom:10px;
+    width:100%;
+
+    padding:16px;
+
+    border:1px solid #ddd0c3;
+
+    border-radius:15px;
+
+    background:#f8f1e8;
+
+    font-size:17px;
+
+    margin-bottom:10px;
 }
 
 .steps{
-margin-top:25px;
-background:#fffaf5;
-border:1px solid #e0d4c8;
-border-radius:25px;
-padding:25px;
+    margin-top:25px;
+
+    background:#fffaf5;
+
+    border:1px solid #e0d4c8;
+
+    border-radius:25px;
+
+    padding:25px;
 }
 
 .step{
-display:flex;
-align-items:center;
-gap:15px;
-padding:15px 0;
-position:relative;
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 0;
+
+    position:relative;
 }
 
 .step:not(:last-child):after{
-content:"";
-position:absolute;
-right:18px;
-top:50px;
-height:30px;
-border-right:2px dashed #d8c9ba;
+    content:"";
+
+    position:absolute;
+
+    right:18px;
+
+    top:50px;
+
+    height:30px;
+
+    border-right:2px dashed #d8c9ba;
 }
 
 .step-dot{
-width:38px;
-height:38px;
-border-radius:50%;
-background:#e7dcd0;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:900;
-z-index:2;
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:#e7dcd0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:900;
+
+    z-index:2;
 }
 
 .step.active .step-dot{
-background:#4b2d20;
-color:white;
+    background:#4b2d20;
+
+    color:white;
 }
 
 .step.done .step-dot{
-background:#315d39;
-color:white;
+    background:#315d39;
+
+    color:white;
 }
 
 .step-text{
-font-weight:900;
+    font-weight:900;
 }
 
 .track-result{
-margin-top:20px;
-}
-
-.error{
-background:#f3d8d3;
-color:#783d35;
-padding:14px;
-border-radius:15px;
-margin-top:12px;
+    margin-top:20px;
 }
 
 
 /* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 
 @media(max-width:650px){
 
-.brand-name{
-font-size:65px;
-}
+    .brand-name{
+        font-size:65px;
+    }
 
-.products{
-grid-template-columns:1fr;
-}
+    .products{
+        grid-template-columns:1fr;
+    }
 
-.product-image{
-height:210px;
-}
+    .product-image{
+        height:210px;
+    }
 
-.mode-text h2{
-font-size:23px;
-}
+    .mode-text h2{
+        font-size:23px;
+    }
 
 }
 
@@ -756,8 +956,6 @@ font-size:23px;
 
 
 <body>
-
-<div class="app">
 
 
 <!-- =========================
@@ -768,24 +966,37 @@ HOME
 
 <div class="home">
 
-<button class="language" onclick="toggleLanguage()">
+<button
+class="language"
+onclick="toggleLanguage()"
+>
+
 <span id="langButton">EN</span>
+
 </button>
+
 
 <div class="brand">
 
-<h1 class="brand-name" id="brandName">
+<h1 class="brand-name">
 برني
 </h1>
 
-<div class="brand-subtitle" id="brandSubtitle"></div>
+<div
+class="brand-subtitle"
+id="brandSubtitle"
+></div>
 
 </div>
 
 
 <div class="home-options">
 
-<button class="mode-button" onclick="startOrder('cafe')">
+
+<button
+class="mode-button"
+onclick="startOrder('cafe')"
+>
 
 <div class="mode-text">
 
@@ -806,7 +1017,10 @@ HOME
 </button>
 
 
-<button class="mode-button" onclick="startOrder('car')">
+<button
+class="mode-button"
+onclick="startOrder('car')"
+>
 
 <div class="mode-text">
 
@@ -826,6 +1040,7 @@ HOME
 
 </button>
 
+
 </div>
 
 
@@ -843,11 +1058,17 @@ BARnI CAFE
 MENU
 ========================= -->
 
-<section id="menuPage" class="page menu-page">
+<section
+id="menuPage"
+class="page menu-page"
+>
 
 <div class="topbar">
 
-<button class="back" onclick="goHome()">
+<button
+class="back"
+onclick="goHome()"
+>
 ×
 </button>
 
@@ -855,12 +1076,21 @@ MENU
 برني
 </div>
 
-<button class="cart-button" onclick="openCart()">
+<button
+class="cart-button"
+onclick="openCart()"
+>
 
 🛒
-<span id="cartLabel">السلة</span>
 
-<span class="cart-count" id="cartCount">
+<span id="cartLabel">
+السلة
+</span>
+
+<span
+class="cart-count"
+id="cartCount"
+>
 0
 </span>
 
@@ -884,9 +1114,16 @@ MENU
 </div>
 
 
-<div class="categories" id="categories"></div>
+<div
+class="categories"
+id="categories"
+></div>
 
-<div class="products" id="products"></div>
+
+<div
+class="products"
+id="products"
+></div>
 
 </div>
 
@@ -898,7 +1135,10 @@ MENU
 CART
 ========================= -->
 
-<div class="panel" id="cartPanel">
+<div
+class="panel"
+id="cartPanel"
+>
 
 <div class="panel-box">
 
@@ -908,18 +1148,25 @@ CART
 السلة
 </h2>
 
-<button class="close" onclick="closeCart()">
+<button
+class="close"
+onclick="closeCart()"
+>
 ×
 </button>
 
 </div>
 
 
-<div id="cartItems" class="cart-items"></div>
+<div
+id="cartItems"
+class="cart-items"
+></div>
+
 
 <div class="total">
 
-<span id="totalText">
+<span>
 المجموع
 </span>
 
@@ -929,11 +1176,13 @@ CART
 
 </div>
 
-<button class="primary" onclick="goToOrderForm()">
 
-<span id="checkoutText">
+<button
+class="primary"
+onclick="goToOrderForm()"
+>
+
 إتمام الطلب
-</span>
 
 </button>
 
@@ -947,11 +1196,17 @@ CART
 ORDER FORM
 ========================= -->
 
-<section id="formPage" class="page form-page">
+<section
+id="formPage"
+class="page form-page"
+>
 
 <div class="topbar">
 
-<button class="back" onclick="showPage('menuPage')">
+<button
+class="back"
+onclick="showPage('menuPage')"
+>
 ←
 </button>
 
@@ -966,12 +1221,15 @@ ORDER FORM
 
 <div class="form-wrap">
 
-<div class="form-title" id="formTitle">
+<div class="form-title">
 بيانات الطلب
 </div>
 
 
-<div id="cafeField" class="field">
+<div
+id="cafeField"
+class="field"
+>
 
 <label>
 رقم الطاولة <span class="required">*</span>
@@ -987,7 +1245,10 @@ placeholder="مثال: 12"
 </div>
 
 
-<div id="carField" class="field hidden">
+<div
+id="carField"
+class="field hidden"
+>
 
 <label>
 وصف السيارة <span class="required">*</span>
@@ -1034,13 +1295,14 @@ placeholder="أي ملاحظات على الطلب..."
 
 <button
 class="primary submit"
-onclick="submitOrder()"
 id="submitButton"
+onclick="submitOrder()"
 >
 
 تأكيد الطلب ✓
 
 </button>
+
 
 <div id="formError"></div>
 
@@ -1051,10 +1313,13 @@ id="submitButton"
 
 
 <!-- =========================
-CONFIRM
+CONFIRMATION
 ========================= -->
 
-<section id="confirmPage" class="page confirm-page">
+<section
+id="confirmPage"
+class="page confirm-page"
+>
 
 <div class="confirm-box">
 
@@ -1066,20 +1331,25 @@ CONFIRM
 ORDER RECEIVED
 </div>
 
-<h1 id="confirmTitle">
+<h1>
 تم استلام طلبك
 </h1>
 
-<p id="confirmDescription">
+<p>
 طلبك وصل لبرني، احتفظ برقم الطلب عشان تتابعه.
 </p>
 
-<div class="order-number" id="confirmedNumber">
+
+<div
+class="order-number"
+id="confirmedNumber"
+>
 #-----
 </div>
 
 
 <div class="info-card">
+
 
 <div class="info-row">
 
@@ -1119,13 +1389,13 @@ ORDER RECEIVED
 
 </div>
 
+
 </div>
 
 
 <button
 class="primary"
 onclick="openTracking()"
-id="viewOrderButton"
 >
 رؤية الطلب
 </button>
@@ -1134,7 +1404,6 @@ id="viewOrderButton"
 <button
 class="secondary"
 onclick="goHome()"
-id="homeButton"
 >
 العودة للرئيسية
 </button>
@@ -1146,10 +1415,13 @@ id="homeButton"
 
 
 <!-- =========================
-TRACK
+TRACKING
 ========================= -->
 
-<section id="trackPage" class="page track-page">
+<section
+id="trackPage"
+class="page track-page"
+>
 
 <div class="track-wrap">
 
@@ -1178,16 +1450,24 @@ onclick="trackOrder()"
 تتبع الطلب
 </button>
 
+
 <div id="trackError"></div>
 
 </div>
 
 
-<div id="trackResult" class="track-result hidden">
+<div
+id="trackResult"
+class="track-result hidden"
+>
 
 <div class="steps">
 
-<div class="step" data-status="received">
+
+<div
+class="step"
+data-status="received"
+>
 
 <div class="step-dot">
 ✓
@@ -1200,7 +1480,10 @@ onclick="trackOrder()"
 </div>
 
 
-<div class="step" data-status="preparing">
+<div
+class="step"
+data-status="preparing"
+>
 
 <div class="step-dot">
 2
@@ -1213,7 +1496,10 @@ onclick="trackOrder()"
 </div>
 
 
-<div class="step" data-status="ready">
+<div
+class="step"
+data-status="ready"
+>
 
 <div class="step-dot">
 3
@@ -1226,7 +1512,10 @@ onclick="trackOrder()"
 </div>
 
 
-<div class="step" data-status="delivered">
+<div
+class="step"
+data-status="delivered"
+>
 
 <div class="step-dot">
 4
@@ -1238,6 +1527,7 @@ onclick="trackOrder()"
 
 </div>
 
+
 </div>
 
 </div>
@@ -1247,15 +1537,12 @@ onclick="trackOrder()"
 </section>
 
 
-</div>
-
-
 
 <script>
 
-/* =====================================
+/* =========================
    SUPABASE
-===================================== */
+========================= */
 
 const SUPABASE_URL =
 "https://yxojtouxwoztjwtmzbys.supabase.co";
@@ -1265,105 +1552,105 @@ const SUPABASE_KEY =
 
 const sb =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
-/* =====================================
-   DATA
-===================================== */
+/* =========================
+   PRODUCTS
+========================= */
 
 const products = [
 
 {
-id:1,
-category:"coffee",
-name:"سبانش لاتيه",
-en:"Spanish Latte",
-description:"قهوة إسبريسو مع الحليب ولمسة حلوة",
-price:1.700,
-emoji:"☕"
+    id:1,
+    category:"coffee",
+    name:"سبانش لاتيه",
+    en:"Spanish Latte",
+    description:"قهوة إسبريسو مع الحليب ولمسة حلوة",
+    price:1.700,
+    emoji:"☕"
 },
 
 {
-id:2,
-category:"coffee",
-name:"لاتيه",
-en:"Latte",
-description:"إسبريسو وحليب كريمي",
-price:1.500,
-emoji:"☕"
+    id:2,
+    category:"coffee",
+    name:"لاتيه",
+    en:"Latte",
+    description:"إسبريسو وحليب كريمي",
+    price:1.500,
+    emoji:"☕"
 },
 
 {
-id:3,
-category:"coffee",
-name:"كابتشينو",
-en:"Cappuccino",
-description:"إسبريسو وحليب ورغوة ناعمة",
-price:1.500,
-emoji:"☕"
+    id:3,
+    category:"coffee",
+    name:"كابتشينو",
+    en:"Cappuccino",
+    description:"إسبريسو وحليب ورغوة ناعمة",
+    price:1.500,
+    emoji:"☕"
 },
 
 {
-id:4,
-category:"coffee",
-name:"أمريكانو",
-en:"Americano",
-description:"إسبريسو مع الماء",
-price:1.200,
-emoji:"☕"
+    id:4,
+    category:"coffee",
+    name:"أمريكانو",
+    en:"Americano",
+    description:"إسبريسو مع الماء",
+    price:1.200,
+    emoji:"☕"
 },
 
 {
-id:5,
-category:"cold",
-name:"آيس لاتيه",
-en:"Iced Latte",
-description:"لاتيه بارد مع الثلج",
-price:1.600,
-emoji:"🧊"
+    id:5,
+    category:"cold",
+    name:"آيس لاتيه",
+    en:"Iced Latte",
+    description:"لاتيه بارد مع الثلج",
+    price:1.600,
+    emoji:"🧊"
 },
 
 {
-id:6,
-category:"cold",
-name:"آيس سبانش لاتيه",
-en:"Iced Spanish Latte",
-description:"سبانش لاتيه بارد",
-price:1.800,
-emoji:"🧊"
+    id:6,
+    category:"cold",
+    name:"آيس سبانش لاتيه",
+    en:"Iced Spanish Latte",
+    description:"سبانش لاتيه بارد",
+    price:1.800,
+    emoji:"🧊"
 },
 
 {
-id:7,
-category:"dessert",
-name:"كرواسون",
-en:"Croissant",
-description:"كرواسون طازج",
-price:1.200,
-emoji:"🥐"
+    id:7,
+    category:"dessert",
+    name:"كرواسون",
+    en:"Croissant",
+    description:"كرواسون طازج",
+    price:1.200,
+    emoji:"🥐"
 },
 
 {
-id:8,
-category:"dessert",
-name:"كوكيز",
-en:"Cookies",
-description:"كوكيز طازجة",
-price:0.900,
-emoji:"🍪"
+    id:8,
+    category:"dessert",
+    name:"كوكيز",
+    en:"Cookies",
+    description:"كوكيز طازجة",
+    price:0.900,
+    emoji:"🍪"
 },
 
 {
-id:9,
-category:"other",
-name:"ماء",
-en:"Water",
-description:"مياه معدنية",
-price:0.300,
-emoji:"💧"
+    id:9,
+    category:"other",
+    name:"ماء",
+    en:"Water",
+    description:"مياه معدنية",
+    price:0.300,
+    emoji:"💧"
 }
 
 ];
@@ -1372,33 +1659,33 @@ emoji:"💧"
 const categories = [
 
 {
-id:"all",
-ar:"الكل",
-en:"All"
+    id:"all",
+    ar:"الكل",
+    en:"All"
 },
 
 {
-id:"coffee",
-ar:"القهوة",
-en:"Coffee"
+    id:"coffee",
+    ar:"القهوة",
+    en:"Coffee"
 },
 
 {
-id:"cold",
-ar:"بارد",
-en:"Cold"
+    id:"cold",
+    ar:"بارد",
+    en:"Cold"
 },
 
 {
-id:"dessert",
-ar:"حلويات",
-en:"Desserts"
+    id:"dessert",
+    ar:"حلويات",
+    en:"Desserts"
 },
 
 {
-id:"other",
-ar:"أخرى",
-en:"Other"
+    id:"other",
+    ar:"أخرى",
+    en:"Other"
 }
 
 ];
@@ -1415,917 +1702,1283 @@ let currentOrder = null;
 let english = false;
 
 
-/* =====================================
-   AUTH
-===================================== */
-
-async function ensureAuth(){
-
-const {
-data:{
-session
-}
-} = await sb.auth.getSession();
-
-if(session){
-return session;
-}
-
-const {
-data,
-error
-} = await sb.auth.signInAnonymously();
-
-if(error){
-
-console.error(error);
-
-throw error;
-
-}
-
-return data.session;
-
-}
-
-
-/* =====================================
-   PAGE
-===================================== */
+/* =========================
+   PAGE SYSTEM
+========================= */
 
 function showPage(id){
 
-document
-.querySelectorAll(".page")
-.forEach(page=>{
-page.classList.remove("active");
-});
+    /*
+       أول شيء نخفي كل الصفحات بالقوة.
+       هذا يمنع ظهور صفحة البيانات
+       مع صفحة التأكيد في نفس الوقت.
+    */
 
-document
-.getElementById(id)
-.classList.add("active");
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
 
-window.scrollTo(0,0);
+            page.classList.remove("active");
+
+            page.style.display = "none";
+
+        });
+
+
+    const target =
+        document.getElementById(id);
+
+
+    if(!target){
+        return;
+    }
+
+
+    target.classList.add("active");
+
+
+    /*
+       صفحة التأكيد تحتاج flex
+       حتى تكون في المنتصف.
+    */
+
+    if(id === "confirmPage"){
+
+        target.style.display = "flex";
+
+    }else{
+
+        target.style.display = "block";
+
+    }
+
+
+    window.scrollTo(0,0);
 
 }
 
 
 function goHome(){
 
-showPage("homePage");
+    /*
+       تنظيف رسالة الخطأ القديمة
+    */
+
+    document.getElementById("formError").innerHTML = "";
+
+    document.getElementById("trackError").innerHTML = "";
+
+    showPage("homePage");
 
 }
 
+
+/* =========================
+   AUTH
+========================= */
+
+async function ensureAuth(){
+
+    const {
+        data:{
+            session
+        }
+    } = await sb.auth.getSession();
+
+
+    if(session){
+        return session;
+    }
+
+
+    const {
+        data,
+        error
+    } =
+    await sb.auth.signInAnonymously();
+
+
+    if(error){
+        throw error;
+    }
+
+
+    return data.session;
+
+}
+
+
+/* =========================
+   START ORDER
+========================= */
 
 function startOrder(mode){
 
-orderMode=mode;
+    orderMode = mode;
 
-cart=[];
+    cart = [];
 
-updateCartCount();
+    currentCategory = "all";
 
-renderCategories();
+    updateCartCount();
 
-renderProducts();
+    renderCategories();
 
-document
-.getElementById("cafeField")
-.classList.toggle(
-"hidden",
-mode!=="cafe"
-);
+    renderProducts();
 
-document
-.getElementById("carField")
-.classList.toggle(
-"hidden",
-mode!=="car"
-);
 
-showPage("menuPage");
+    document
+        .getElementById("cafeField")
+        .classList.toggle(
+            "hidden",
+            mode !== "cafe"
+        );
+
+
+    document
+        .getElementById("carField")
+        .classList.toggle(
+            "hidden",
+            mode !== "car"
+        );
+
+
+    document.getElementById("formError")
+        .innerHTML = "";
+
+
+    showPage("menuPage");
 
 }
 
 
-/* =====================================
+/* =========================
    LANGUAGE
-===================================== */
+========================= */
 
 function toggleLanguage(){
 
-english=!english;
+    english = !english;
 
-document.documentElement.lang =
-english ? "en" : "ar";
 
-document.documentElement.dir =
-english ? "ltr" : "rtl";
+    document.documentElement.lang =
+        english ? "en" : "ar";
 
-document.getElementById("langButton")
-.textContent =
-english ? "AR" : "EN";
 
-document.getElementById("brandSubtitle")
-.textContent =
-english ? "Your coffee, your way." : "";
+    document.documentElement.dir =
+        english ? "ltr" : "rtl";
 
-document.getElementById("insideTitle")
-.textContent =
-english ? "Inside Cafe" : "داخل المقهى";
 
-document.getElementById("insideText")
-.textContent =
-english ? "Order and enjoy your seat" : "اطلب واستمتع بجلستك";
+    document.getElementById("langButton")
+        .textContent =
+        english ? "AR" : "EN";
 
-document.getElementById("carTitle")
-.textContent =
-english ? "Drive Thru" : "من السيارة";
 
-document.getElementById("carText")
-.textContent =
-english ? "Order and collect from your car" : "اطلب واستلم طلبك من السيارة";
+    document.getElementById("brandSubtitle")
+        .textContent =
+        english
+        ? "Your coffee, your way."
+        : "";
 
-document.getElementById("menuTitle")
-.textContent =
-english ? "Menu" : "المنيو";
 
-document.getElementById("menuSubtitle")
-.textContent =
-english ? "Choose your order" : "اختر طلبك";
+    document.getElementById("insideTitle")
+        .textContent =
+        english
+        ? "Inside Cafe"
+        : "داخل المقهى";
 
-document.getElementById("cartLabel")
-.textContent =
-english ? "Cart" : "السلة";
 
-renderCategories();
+    document.getElementById("insideText")
+        .textContent =
+        english
+        ? "Order and enjoy your seat"
+        : "اطلب واستمتع بجلستك";
 
-renderProducts();
+
+    document.getElementById("carTitle")
+        .textContent =
+        english
+        ? "Drive Thru"
+        : "من السيارة";
+
+
+    document.getElementById("carText")
+        .textContent =
+        english
+        ? "Order and collect from your car"
+        : "اطلب واستلم طلبك من السيارة";
+
+
+    document.getElementById("menuTitle")
+        .textContent =
+        english
+        ? "Menu"
+        : "المنيو";
+
+
+    document.getElementById("menuSubtitle")
+        .textContent =
+        english
+        ? "Choose your order"
+        : "اختر طلبك";
+
+
+    document.getElementById("cartLabel")
+        .textContent =
+        english
+        ? "Cart"
+        : "السلة";
+
+
+    renderCategories();
+
+    renderProducts();
 
 }
 
 
-/* =====================================
+/* =========================
    MENU
-===================================== */
+========================= */
 
 function renderCategories(){
 
-const container =
-document.getElementById("categories");
+    const container =
+        document.getElementById("categories");
 
-container.innerHTML =
-categories.map(cat=>`
 
-<button
-class="category ${currentCategory===cat.id?"active":""}"
-onclick="selectCategory('${cat.id}')"
->
+    container.innerHTML =
+        categories
+        .map(category => `
 
-${english ? cat.en : cat.ar}
+            <button
+                class="category ${
+                    currentCategory === category.id
+                    ? "active"
+                    : ""
+                }"
+                onclick="selectCategory('${category.id}')"
+            >
 
-</button>
+                ${
+                    english
+                    ? category.en
+                    : category.ar
+                }
 
-`).join("");
+            </button>
+
+        `)
+        .join("");
 
 }
 
 
 function selectCategory(category){
 
-currentCategory=category;
+    currentCategory = category;
 
-renderCategories();
+    renderCategories();
 
-renderProducts();
+    renderProducts();
 
 }
 
 
 function renderProducts(){
 
-const container =
-document.getElementById("products");
-
-const filtered =
-currentCategory==="all"
-? products
-: products.filter(
-p=>p.category===currentCategory
-);
-
-container.innerHTML =
-filtered.map(product=>`
-
-<div class="product">
-
-<div class="product-image">
-
-${product.emoji}
-
-</div>
+    const container =
+        document.getElementById("products");
 
 
-<div class="product-body">
-
-<div class="product-name">
-
-${english ? product.en : product.name}
-
-</div>
-
-<div class="product-desc">
-
-${english
-? product.en
-: product.description}
-
-</div>
+    const filtered =
+        currentCategory === "all"
+        ? products
+        : products.filter(
+            product =>
+            product.category === currentCategory
+        );
 
 
-<div class="product-bottom">
+    container.innerHTML =
+        filtered
+        .map(product => `
 
-<div class="price">
+            <div class="product">
 
-${product.price.toFixed(3)}
-ر.ع
+                <div class="product-image">
 
-</div>
+                    ${product.emoji}
+
+                </div>
 
 
-<button
-class="add"
-onclick="addToCart(${product.id})"
->
+                <div class="product-body">
 
-${english ? "Add" : "إضافة"}
+                    <div class="product-name">
 
-</button>
+                        ${
+                            english
+                            ? product.en
+                            : product.name
+                        }
 
-</div>
+                    </div>
 
-</div>
 
-</div>
+                    <div class="product-desc">
 
-`).join("");
+                        ${product.description}
+
+                    </div>
+
+
+                    <div class="product-bottom">
+
+                        <div class="price">
+
+                            ${product.price.toFixed(3)}
+                            ر.ع
+
+                        </div>
+
+
+                        <button
+                            class="add"
+                            onclick="addToCart(${product.id})"
+                        >
+
+                            ${
+                                english
+                                ? "Add"
+                                : "إضافة"
+                            }
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
 
 }
 
 
-/* =====================================
+/* =========================
    CART
-===================================== */
+========================= */
 
 function addToCart(id){
 
-const product =
-products.find(p=>p.id===id);
+    const product =
+        products.find(
+            product => product.id === id
+        );
 
-if(!product){
-return;
-}
 
-const existing =
-cart.find(item=>item.id===id);
+    if(!product){
+        return;
+    }
 
-if(existing){
 
-existing.qty++;
+    const existing =
+        cart.find(
+            item => item.id === id
+        );
 
-}else{
 
-cart.push({
-...product,
-qty:1
-});
+    if(existing){
 
-}
+        existing.qty++;
 
-updateCartCount();
+    }else{
+
+        cart.push({
+            ...product,
+            qty:1
+        });
+
+    }
+
+
+    updateCartCount();
 
 }
 
 
 function updateCartCount(){
 
-const count =
-cart.reduce(
-(sum,item)=>sum+item.qty,
-0
-);
+    const count =
+        cart.reduce(
+            (sum,item) =>
+            sum + item.qty,
+            0
+        );
 
-document.getElementById("cartCount")
-.textContent=count;
+
+    document.getElementById("cartCount")
+        .textContent = count;
 
 }
 
 
 function openCart(){
 
-renderCart();
+    renderCart();
 
-document
-.getElementById("cartPanel")
-.classList.add("open");
+    document
+        .getElementById("cartPanel")
+        .classList.add("open");
 
 }
 
 
 function closeCart(){
 
-document
-.getElementById("cartPanel")
-.classList.remove("open");
+    document
+        .getElementById("cartPanel")
+        .classList.remove("open");
 
 }
 
 
 function renderCart(){
 
-const container =
-document.getElementById("cartItems");
-
-if(cart.length===0){
-
-container.innerHTML=`
-
-<div class="empty-cart">
-
-السلة فارغة ☕
-
-</div>
-
-`;
-
-document.getElementById("cartTotal")
-.textContent="0.000 ر.ع";
-
-return;
-
-}
+    const container =
+        document.getElementById("cartItems");
 
 
-container.innerHTML =
-cart.map(item=>`
+    if(cart.length === 0){
 
-<div class="cart-item">
+        container.innerHTML = `
 
-<div class="cart-info">
+            <div class="empty-cart">
 
-<div class="cart-name">
+                السلة فارغة ☕
 
-${english ? item.en : item.name}
+            </div>
 
-</div>
-
-<div class="cart-price">
-
-${item.price.toFixed(3)} ر.ع
-
-</div>
-
-</div>
+        `;
 
 
-<div class="qty">
-
-<button onclick="changeQty(${item.id},-1)">
-−
-</button>
-
-<strong>
-${item.qty}
-</strong>
-
-<button onclick="changeQty(${item.id},1)">
-+
-</button>
-
-</div>
-
-</div>
-
-`).join("");
+        document.getElementById("cartTotal")
+            .textContent =
+            "0.000 ر.ع";
 
 
-document.getElementById("cartTotal")
-.textContent =
-calculateTotal().toFixed(3)+" ر.ع";
+        return;
+
+    }
+
+
+    container.innerHTML =
+        cart
+        .map(item => `
+
+            <div class="cart-item">
+
+                <div class="cart-info">
+
+                    <div class="cart-name">
+
+                        ${
+                            english
+                            ? item.en
+                            : item.name
+                        }
+
+                    </div>
+
+
+                    <div class="cart-price">
+
+                        ${item.price.toFixed(3)}
+                        ر.ع
+
+                    </div>
+
+                </div>
+
+
+                <div class="qty">
+
+                    <button
+                        onclick="changeQty(${item.id},-1)"
+                    >
+                        −
+                    </button>
+
+
+                    <strong>
+                        ${item.qty}
+                    </strong>
+
+
+                    <button
+                        onclick="changeQty(${item.id},1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+
+    document.getElementById("cartTotal")
+        .textContent =
+        calculateTotal().toFixed(3)
+        + " ر.ع";
 
 }
 
 
 function changeQty(id,change){
 
-const item =
-cart.find(x=>x.id===id);
+    const item =
+        cart.find(
+            item => item.id === id
+        );
 
-if(!item){
-return;
-}
 
-item.qty+=change;
+    if(!item){
+        return;
+    }
 
-if(item.qty<=0){
 
-cart=cart.filter(
-x=>x.id!==id
-);
+    item.qty += change;
 
-}
 
-updateCartCount();
+    if(item.qty <= 0){
 
-renderCart();
+        cart =
+            cart.filter(
+                item => item.id !== id
+            );
+
+    }
+
+
+    updateCartCount();
+
+    renderCart();
 
 }
 
 
 function calculateTotal(){
 
-return cart.reduce(
-(sum,item)=>
-sum+(item.price*item.qty),
-0
-);
+    return cart.reduce(
+        (sum,item) =>
+        sum + (item.price * item.qty),
+        0
+    );
 
 }
 
 
 function goToOrderForm(){
 
-if(cart.length===0){
+    if(cart.length === 0){
 
-alert(
-english
-? "Your cart is empty."
-: "السلة فارغة."
-);
+        alert(
+            english
+            ? "Your cart is empty."
+            : "السلة فارغة."
+        );
 
-return;
+        return;
+
+    }
+
+
+    closeCart();
+
+    document.getElementById("formError")
+        .innerHTML = "";
+
+
+    showPage("formPage");
 
 }
 
-closeCart();
 
-showPage("formPage");
-
-}
-
-
-/* =====================================
-   ORDER
-===================================== */
+/* =========================
+   SUBMIT ORDER
+========================= */
 
 async function submitOrder(){
 
-const button =
-document.getElementById("submitButton");
-
-const errorBox =
-document.getElementById("formError");
-
-errorBox.innerHTML="";
+    const button =
+        document.getElementById("submitButton");
 
 
-if(cart.length===0){
+    const errorBox =
+        document.getElementById("formError");
 
-errorBox.innerHTML=
-`<div class="error">السلة فارغة</div>`;
 
-return;
+    /*
+       نمسح أي خطأ قديم.
+    */
+
+    errorBox.innerHTML = "";
+
+
+    if(cart.length === 0){
+
+        errorBox.innerHTML = `
+            <div class="error">
+                السلة فارغة
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
+
+
+    const notes =
+        document.getElementById("notes")
+        .value
+        .trim();
+
+
+    const tableNumber =
+        document.getElementById("tableNumber")
+        .value
+        .trim();
+
+
+    const vehicle =
+        document.getElementById("vehicleDescription")
+        .value
+        .trim();
+
+
+    if(!phone){
+
+        errorBox.innerHTML = `
+            <div class="error">
+                أدخل رقم الهاتف
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    if(
+        orderMode === "cafe"
+        &&
+        !tableNumber
+    ){
+
+        errorBox.innerHTML = `
+            <div class="error">
+                أدخل رقم الطاولة
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    if(
+        orderMode === "car"
+        &&
+        !vehicle
+    ){
+
+        errorBox.innerHTML = `
+            <div class="error">
+                اكتب وصف السيارة
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "جاري إرسال الطلب...";
+
+
+    try{
+
+        /*
+           إنشاء جلسة العميل
+        */
+
+        const session =
+            await ensureAuth();
+
+
+        /*
+           رقم طلب جديد
+        */
+
+        const orderNumber =
+            generateOrderNumber();
+
+
+        /*
+           تجهيز المنتجات
+        */
+
+        const orderItems =
+            cart.map(item => ({
+
+                id:item.id,
+
+                name:item.name,
+
+                name_en:item.en,
+
+                qty:item.qty,
+
+                price:item.price
+
+            }));
+
+
+        /*
+           بيانات الطلب
+        */
+
+        const payload = {
+
+            order_number:orderNumber,
+
+            order_type:orderMode,
+
+            table_number:
+                orderMode === "cafe"
+                ? tableNumber
+                : null,
+
+            vehicle_description:
+                orderMode === "car"
+                ? vehicle
+                : null,
+
+            phone:phone,
+
+            notes:notes,
+
+            items:orderItems,
+
+            total:Number(
+                calculateTotal()
+                .toFixed(3)
+            ),
+
+            status:"received",
+
+            user_id:session.user.id
+
+        };
+
+
+        /*
+           إرسال الطلب إلى Supabase
+        */
+
+        const {
+            data,
+            error
+        } =
+        await sb
+        .from("orders")
+        .insert(payload)
+        .select()
+        .single();
+
+
+        if(error){
+
+            /*
+               نرمي الخطأ الحقيقي
+               بدل الانتقال لصفحة التأكيد.
+            */
+
+            console.error(
+                "SUPABASE ERROR:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        /*
+           فقط إذا نجح الحفظ فعلًا
+           ننتقل إلى التأكيد.
+        */
+
+        currentOrder = data;
+
+
+        /*
+           نمسح الخطأ
+        */
+
+        errorBox.innerHTML = "";
+
+
+        /*
+           نمسح السلة
+        */
+
+        cart = [];
+
+        updateCartCount();
+
+
+        /*
+           عرض صفحة التأكيد فقط
+        */
+
+        showConfirmation(data);
+
+
+    }catch(error){
+
+        console.error(
+            "ORDER ERROR:",
+            error
+        );
+
+
+        /*
+           نبقى في صفحة بيانات الطلب.
+           لا نعرض صفحة التأكيد.
+        */
+
+        showPage("formPage");
+
+
+        errorBox.innerHTML = `
+
+            <div class="error">
+
+                حدث خطأ أثناء إرسال الطلب.
+                تأكد من اتصال الإنترنت وحاول مرة أخرى.
+
+            </div>
+
+        `;
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "تأكيد الطلب ✓";
+
+    }
 
 }
 
 
-const phone =
-document.getElementById("phone")
-.value.trim();
-
-const notes =
-document.getElementById("notes")
-.value.trim();
-
-const tableNumber =
-document.getElementById("tableNumber")
-.value.trim();
-
-const vehicle =
-document.getElementById("vehicleDescription")
-.value.trim();
-
-
-if(!phone){
-
-errorBox.innerHTML=
-`<div class="error">أدخل رقم الهاتف</div>`;
-
-return;
-
-}
-
-
-if(orderMode==="cafe" && !tableNumber){
-
-errorBox.innerHTML=
-`<div class="error">أدخل رقم الطاولة</div>`;
-
-return;
-
-}
-
-
-if(orderMode==="car" && !vehicle){
-
-errorBox.innerHTML=
-`<div class="error">اكتب وصف السيارة</div>`;
-
-return;
-
-}
-
-
-button.disabled=true;
-
-button.textContent=
-english
-? "Sending..."
-: "جاري إرسال الطلب...";
-
-
-try{
-
-const session =
-await ensureAuth();
-
-
-const orderNumber =
-generateOrderNumber();
-
-
-const orderItems =
-cart.map(item=>({
-
-id:item.id,
-
-name:item.name,
-
-name_en:item.en,
-
-qty:item.qty,
-
-price:item.price
-
-}));
-
-
-const payload={
-
-order_number:orderNumber,
-
-order_type:orderMode,
-
-table_number:
-orderMode==="cafe"
-? tableNumber
-:null,
-
-vehicle_description:
-orderMode==="car"
-? vehicle
-:null,
-
-phone:phone,
-
-notes:notes,
-
-items:orderItems,
-
-total:Number(
-calculateTotal().toFixed(3)
-),
-
-status:"received",
-
-user_id:session.user.id
-
-};
-
-
-const {
-data,
-error
-} =
-await sb
-.from("orders")
-.insert(payload)
-.select()
-.single();
-
-
-if(error){
-
-throw error;
-
-}
-
-
-currentOrder=data;
-
-showConfirmation(data);
-
-cart=[];
-
-updateCartCount();
-
-}catch(error){
-
-console.error(error);
-
-errorBox.innerHTML=`
-
-<div class="error">
-
-حدث خطأ أثناء إرسال الطلب.
-تأكد من اتصال الإنترنت وحاول مرة أخرى.
-
-</div>
-
-`;
-
-button.disabled=false;
-
-button.textContent=
-english
-? "Confirm Order ✓"
-: "تأكيد الطلب ✓";
-
-}
-
-}
-
+/* =========================
+   ORDER NUMBER
+========================= */
 
 function generateOrderNumber(){
 
-const random =
-Math.floor(
-10000+
-Math.random()*90000
-);
+    const random =
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
 
-return "B"+random;
+
+    return "B" + random;
 
 }
 
 
-/* =====================================
+/* =========================
    CONFIRMATION
-===================================== */
+========================= */
 
 function showConfirmation(order){
 
-document.getElementById("confirmedNumber")
-.textContent="#"+order.order_number;
+    /*
+       تنظيف أي أخطاء قديمة
+    */
+
+    document.getElementById("formError")
+        .innerHTML = "";
 
 
-document.getElementById("confirmedLocation")
-.textContent=
-order.order_type==="cafe"
-? "طاولة "+order.table_number
-:order.vehicle_description;
+    /*
+       رقم الطلب
+    */
+
+    document.getElementById(
+        "confirmedNumber"
+    )
+    .textContent =
+        "#" + order.order_number;
 
 
-document.getElementById("confirmedPhone")
-.textContent=order.phone;
+    /*
+       طريقة الاستلام
+    */
+
+    document.getElementById(
+        "confirmedLocation"
+    )
+    .textContent =
+
+        order.order_type === "cafe"
+
+        ? "طاولة " + order.table_number
+
+        : order.vehicle_description;
 
 
-document.getElementById("confirmedNotes")
-.textContent=
-order.notes || "لا توجد";
+    /*
+       الهاتف
+    */
+
+    document.getElementById(
+        "confirmedPhone"
+    )
+    .textContent =
+        order.phone;
 
 
-showPage("confirmPage");
+    /*
+       الملاحظة
+    */
+
+    document.getElementById(
+        "confirmedNotes"
+    )
+    .textContent =
+        order.notes || "لا توجد";
+
+
+    /*
+       الانتقال للتأكيد
+       ويختفي نموذج الطلب بالكامل.
+    */
+
+    showPage("confirmPage");
 
 }
 
 
-/* =====================================
+/* =========================
    TRACKING
-===================================== */
+========================= */
 
 function openTracking(){
 
-if(currentOrder){
+    if(currentOrder){
 
-document.getElementById("trackNumber")
-.value=currentOrder.order_number;
+        document.getElementById(
+            "trackNumber"
+        )
+        .value =
+            currentOrder.order_number;
 
-document.getElementById("trackPhone")
-.value=currentOrder.phone;
 
-trackOrder();
+        document.getElementById(
+            "trackPhone"
+        )
+        .value =
+            currentOrder.phone;
 
-}else{
 
-showPage("trackPage");
+        trackOrder();
 
-}
+    }else{
+
+        showPage("trackPage");
+
+    }
 
 }
 
 
 async function trackOrder(){
 
-const number =
-document.getElementById("trackNumber")
-.value.trim()
-.toUpperCase();
-
-const phone =
-document.getElementById("trackPhone")
-.value.trim();
-
-const errorBox =
-document.getElementById("trackError");
-
-errorBox.innerHTML="";
+    const number =
+        document.getElementById(
+            "trackNumber"
+        )
+        .value
+        .trim()
+        .toUpperCase();
 
 
-if(!number || !phone){
-
-errorBox.innerHTML=
-`<div class="error">أدخل رقم الطلب ورقم الهاتف</div>`;
-
-return;
-
-}
+    const phone =
+        document.getElementById(
+            "trackPhone"
+        )
+        .value
+        .trim();
 
 
-try{
-
-const session =
-await ensureAuth();
-
-
-const {
-data,
-error
-} =
-await sb
-.from("orders")
-.select("*")
-.eq("order_number",number)
-.eq("phone",phone)
-.eq("user_id",session.user.id)
-.single();
+    const errorBox =
+        document.getElementById(
+            "trackError"
+        );
 
 
-if(error || !data){
-
-throw new Error("Order not found");
-
-}
+    errorBox.innerHTML = "";
 
 
-currentOrder=data;
+    if(!number || !phone){
 
-renderTracking(data);
+        errorBox.innerHTML = `
+            <div class="error">
+                أدخل رقم الطلب ورقم الهاتف
+            </div>
+        `;
 
-}catch(error){
+        return;
 
-document
-.getElementById("trackResult")
-.classList.add("hidden");
+    }
 
-errorBox.innerHTML=
-`<div class="error">
-لم يتم العثور على الطلب.
-تأكد من رقم الطلب ورقم الهاتف.
-</div>`;
 
-}
+    try{
+
+        const session =
+            await ensureAuth();
+
+
+        const {
+            data,
+            error
+        } =
+        await sb
+        .from("orders")
+        .select("*")
+        .eq(
+            "order_number",
+            number
+        )
+        .eq(
+            "phone",
+            phone
+        )
+        .eq(
+            "user_id",
+            session.user.id
+        )
+        .single();
+
+
+        if(error || !data){
+
+            throw new Error(
+                "Order not found"
+            );
+
+        }
+
+
+        currentOrder = data;
+
+
+        renderTracking(data);
+
+
+    }catch(error){
+
+        console.error(
+            "TRACK ERROR:",
+            error
+        );
+
+
+        document
+        .getElementById("trackResult")
+        .classList
+        .add("hidden");
+
+
+        errorBox.innerHTML = `
+
+            <div class="error">
+
+                لم يتم العثور على الطلب.
+                تأكد من رقم الطلب ورقم الهاتف.
+
+            </div>
+
+        `;
+
+    }
 
 }
 
 
 function renderTracking(order){
 
-const statuses=[
-"received",
-"preparing",
-"ready",
-"delivered"
-];
+    const statuses = [
 
-const currentIndex =
-statuses.indexOf(order.status);
+        "received",
+
+        "preparing",
+
+        "ready",
+
+        "delivered"
+
+    ];
 
 
-document
-.querySelectorAll(".step")
-.forEach((step,index)=>{
+    const currentIndex =
+        statuses.indexOf(
+            order.status
+        );
 
-step.classList.remove(
-"active",
-"done"
-);
 
-if(index<currentIndex){
+    document
+    .querySelectorAll(".step")
+    .forEach(
+        (step,index) => {
 
-step.classList.add("done");
+            step.classList.remove(
+                "active",
+                "done"
+            );
+
+
+            if(index < currentIndex){
+
+                step.classList.add(
+                    "done"
+                );
+
+            }
+
+
+            if(index === currentIndex){
+
+                step.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    document
+    .getElementById("trackResult")
+    .classList
+    .remove("hidden");
+
+
+    showPage("trackPage");
 
 }
 
-if(index===currentIndex){
 
-step.classList.add("active");
+/* =========================
+   REALTIME
+========================= */
 
-}
-
-});
-
-
-document
-.getElementById("trackResult")
-.classList.remove("hidden");
-
-showPage("trackPage");
-
-}
-
-
-/* =====================================
-   REALTIME TRACKING
-===================================== */
-
-let realtimeChannel=null;
+let realtimeChannel = null;
 
 
 async function listenToCurrentOrder(){
 
-if(!currentOrder){
-return;
+    if(!currentOrder){
+        return;
+    }
+
+
+    if(realtimeChannel){
+
+        await sb.removeChannel(
+            realtimeChannel
+        );
+
+    }
+
+
+    realtimeChannel =
+        sb
+        .channel(
+            "order-" +
+            currentOrder.id
+        )
+        .on(
+            "postgres_changes",
+            {
+                event:"UPDATE",
+                schema:"public",
+                table:"orders",
+                filter:
+                    "id=eq." +
+                    currentOrder.id
+            },
+            payload => {
+
+                currentOrder =
+                    payload.new;
+
+
+                renderTracking(
+                    payload.new
+                );
+
+            }
+        )
+        .subscribe();
+
 }
 
-if(realtimeChannel){
 
-await sb.removeChannel(
-realtimeChannel
-);
-
-}
-
-
-realtimeChannel =
-sb.channel(
-"order-"+currentOrder.id
-)
-.on(
-"postgres_changes",
-{
-event:"UPDATE",
-schema:"public",
-table:"orders",
-filter:"id=eq."+currentOrder.id
-},
-payload=>{
-
-currentOrder=payload.new;
-
-renderTracking(
-payload.new
-);
-
-}
-)
-.subscribe();
-
-}
-
-
-/* =====================================
-   START
-===================================== */
+/* =========================
+   INIT
+========================= */
 
 async function init(){
 
-try{
+    try{
 
-await ensureAuth();
+        await ensureAuth();
 
-}catch(error){
+    }catch(error){
 
-console.error(
-"Authentication error:",
-error
-);
+        console.error(
+            "AUTH ERROR:",
+            error
+        );
 
-}
+    }
 
-renderCategories();
 
-renderProducts();
+    renderCategories();
+
+    renderProducts();
 
 }
 
