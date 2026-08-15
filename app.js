@@ -165,3 +165,4 @@ if(sb){
   }).subscribe();
 }
 renderCategories();renderProducts();renderCart();
+setTimeout(()=>$("splash").classList.add("hidden"),1800);
