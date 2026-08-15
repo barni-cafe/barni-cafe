@@ -107,3 +107,9 @@ footer{border-top:1px solid var(--line);padding:30px 5vw;display:flex;align-item
 .success.hidden {
   display: none !important;
 }
+.success,
+.success.hidden {
+    display: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
