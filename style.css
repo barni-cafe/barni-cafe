@@ -101,3 +101,6 @@ footer{border-top:1px solid var(--line);padding:30px 5vw;display:flex;align-item
 .empty{color:#8f7c6c;text-align:center;padding:30px}
 @media(max-width:850px){.topbar nav{display:none}.hero{padding:70px 6vw;min-height:auto}.hero-card{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}.track-form{grid-template-columns:1fr}.about{grid-template-columns:1fr;gap:30px}.section{padding:75px 6vw}}
 @media(max-width:560px){.topbar{padding:0 18px}.brand img{width:105px}.hero h1{font-size:44px}.section-head{display:block}.search-wrap{margin-top:18px}.search-wrap input{width:100%}.product-grid{grid-template-columns:1fr}.track-card,.modal-card{padding:24px}.steps{gap:2px}.track-meta{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}footer{gap:15px;flex-wrap:wrap}}
+[hidden] {
+  display: none !important;
+}
