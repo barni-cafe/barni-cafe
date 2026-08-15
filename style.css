@@ -104,3 +104,6 @@ footer{border-top:1px solid var(--line);padding:30px 5vw;display:flex;align-item
 [hidden] {
   display: none !important;
 }
+.success.hidden {
+  display: none !important;
+}
