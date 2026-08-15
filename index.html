@@ -1,2295 +1,1957 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>برني كافيه</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
-    margin:0;
-    min-height:100%;
-    background:#f5efe7;
-    color:#302720;
-    font-family:"Cairo",sans-serif;
+margin:0;
+min-height:100%;
+background:#f5efe7;
+color:#302720;
+font-family:"Cairo",sans-serif
 }
 
-body{
-    overflow-x:hidden;
-}
+body{overflow-x:hidden}
+button,input,textarea{font-family:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
-button,
-input,
-textarea{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none !important;
-}
-
-
-/* =========================
-   شاشة البداية
-========================= */
-
+/* البداية */
 .splash{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:#f5efe7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    animation:splashHide 1.2s ease 1.8s forwards;
+position:fixed;
+inset:0;
+z-index:9999;
+background:#f5efe7;
+display:flex;
+align-items:center;
+justify-content:center;
+animation:hideSplash 1.2s ease 1.8s forwards
 }
 
 .splash-logo{
-    font-size:110px;
-    font-weight:800;
-    letter-spacing:-7px;
-    opacity:0;
-    animation:logoShow 1.2s ease forwards;
+font-size:100px;
+font-weight:800;
+letter-spacing:-6px;
+opacity:0;
+animation:showLogo 1.2s ease forwards
 }
 
-@keyframes logoShow{
-
-    0%{
-        opacity:0;
-        transform:scale(.9);
-    }
-
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
-
+@keyframes showLogo{
+from{opacity:0;transform:scale(.9)}
+to{opacity:1;transform:scale(1)}
 }
 
-@keyframes splashHide{
-
-    100%{
-        opacity:0;
-        visibility:hidden;
-    }
-
+@keyframes hideSplash{
+to{opacity:0;visibility:hidden}
 }
 
-
-/* =========================
-   الرئيسية
-========================= */
-
+/* الرئيسية */
 .home{
-    min-height:100vh;
-    padding:30px 18px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+min-height:100vh;
+padding:30px 18px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center
 }
 
 .brand{
-    text-align:center;
-    margin-bottom:55px;
+text-align:center;
+margin-bottom:55px
 }
 
 .brand h1{
-    margin:0;
-    font-size:90px;
-    font-weight:800;
-    letter-spacing:-6px;
+margin:0;
+font-size:90px;
+font-weight:800;
+letter-spacing:-6px
 }
 
 .options{
-    width:min(560px,100%);
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+width:min(560px,100%);
+display:flex;
+flex-direction:column;
+gap:18px
 }
 
 .option{
-    width:100%;
-    border:1px solid #e1d5c9;
-    background:#fffaf5;
-    border-radius:28px;
-    padding:22px;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    color:#302720;
-    text-align:right;
-    box-shadow:0 12px 30px rgba(70,45,25,.08);
-    transition:.25s;
+width:100%;
+border:1px solid #e1d5c9;
+background:#fffaf5;
+border-radius:28px;
+padding:22px;
+display:flex;
+align-items:center;
+gap:18px;
+color:#302720;
+text-align:right;
+box-shadow:0 12px 30px rgba(70,45,25,.08);
+transition:.25s
 }
 
-.option:hover{
-    transform:translateY(-4px);
-}
+.option:hover{transform:translateY(-4px)}
 
 .icon{
-    width:64px;
-    height:64px;
-    flex-shrink:0;
-    border-radius:20px;
-    background:#eee3d7;
-    display:grid;
-    place-items:center;
-    font-size:31px;
+width:64px;
+height:64px;
+flex-shrink:0;
+border-radius:20px;
+background:#eee3d7;
+display:grid;
+place-items:center;
+font-size:31px
 }
 
 .option strong{
-    display:block;
-    font-size:21px;
+display:block;
+font-size:21px
 }
 
 .option small{
-    display:block;
-    margin-top:4px;
-    color:#9a897b;
-    font-size:12px;
+display:block;
+margin-top:4px;
+color:#9a897b;
+font-size:12px
 }
 
-
-/* =========================
-   التطبيق والمنيو
-========================= */
-
+/* المنيو */
 .app{
-    width:100%;
-    max-width:800px;
-    margin:auto;
-    padding-bottom:120px;
+width:100%;
+max-width:800px;
+margin:auto;
+padding-bottom:120px
 }
 
 .top{
-    height:72px;
-    padding:0 18px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:30;
-    background:rgba(245,239,231,.9);
-    backdrop-filter:blur(14px);
+height:72px;
+padding:0 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:30;
+background:rgba(245,239,231,.9);
+backdrop-filter:blur(14px)
 }
 
 .logo-small{
-    font-size:32px;
-    font-weight:800;
+font-size:32px;
+font-weight:800
 }
 
 .lang{
-    border:1px solid #d9cabe;
-    background:#fffaf5;
-    color:#302720;
-    border-radius:13px;
-    padding:8px 16px;
-    font-weight:800;
-    font-size:14px;
+border:1px solid #d9cabe;
+background:#fffaf5;
+color:#302720;
+border-radius:13px;
+padding:8px 16px;
+font-weight:800
 }
 
 .hero{
-    margin:12px 18px 20px;
-    padding:26px;
-    border-radius:28px;
-    background:#fffaf5;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(70,45,25,.06);
+margin:12px 18px 20px;
+padding:26px;
+border-radius:28px;
+background:#fffaf5;
+text-align:center;
+box-shadow:0 10px 30px rgba(70,45,25,.06)
 }
 
 .hero h2{
-    margin:0;
-    font-size:30px;
+margin:0;
+font-size:30px
 }
 
 .hero p{
-    margin:6px 0 0;
-    color:#9a897b;
-    font-size:13px;
+margin:6px 0 0;
+color:#9a897b;
+font-size:13px
 }
 
-
-/* =========================
-   التصنيفات
-========================= */
-
+/* التصنيفات */
 .categories{
-    display:flex;
-    gap:9px;
-    padding:0 18px 20px;
-    overflow-x:auto;
-    scrollbar-width:none;
+display:flex;
+gap:9px;
+padding:0 18px 20px;
+overflow-x:auto;
+scrollbar-width:none
 }
 
-.categories::-webkit-scrollbar{
-    display:none;
-}
+.categories::-webkit-scrollbar{display:none}
 
 .cat{
-    flex-shrink:0;
-    border:1px solid #dfd2c5;
-    background:#fffaf5;
-    color:#302720;
-    border-radius:20px;
-    padding:10px 17px;
-    font-size:12px;
+flex-shrink:0;
+border:1px solid #dfd2c5;
+background:#fffaf5;
+color:#302720;
+border-radius:20px;
+padding:10px 17px;
+font-size:12px
 }
 
 .cat.active{
-    background:#4a2b1d;
-    border-color:#4a2b1d;
-    color:white;
+background:#4a2b1d;
+border-color:#4a2b1d;
+color:white
 }
 
-
-/* =========================
-   المنتجات
-========================= */
-
+/* المنتجات */
 .products{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-    padding:0 18px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+padding:0 18px
 }
 
 .product{
-    background:#fffaf5;
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 8px 25px rgba(70,45,25,.07);
+background:#fffaf5;
+border-radius:22px;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(70,45,25,.07)
 }
 
 .product-img{
-    height:155px;
-    display:grid;
-    place-items:center;
-    font-size:70px;
-    background:linear-gradient(135deg,#eee2d6,#d8c3b1);
+height:155px;
+display:grid;
+place-items:center;
+font-size:70px;
+background:linear-gradient(135deg,#eee2d6,#d8c3b1)
 }
 
-.info{
-    padding:14px;
-}
+.info{padding:14px}
 
 .name{
-    font-size:15px;
-    font-weight:800;
+font-size:15px;
+font-weight:800
 }
 
 .desc{
-    margin-top:3px;
-    min-height:30px;
-    color:#9a897b;
-    font-size:10px;
+margin-top:3px;
+min-height:30px;
+color:#9a897b;
+font-size:10px
 }
 
 .bottom{
-    margin-top:11px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+margin-top:11px;
+display:flex;
+align-items:center;
+justify-content:space-between
 }
 
 .price{
-    font-size:13px;
-    font-weight:800;
+font-size:13px;
+font-weight:800
 }
 
 .add{
-    width:36px;
-    height:36px;
-    border:0;
-    border-radius:50%;
-    background:#4a2b1d;
-    color:white;
-    font-size:22px;
+width:36px;
+height:36px;
+border:0;
+border-radius:50%;
+background:#4a2b1d;
+color:white;
+font-size:22px
 }
 
-
-/* =========================
-   السلة السفلية
-========================= */
-
+/* السلة */
 .cart-bar{
-    position:fixed;
-    bottom:15px;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(520px,calc(100% - 26px));
-    padding:11px 13px;
-    border-radius:21px;
-    background:#4a2b1d;
-    color:white;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    z-index:100;
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
+position:fixed;
+bottom:15px;
+left:50%;
+transform:translateX(-50%);
+width:min(520px,calc(100% - 26px));
+padding:11px 13px;
+border-radius:21px;
+background:#4a2b1d;
+color:white;
+display:flex;
+align-items:center;
+gap:12px;
+z-index:100;
+box-shadow:0 15px 35px rgba(0,0,0,.25)
 }
 
-.cart-info{
-    flex:1;
-}
+.cart-info{flex:1}
 
 .cart-info small{
-    display:block;
-    color:#d7c6b9;
-    font-size:10px;
+display:block;
+color:#d7c6b9;
+font-size:10px
 }
 
-.cart-total{
-    font-weight:800;
-}
+.cart-total{font-weight:800}
 
 .cart-open{
-    border:0;
-    border-radius:13px;
-    padding:12px 17px;
-    background:#fffaf5;
-    color:#4a2b1d;
-    font-weight:800;
+border:0;
+border-radius:13px;
+padding:12px 17px;
+background:#fffaf5;
+color:#4a2b1d;
+font-weight:800
 }
 
-
-/* =========================
-   السلة
-========================= */
-
 .overlay{
-    position:fixed;
-    inset:0;
-    z-index:150;
-    background:rgba(0,0,0,.55);
+position:fixed;
+inset:0;
+z-index:150;
+background:rgba(0,0,0,.55)
 }
 
 .cart-sheet{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(620px,100%);
-    max-height:85vh;
-    overflow-y:auto;
-    padding:23px;
-    border-radius:30px 30px 0 0;
-    background:#f5efe7;
-    z-index:151;
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:min(620px,100%);
+max-height:85vh;
+overflow-y:auto;
+padding:23px;
+border-radius:30px 30px 0 0;
+background:#f5efe7;
+z-index:151
 }
 
 .sheet-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+display:flex;
+align-items:center;
+justify-content:space-between
 }
 
-.sheet-head h2{
-    margin:0;
-}
+.sheet-head h2{margin:0}
 
 .close{
-    width:40px;
-    height:40px;
-    border:0;
-    border-radius:50%;
-    background:#e9ded3;
-    font-size:22px;
+width:40px;
+height:40px;
+border:0;
+border-radius:50%;
+background:#e9ded3;
+font-size:22px
 }
 
 .cart-item{
-    margin-top:11px;
-    padding:13px;
-    border-radius:17px;
-    background:#fffaf5;
-    display:flex;
-    align-items:center;
-    gap:11px;
+margin-top:11px;
+padding:13px;
+border-radius:17px;
+background:#fffaf5;
+display:flex;
+align-items:center;
+gap:11px
 }
 
-.cart-item-emoji{
-    font-size:36px;
-}
+.cart-item-emoji{font-size:36px}
+.cart-item-info{flex:1}
 
-.cart-item-info{
-    flex:1;
-}
-
-.cart-item-info strong{
-    display:block;
-}
-
-.cart-item-info small{
-    color:#9a897b;
-}
+.cart-item-info strong{display:block}
+.cart-item-info small{color:#9a897b}
 
 .qty{
-    display:flex;
-    align-items:center;
-    gap:8px;
+display:flex;
+align-items:center;
+gap:8px
 }
 
 .qty button{
-    width:30px;
-    height:30px;
-    border:0;
-    border-radius:50%;
-    background:#4a2b1d;
-    color:white;
-    font-size:17px;
+width:30px;
+height:30px;
+border:0;
+border-radius:50%;
+background:#4a2b1d;
+color:white;
+font-size:17px
 }
 
 .checkout{
-    width:100%;
-    margin-top:15px;
-    border:0;
-    border-radius:16px;
-    padding:15px;
-    background:#4a2b1d;
-    color:white;
-    font-size:15px;
-    font-weight:800;
+width:100%;
+margin-top:15px;
+border:0;
+border-radius:16px;
+padding:15px;
+background:#4a2b1d;
+color:white;
+font-size:15px;
+font-weight:800
 }
 
-
-/* =========================
-   شاشات الطلب
-========================= */
-
+/* بيانات الطلب */
 .fullscreen{
-    position:fixed;
-    inset:0;
-    z-index:300;
-    overflow-y:auto;
-    background:#f5efe7;
+position:fixed;
+inset:0;
+z-index:300;
+overflow-y:auto;
+background:#f5efe7
 }
 
 .order-form{
-    width:min(560px,100%);
-    min-height:100vh;
-    margin:auto;
-    padding:30px 20px 50px;
+width:min(560px,100%);
+min-height:100vh;
+margin:auto;
+padding:30px 20px 50px
 }
 
 .order-head{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin-bottom:35px;
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:35px
 }
 
 .order-head h2{
-    margin:0;
-    font-size:30px;
+margin:0;
+font-size:30px
 }
 
 .order-head button{
-    width:43px;
-    height:43px;
-    border:0;
-    border-radius:50%;
-    background:#e9ded3;
-    font-size:23px;
+width:43px;
+height:43px;
+border:0;
+border-radius:50%;
+background:#e9ded3;
+font-size:23px
 }
 
 .order-form label{
-    display:block;
-    margin-bottom:22px;
-    font-size:17px;
-    font-weight:700;
+display:block;
+margin-bottom:22px;
+font-size:17px;
+font-weight:700
 }
 
 .order-form input,
 .order-form textarea{
-    display:block;
-    width:100%;
-    margin-top:9px;
-    padding:15px;
-    border:1px solid #dfd1c5;
-    border-radius:16px;
-    outline:none;
-    background:#fffaf5;
-    color:#302720;
-    font-size:16px;
+display:block;
+width:100%;
+margin-top:9px;
+padding:15px;
+border:1px solid #dfd1c5;
+border-radius:16px;
+outline:none;
+background:#fffaf5;
+color:#302720;
+font-size:16px
 }
 
 .order-form textarea{
-    min-height:125px;
-    resize:vertical;
+min-height:125px;
+resize:vertical
 }
 
 .confirm-order{
-    width:100%;
-    border:0;
-    border-radius:17px;
-    padding:16px;
-    background:#4a2b1d;
-    color:white;
-    font-size:16px;
-    font-weight:800;
+width:100%;
+border:0;
+border-radius:17px;
+padding:16px;
+background:#4a2b1d;
+color:white;
+font-size:16px;
+font-weight:800
 }
 
-
-/* =========================
-   تأكيد الطلب
-========================= */
-
+/* التأكيد */
 .confirmation-card{
-    width:min(520px,calc(100% - 30px));
-    margin:55px auto;
-    padding:30px 22px;
-    border-radius:30px;
-    background:#fffaf5;
-    text-align:center;
-    box-shadow:0 15px 40px rgba(70,45,25,.09);
+width:min(520px,calc(100% - 30px));
+margin:55px auto;
+padding:30px 22px;
+border-radius:30px;
+background:#fffaf5;
+text-align:center;
+box-shadow:0 15px 40px rgba(70,45,25,.09)
 }
 
 .success-check{
-    width:68px;
-    height:68px;
-    margin:auto;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:#e4f1e5;
-    color:#4d9658;
-    font-size:36px;
-    font-weight:800;
+width:68px;
+height:68px;
+margin:auto;
+border-radius:50%;
+display:grid;
+place-items:center;
+background:#e4f1e5;
+color:#4d9658;
+font-size:36px;
+font-weight:800
 }
 
 .success-label{
-    margin-top:16px;
-    color:#4d9658;
-    font-weight:800;
-    letter-spacing:1px;
+margin-top:16px;
+color:#4d9658;
+font-weight:800
 }
 
 .confirmation-card h2{
-    margin:10px 0;
-    font-size:30px;
+margin:10px 0;
+font-size:30px
 }
 
 .order-number{
-    display:inline-block;
-    margin:10px 0 20px;
-    padding:12px 23px;
-    border-radius:15px;
-    background:#eee3d7;
-    font-size:23px;
-    font-weight:800;
+display:inline-block;
+margin:10px 0 20px;
+padding:12px 23px;
+border-radius:15px;
+background:#eee3d7;
+font-size:23px;
+font-weight:800
 }
 
-.order-details{
-    text-align:right;
-}
+.order-details{text-align:right}
 
 .order-details p{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:12px 0;
-    margin:0;
-    border-bottom:1px solid #eadfd5;
-    font-size:13px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+padding:12px 0;
+margin:0;
+border-bottom:1px solid #eadfd5;
+font-size:13px
 }
 
 .track-order{
-    width:100%;
-    margin-top:22px;
-    border:0;
-    border-radius:16px;
-    padding:15px;
-    background:#4a2b1d;
-    color:white;
-    font-size:15px;
-    font-weight:800;
+width:100%;
+margin-top:22px;
+border:0;
+border-radius:16px;
+padding:15px;
+background:#4a2b1d;
+color:white;
+font-size:15px;
+font-weight:800
 }
 
-
-/* =========================
-   التتبع
-========================= */
-
+/* التتبع */
 .tracking-logo{
-    font-size:55px;
-    font-weight:800;
+font-size:55px;
+font-weight:800
 }
 
 .tracking-number{
-    display:inline-block;
-    margin:10px 0 20px;
-    padding:11px 22px;
-    border-radius:14px;
-    background:#eee3d7;
-    font-size:22px;
-    font-weight:800;
+display:inline-block;
+margin:10px 0 20px;
+padding:11px 22px;
+border-radius:14px;
+background:#eee3d7;
+font-size:22px;
+font-weight:800
 }
 
 .steps{
-    margin-top:15px;
-    text-align:right;
+margin-top:15px;
+text-align:right
 }
 
 .step{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:15px 0;
-    color:#aaa;
+display:flex;
+align-items:center;
+gap:14px;
+padding:15px 0;
+color:#aaa
 }
 
 .step-circle{
-    width:40px;
-    height:40px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:#e7ddd3;
-    display:grid;
-    place-items:center;
-    font-weight:800;
+width:40px;
+height:40px;
+flex-shrink:0;
+border-radius:50%;
+background:#e7ddd3;
+display:grid;
+place-items:center;
+font-weight:800
 }
 
 .step.done{
-    color:#4d9658;
-    font-weight:800;
+color:#4d9658;
+font-weight:800
 }
 
 .step.done .step-circle{
-    background:#4d9658;
-    color:white;
+background:#4d9658;
+color:white
 }
 
 .step.current{
-    color:#4a2b1d;
-    font-weight:800;
+color:#4a2b1d;
+font-weight:800
 }
 
 .step.current .step-circle{
-    background:#4a2b1d;
-    color:white;
+background:#4a2b1d;
+color:white
 }
-
-
-/* =========================
-   الجوال
-========================= */
 
 @media(max-width:560px){
 
-    .brand h1{
-        font-size:70px;
-    }
+.brand h1{font-size:70px}
+.splash-logo{font-size:90px}
 
-    .splash-logo{
-        font-size:90px;
-    }
-
-    .products{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .product-img{
-        height:125px;
-        font-size:57px;
-    }
-
-    .hero h2{
-        font-size:25px;
-    }
-
+.products{
+grid-template-columns:1fr 1fr
 }
 
+.product-img{
+height:125px;
+font-size:57px
+}
+
+.hero h2{font-size:25px}
+
+}
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     البداية
-========================= -->
+<!-- البداية -->
 
 <div class="splash">
-    <div class="splash-logo">برني</div>
+<div class="splash-logo">برني</div>
 </div>
 
 
-<!-- =========================
-     الصفحة الرئيسية
-========================= -->
+<!-- الصفحة الرئيسية -->
 
 <section class="home" id="home">
 
-    <div class="brand">
-        <h1>برني</h1>
-    </div>
+<div class="brand">
+<h1>برني</h1>
+</div>
 
-    <div class="options">
+<div class="options">
 
-        <button class="option" onclick="openMenu('cafe')">
+<button class="option" onclick="openMenu('cafe')">
 
-            <div class="icon">
-                ☕
-            </div>
+<div class="icon">☕</div>
 
-            <div>
-                <strong>داخل المقهى</strong>
-                <small>اطلب واستمتع بجلستك</small>
-            </div>
+<div>
+<strong>داخل المقهى</strong>
+<small>اطلب واستمتع بجلستك</small>
+</div>
 
-        </button>
+</button>
 
 
-        <button class="option" onclick="openMenu('car')">
+<button class="option" onclick="openMenu('car')">
 
-            <div class="icon">
-                🚗
-            </div>
+<div class="icon">🚗</div>
 
-            <div>
-                <strong>من السيارة</strong>
-                <small>اطلب واستلم طلبك من السيارة</small>
-            </div>
+<div>
+<strong>من السيارة</strong>
+<small>اطلب واستلم طلبك من السيارة</small>
+</div>
 
-        </button>
+</button>
 
-    </div>
+</div>
 
 </section>
 
 
-<!-- =========================
-     المنيو
-========================= -->
+<!-- المنيو -->
 
 <section class="app hidden" id="app">
 
-    <header class="top">
+<header class="top">
 
-        <div class="logo-small">
-            برني
-        </div>
+<div class="logo-small">
+برني
+</div>
 
-        <button class="lang" id="langBtn" onclick="toggleLanguage()">
-            EN
-        </button>
+<button class="lang" id="langBtn" onclick="toggleLanguage()">
+EN
+</button>
 
-    </header>
-
-
-    <div class="hero">
-
-        <h2 id="menuTitle">
-            منيو برني
-        </h2>
-
-        <p id="menuSubtitle">
-            اختر قهوتك المفضلة
-        </p>
-
-    </div>
+</header>
 
 
-    <div class="categories" id="categories">
-    </div>
+<div class="hero">
+
+<h2 id="menuTitle">
+منيو برني
+</h2>
+
+<p id="menuSubtitle">
+اختر قهوتك المفضلة
+</p>
+
+</div>
 
 
-    <div class="products" id="products">
-    </div>
+<div class="categories" id="categories"></div>
+
+<div class="products" id="products"></div>
 
 </section>
 
 
-<!-- =========================
-     شريط السلة
-========================= -->
+<!-- شريط السلة -->
 
 <div class="cart-bar hidden" id="cartBar">
 
-    <div class="cart-info">
+<div class="cart-info">
 
-        <small>
-            <span id="cartCount">0</span>
-            أصناف
-        </small>
+<small>
+<span id="cartCount">0</span>
+أصناف
+</small>
 
-        <div class="cart-total" id="cartTotal">
-            0.000 ر.ع
-        </div>
+<div class="cart-total" id="cartTotal">
+0.000 ر.ع
+</div>
 
-    </div>
+</div>
 
-    <button class="cart-open" onclick="openCart()" id="viewCart">
-        السلة
-    </button>
+<button class="cart-open" onclick="openCart()" id="viewCart">
+السلة
+</button>
 
 </div>
 
 
-<!-- =========================
-     نافذة السلة
-========================= -->
+<!-- السلة -->
 
-<div class="overlay hidden" id="overlay" onclick="closeCart()">
-</div>
-
+<div class="overlay hidden" id="overlay" onclick="closeCart()"></div>
 
 <div class="cart-sheet hidden" id="cartSheet">
 
-    <div class="sheet-head">
+<div class="sheet-head">
 
-        <h2 id="cartTitle">
-            السلة
-        </h2>
+<h2 id="cartTitle">
+السلة
+</h2>
 
-        <button class="close" onclick="closeCart()">
-            ×
-        </button>
+<button class="close" onclick="closeCart()">
+×
+</button>
 
-    </div>
+</div>
 
+<div id="cartItems"></div>
 
-    <div id="cartItems">
-    </div>
+<div style="
+display:flex;
+justify-content:space-between;
+margin-top:18px;
+font-weight:800;
+">
 
+<span id="totalText">
+المجموع
+</span>
 
-    <div style="
-        display:flex;
-        justify-content:space-between;
-        margin-top:18px;
-        font-weight:800;
-    ">
+<span id="sheetTotal">
+0.000 ر.ع
+</span>
 
-        <span id="totalText">
-            المجموع
-        </span>
+</div>
 
-        <span id="sheetTotal">
-            0.000 ر.ع
-        </span>
-
-    </div>
-
-
-    <button class="checkout" onclick="checkout()" id="checkoutBtn">
-        إتمام الطلب
-    </button>
+<button class="checkout" onclick="checkout()" id="checkoutBtn">
+إتمام الطلب
+</button>
 
 </div>
 
 
-<!-- =========================
-     بيانات الطلب
-========================= -->
+<!-- بيانات الطلب -->
 
-<div class="fullscreen hidden" id="orderFormScreen">
-</div>
+<div class="fullscreen hidden" id="orderFormScreen"></div>
 
 
-<!-- =========================
-     التأكيد والتتبع
-========================= -->
+<!-- التأكيد والتتبع -->
 
-<div class="fullscreen hidden" id="confirmationScreen">
-</div>
+<div class="fullscreen hidden" id="confirmationScreen"></div>
 
 
 <script>
 
-/* =========================
-   المتغيرات
-========================= */
+/* البيانات */
 
-let language = "ar";
-
-let mode = "cafe";
-
-let currentCategory = "hot";
-
-let cart = [];
-
-let order = null;
+let language="ar";
+let mode="cafe";
+let currentCategory="hot";
+let cart=[];
+let order=null;
 
 
-/* =========================
-   التصنيفات
-========================= */
+const categories={
 
-const categories = {
+ar:[
+["hot","☕","القهوة الساخنة"],
+["cold","🧊","القهوة الباردة"],
+["tea","🍵","الشاي والمشروبات"],
+["dessert","🥐","الحلويات"]
+],
 
-    ar: [
-
-        ["hot","☕","القهوة الساخنة"],
-
-        ["cold","🧊","القهوة الباردة"],
-
-        ["tea","🍵","الشاي والمشروبات"],
-
-        ["dessert","🥐","الحلويات"]
-
-    ],
-
-    en: [
-
-        ["hot","☕","Hot Coffee"],
-
-        ["cold","🧊","Cold Coffee"],
-
-        ["tea","🍵","Tea & Drinks"],
-
-        ["dessert","🥐","Desserts"]
-
-    ]
+en:[
+["hot","☕","Hot Coffee"],
+["cold","🧊","Cold Coffee"],
+["tea","🍵","Tea & Drinks"],
+["dessert","🥐","Desserts"]
+]
 
 };
 
 
-/* =========================
-   المنتجات
-========================= */
+const products=[
 
-const products = [
+{
+id:1,
+cat:"hot",
+ar:"إسبريسو",
+en:"Espresso",
+descAr:"قهوة مركزة وغنية",
+descEn:"Rich and concentrated coffee",
+price:1.200,
+emoji:"☕"
+},
 
-    {
-        id:1,
-        cat:"hot",
-        ar:"إسبريسو",
-        en:"Espresso",
-        descAr:"قهوة مركزة وغنية",
-        descEn:"Rich and concentrated coffee",
-        price:1.200,
-        emoji:"☕"
-    },
+{
+id:2,
+cat:"hot",
+ar:"أمريكانو",
+en:"Americano",
+descAr:"إسبريسو مع الماء الساخن",
+descEn:"Espresso with hot water",
+price:1.300,
+emoji:"☕"
+},
 
-    {
-        id:2,
-        cat:"hot",
-        ar:"أمريكانو",
-        en:"Americano",
-        descAr:"إسبريسو مع الماء الساخن",
-        descEn:"Espresso with hot water",
-        price:1.300,
-        emoji:"☕"
-    },
+{
+id:3,
+cat:"hot",
+ar:"لاتيه",
+en:"Latte",
+descAr:"إسبريسو وحليب ناعم",
+descEn:"Espresso with smooth milk",
+price:1.500,
+emoji:"🥛"
+},
 
-    {
-        id:3,
-        cat:"hot",
-        ar:"لاتيه",
-        en:"Latte",
-        descAr:"إسبريسو وحليب ناعم",
-        descEn:"Espresso with smooth milk",
-        price:1.500,
-        emoji:"🥛"
-    },
+{
+id:4,
+cat:"hot",
+ar:"كابتشينو",
+en:"Cappuccino",
+descAr:"قهوة وحليب ورغوة",
+descEn:"Coffee, milk and foam",
+price:1.500,
+emoji:"☕"
+},
 
-    {
-        id:4,
-        cat:"hot",
-        ar:"كابتشينو",
-        en:"Cappuccino",
-        descAr:"قهوة وحليب ورغوة",
-        descEn:"Coffee, milk and foam",
-        price:1.500,
-        emoji:"☕"
-    },
+{
+id:5,
+cat:"hot",
+ar:"فلات وايت",
+en:"Flat White",
+descAr:"قهوة بحليب كريمي",
+descEn:"Coffee with creamy milk",
+price:1.600,
+emoji:"☕"
+},
 
-    {
-        id:5,
-        cat:"hot",
-        ar:"فلات وايت",
-        en:"Flat White",
-        descAr:"قهوة بحليب كريمي",
-        descEn:"Coffee with creamy milk",
-        price:1.600,
-        emoji:"☕"
-    },
+{
+id:6,
+cat:"hot",
+ar:"سبانش لاتيه",
+en:"Spanish Latte",
+descAr:"لاتيه بطعم حلو وكريمي",
+descEn:"Sweet and creamy latte",
+price:1.700,
+emoji:"🥛"
+},
 
-    {
-        id:6,
-        cat:"hot",
-        ar:"سبانش لاتيه",
-        en:"Spanish Latte",
-        descAr:"لاتيه بطعم حلو وكريمي",
-        descEn:"Sweet and creamy latte",
-        price:1.700,
-        emoji:"🥛"
-    },
+{
+id:7,
+cat:"cold",
+ar:"آيس أمريكانو",
+en:"Iced Americano",
+descAr:"منعش وبارد",
+descEn:"Refreshing and cold",
+price:1.400,
+emoji:"🧊"
+},
 
-    {
-        id:7,
-        cat:"cold",
-        ar:"آيس أمريكانو",
-        en:"Iced Americano",
-        descAr:"منعش وبارد",
-        descEn:"Refreshing and cold",
-        price:1.400,
-        emoji:"🧊"
-    },
+{
+id:8,
+cat:"cold",
+ar:"آيس لاتيه",
+en:"Iced Latte",
+descAr:"لاتيه بارد ومنعش",
+descEn:"Cold and refreshing latte",
+price:1.600,
+emoji:"🥤"
+},
 
-    {
-        id:8,
-        cat:"cold",
-        ar:"آيس لاتيه",
-        en:"Iced Latte",
-        descAr:"لاتيه بارد ومنعش",
-        descEn:"Cold and refreshing latte",
-        price:1.600,
-        emoji:"🥤"
-    },
+{
+id:9,
+cat:"cold",
+ar:"آيس سبانش لاتيه",
+en:"Iced Spanish Latte",
+descAr:"سبانش لاتيه بارد",
+descEn:"Cold Spanish latte",
+price:1.800,
+emoji:"🥤"
+},
 
-    {
-        id:9,
-        cat:"cold",
-        ar:"آيس سبانش لاتيه",
-        en:"Iced Spanish Latte",
-        descAr:"سبانش لاتيه بارد",
-        descEn:"Cold Spanish latte",
-        price:1.800,
-        emoji:"🥤"
-    },
+{
+id:10,
+cat:"cold",
+ar:"كولد برو",
+en:"Cold Brew",
+descAr:"قهوة مستخلصة على البارد",
+descEn:"Slow brewed cold coffee",
+price:1.800,
+emoji:"🧊"
+},
 
-    {
-        id:10,
-        cat:"cold",
-        ar:"كولد برو",
-        en:"Cold Brew",
-        descAr:"قهوة مستخلصة على البارد",
-        descEn:"Slow brewed cold coffee",
-        price:1.800,
-        emoji:"🧊"
-    },
+{
+id:11,
+cat:"cold",
+ar:"آيس موكا",
+en:"Iced Mocha",
+descAr:"قهوة وشوكولاتة باردة",
+descEn:"Cold coffee and chocolate",
+price:1.900,
+emoji:"🍫"
+},
 
-    {
-        id:11,
-        cat:"cold",
-        ar:"آيس موكا",
-        en:"Iced Mocha",
-        descAr:"قهوة وشوكولاتة باردة",
-        descEn:"Cold coffee and chocolate",
-        price:1.900,
-        emoji:"🍫"
-    },
+{
+id:12,
+cat:"tea",
+ar:"شاي كرك",
+en:"Karak Tea",
+descAr:"شاي بالحليب والهيل",
+descEn:"Milk tea with cardamom",
+price:.800,
+emoji:"🍵"
+},
 
-    {
-        id:12,
-        cat:"tea",
-        ar:"شاي كرك",
-        en:"Karak Tea",
-        descAr:"شاي بالحليب والهيل",
-        descEn:"Milk tea with cardamom",
-        price:0.800,
-        emoji:"🍵"
-    },
+{
+id:13,
+cat:"tea",
+ar:"شاي",
+en:"Tea",
+descAr:"شاي كلاسيكي",
+descEn:"Classic tea",
+price:.600,
+emoji:"🍵"
+},
 
-    {
-        id:13,
-        cat:"tea",
-        ar:"شاي",
-        en:"Tea",
-        descAr:"شاي كلاسيكي",
-        descEn:"Classic tea",
-        price:0.600,
-        emoji:"🍵"
-    },
+{
+id:14,
+cat:"tea",
+ar:"ماتشا لاتيه",
+en:"Matcha Latte",
+descAr:"ماتشا مع حليب ناعم",
+descEn:"Matcha with smooth milk",
+price:1.700,
+emoji:"🍵"
+},
 
-    {
-        id:14,
-        cat:"tea",
-        ar:"ماتشا لاتيه",
-        en:"Matcha Latte",
-        descAr:"ماتشا مع حليب ناعم",
-        descEn:"Matcha with smooth milk",
-        price:1.700,
-        emoji:"🍵"
-    },
+{
+id:15,
+cat:"tea",
+ar:"هوت شوكليت",
+en:"Hot Chocolate",
+descAr:"شوكولاتة ساخنة وكريمية",
+descEn:"Rich hot chocolate",
+price:1.500,
+emoji:"🍫"
+},
 
-    {
-        id:15,
-        cat:"tea",
-        ar:"هوت شوكليت",
-        en:"Hot Chocolate",
-        descAr:"شوكولاتة ساخنة وكريمية",
-        descEn:"Rich hot chocolate",
-        price:1.500,
-        emoji:"🍫"
-    },
+{
+id:16,
+cat:"dessert",
+ar:"كرواسون",
+en:"Croissant",
+descAr:"مخبوز طازج وهش",
+descEn:"Fresh and flaky pastry",
+price:1.200,
+emoji:"🥐"
+},
 
-    {
-        id:16,
-        cat:"dessert",
-        ar:"كرواسون",
-        en:"Croissant",
-        descAr:"مخبوز طازج وهش",
-        descEn:"Fresh and flaky pastry",
-        price:1.200,
-        emoji:"🥐"
-    },
+{
+id:17,
+cat:"dessert",
+ar:"كوكيز",
+en:"Cookies",
+descAr:"كوكيز بالشوكولاتة",
+descEn:"Chocolate chip cookies",
+price:.900,
+emoji:"🍪"
+},
 
-    {
-        id:17,
-        cat:"dessert",
-        ar:"كوكيز",
-        en:"Cookies",
-        descAr:"كوكيز بالشوكولاتة",
-        descEn:"Chocolate chip cookies",
-        price:0.900,
-        emoji:"🍪"
-    },
+{
+id:18,
+cat:"dessert",
+ar:"براوني",
+en:"Brownie",
+descAr:"براوني شوكولاتة",
+descEn:"Rich chocolate brownie",
+price:1.200,
+emoji:"🍫"
+},
 
-    {
-        id:18,
-        cat:"dessert",
-        ar:"براوني",
-        en:"Brownie",
-        descAr:"براوني شوكولاتة",
-        descEn:"Rich chocolate brownie",
-        price:1.200,
-        emoji:"🍫"
-    },
+{
+id:19,
+cat:"dessert",
+ar:"تشيزكيك",
+en:"Cheesecake",
+descAr:"تشيزكيك كريمي",
+descEn:"Creamy cheesecake",
+price:1.500,
+emoji:"🍰"
+},
 
-    {
-        id:19,
-        cat:"dessert",
-        ar:"تشيزكيك",
-        en:"Cheesecake",
-        descAr:"تشيزكيك كريمي",
-        descEn:"Creamy cheesecake",
-        price:1.500,
-        emoji:"🍰"
-    },
-
-    {
-        id:20,
-        cat:"dessert",
-        ar:"كيكة اليوم",
-        en:"Cake of the Day",
-        descAr:"اختيارنا اليومي",
-        descEn:"Our daily selection",
-        price:1.400,
-        emoji:"🍰"
-    }
+{
+id:20,
+cat:"dessert",
+ar:"كيكة اليوم",
+en:"Cake of the Day",
+descAr:"اختيارنا اليومي",
+descEn:"Our daily selection",
+price:1.400,
+emoji:"🍰"
+}
 
 ];
 
 
-/* =========================
-   فتح المنيو
-========================= */
+/* فتح المنيو */
 
 function openMenu(selectedMode){
 
-    mode = selectedMode;
+mode=selectedMode;
 
-    document
-        .getElementById("home")
-        .classList.add("hidden");
+document.getElementById("home")
+.classList.add("hidden");
 
-    document
-        .getElementById("app")
-        .classList.remove("hidden");
+document.getElementById("app")
+.classList.remove("hidden");
 
-    renderCategories();
-
-    renderProducts();
+renderCategories();
+renderProducts();
 
 }
 
 
-/* =========================
-   التصنيفات
-========================= */
+/* التصنيفات */
 
 function renderCategories(){
 
-    const list =
-        language === "ar"
-        ? categories.ar
-        : categories.en;
+const list=
+language==="ar"
+?categories.ar
+:categories.en;
 
-    document.getElementById("categories").innerHTML =
+document.getElementById("categories").innerHTML=
 
-        list.map(category => `
+list.map(c=>`
 
-            <button
-                class="cat ${category[0] === currentCategory ? "active" : ""}"
-                onclick="selectCategory('${category[0]}')"
-            >
+<button
+class="cat ${c[0]===currentCategory?"active":""}"
+onclick="selectCategory('${c[0]}')">
 
-                ${category[1]}
-                ${category[2]}
+${c[1]} ${c[2]}
 
-            </button>
+</button>
 
-        `).join("");
+`).join("");
 
 }
 
 
-function selectCategory(category){
+function selectCategory(cat){
 
-    currentCategory = category;
+currentCategory=cat;
 
-    renderCategories();
-
-    renderProducts();
+renderCategories();
+renderProducts();
 
 }
 
 
-/* =========================
-   المنتجات
-========================= */
+/* المنتجات */
 
 function renderProducts(){
 
-    const items =
-        products.filter(
-            product => product.cat === currentCategory
-        );
+const items=
+products.filter(
+p=>p.cat===currentCategory
+);
 
-    document.getElementById("products").innerHTML =
+document.getElementById("products").innerHTML=
 
-        items.map(product => `
+items.map(p=>`
 
-            <article class="product">
+<article class="product">
 
-                <div class="product-img">
-                    ${product.emoji}
-                </div>
+<div class="product-img">
+${p.emoji}
+</div>
 
-                <div class="info">
+<div class="info">
 
-                    <div class="name">
-                        ${language === "ar"
-                            ? product.ar
-                            : product.en}
-                    </div>
+<div class="name">
+${language==="ar"?p.ar:p.en}
+</div>
 
-                    <div class="desc">
-                        ${language === "ar"
-                            ? product.descAr
-                            : product.descEn}
-                    </div>
+<div class="desc">
+${language==="ar"?p.descAr:p.descEn}
+</div>
 
-                    <div class="bottom">
+<div class="bottom">
 
-                        <span class="price">
+<span class="price">
 
-                            ${product.price.toFixed(3)}
+${p.price.toFixed(3)}
+${language==="ar"?"ر.ع":"OMR"}
 
-                            ${language === "ar"
-                                ? "ر.ع"
-                                : "OMR"}
+</span>
 
-                        </span>
+<button
+class="add"
+onclick="addToCart(${p.id})">
 
-                        <button
-                            class="add"
-                            onclick="addToCart(${product.id})"
-                        >
-                            +
-                        </button>
++
 
-                    </div>
+</button>
 
-                </div>
+</div>
 
-            </article>
+</div>
 
-        `).join("");
+</article>
+
+`).join("");
 
 }
 
 
-/* =========================
-   إضافة للسلة
-========================= */
+/* السلة */
 
 function addToCart(id){
 
-    const item =
-        cart.find(
-            product => product.id === id
-        );
+const item=
+cart.find(i=>i.id===id);
 
-    if(item){
+if(item){
+item.qty++;
+}else{
+cart.push({
+id:id,
+qty:1
+});
+}
 
-        item.qty++;
-
-    }else{
-
-        cart.push({
-            id:id,
-            qty:1
-        });
-
-    }
-
-    updateCart();
+updateCart();
 
 }
 
-
-/* =========================
-   تحديث السلة
-========================= */
 
 function updateCart(){
 
-    const count =
-        cart.reduce(
-            (total,item) =>
-                total + item.qty,
-            0
-        );
+const count=
+cart.reduce(
+(a,b)=>a+b.qty,
+0
+);
 
-    const total =
-        cart.reduce(
-            (sum,item) => {
+const total=
+cart.reduce(
+(sum,item)=>{
 
-                const product =
-                    products.find(
-                        p => p.id === item.id
-                    );
+const p=
+products.find(
+x=>x.id===item.id
+);
 
-                return sum +
-                    product.price *
-                    item.qty;
+return sum+p.price*item.qty;
 
-            },
-            0
-        );
+},
+0
+);
 
 
-    document.getElementById("cartCount")
-        .textContent = count;
+document.getElementById("cartCount")
+.textContent=count;
 
+document.getElementById("cartTotal")
+.textContent=
+total.toFixed(3)
++" "
++(language==="ar"?"ر.ع":"OMR");
 
-    document.getElementById("cartTotal")
-        .textContent =
-            total.toFixed(3)
-            + " "
-            + (language === "ar"
-                ? "ر.ع"
-                : "OMR");
+document.getElementById("sheetTotal")
+.textContent=
+total.toFixed(3)
++" "
++(language==="ar"?"ر.ع":"OMR");
 
+document.getElementById("cartBar")
+.classList.toggle(
+"hidden",
+count===0
+);
 
-    document.getElementById("sheetTotal")
-        .textContent =
-            total.toFixed(3)
-            + " "
-            + (language === "ar"
-                ? "ر.ع"
-                : "OMR");
-
-
-    document.getElementById("cartBar")
-        .classList.toggle(
-            "hidden",
-            count === 0
-        );
-
-
-    renderCartItems();
+renderCartItems();
 
 }
 
-
-/* =========================
-   عناصر السلة
-========================= */
 
 function renderCartItems(){
 
-    const box =
-        document.getElementById("cartItems");
+const box=
+document.getElementById("cartItems");
 
+if(!cart.length){
 
-    if(cart.length === 0){
+box.innerHTML=`
 
-        box.innerHTML = `
+<p style="
+text-align:center;
+color:#9a897b;
+padding:20px;
+">
 
-            <p style="
-                text-align:center;
-                color:#9a897b;
-                padding:20px;
-            ">
+${
+language==="ar"
+?"السلة فارغة"
+:"Your cart is empty"
+}
 
-                ${
-                    language === "ar"
-                    ? "السلة فارغة"
-                    : "Your cart is empty"
-                }
+</p>
 
-            </p>
+`;
 
-        `;
-
-        return;
-
-    }
-
-
-    box.innerHTML =
-
-        cart.map(item => {
-
-            const product =
-                products.find(
-                    p => p.id === item.id
-                );
-
-
-            return `
-
-                <div class="cart-item">
-
-                    <div class="cart-item-emoji">
-                        ${product.emoji}
-                    </div>
-
-                    <div class="cart-item-info">
-
-                        <strong>
-                            ${
-                                language === "ar"
-                                ? product.ar
-                                : product.en
-                            }
-                        </strong>
-
-                        <small>
-
-                            ${
-                                (
-                                    product.price *
-                                    item.qty
-                                ).toFixed(3)
-                            }
-
-                            ${
-                                language === "ar"
-                                ? "ر.ع"
-                                : "OMR"
-                            }
-
-                        </small>
-
-                    </div>
-
-
-                    <div class="qty">
-
-                        <button
-                            onclick="changeQty(${product.id},-1)"
-                        >
-                            −
-                        </button>
-
-                        <span>
-                            ${item.qty}
-                        </span>
-
-                        <button
-                            onclick="changeQty(${product.id},1)"
-                        >
-                            +
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+return;
 
 }
 
 
-/* =========================
-   تغيير الكمية
-========================= */
+box.innerHTML=
+
+cart.map(item=>{
+
+const p=
+products.find(
+x=>x.id===item.id
+);
+
+return `
+
+<div class="cart-item">
+
+<div class="cart-item-emoji">
+${p.emoji}
+</div>
+
+<div class="cart-item-info">
+
+<strong>
+${language==="ar"?p.ar:p.en}
+</strong>
+
+<small>
+
+${(
+p.price*item.qty
+).toFixed(3)}
+
+${language==="ar"?"ر.ع":"OMR"}
+
+</small>
+
+</div>
+
+<div class="qty">
+
+<button
+onclick="changeQty(${p.id},-1)">
+−
+</button>
+
+<span>${item.qty}</span>
+
+<button
+onclick="changeQty(${p.id},1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
 
 function changeQty(id,amount){
 
-    const item =
-        cart.find(
-            product => product.id === id
-        );
+const item=
+cart.find(
+x=>x.id===id
+);
 
-    if(!item){
-        return;
-    }
+if(!item)return;
 
+item.qty+=amount;
 
-    item.qty += amount;
+if(item.qty<=0){
 
-
-    if(item.qty <= 0){
-
-        cart =
-            cart.filter(
-                product => product.id !== id
-            );
-
-    }
-
-
-    updateCart();
+cart=
+cart.filter(
+x=>x.id!==id
+);
 
 }
 
+updateCart();
 
-/* =========================
-   فتح السلة
-========================= */
+}
+
 
 function openCart(){
 
-    document
-        .getElementById("overlay")
-        .classList.remove("hidden");
+document.getElementById("overlay")
+.classList.remove("hidden");
 
-    document
-        .getElementById("cartSheet")
-        .classList.remove("hidden");
+document.getElementById("cartSheet")
+.classList.remove("hidden");
 
-    renderCartItems();
+renderCartItems();
 
 }
 
-
-/* =========================
-   إغلاق السلة
-========================= */
 
 function closeCart(){
 
-    document
-        .getElementById("overlay")
-        .classList.add("hidden");
+document.getElementById("overlay")
+.classList.add("hidden");
 
-    document
-        .getElementById("cartSheet")
-        .classList.add("hidden");
+document.getElementById("cartSheet")
+.classList.add("hidden");
 
 }
 
 
-/* =========================
-   إتمام الطلب
-========================= */
+/* إتمام الطلب */
 
 function checkout(){
 
-    if(cart.length === 0){
-        return;
-    }
+if(!cart.length)return;
 
-    closeCart();
+closeCart();
 
-    renderOrderForm();
+renderOrderForm();
 
-    document
-        .getElementById("orderFormScreen")
-        .classList.remove("hidden");
+document.getElementById("orderFormScreen")
+.classList.remove("hidden");
 
 }
 
 
-/* =========================
-   بيانات الطلب
-========================= */
+/* بيانات الطلب */
 
 function renderOrderForm(){
 
-    const cafe =
-        mode === "cafe";
+const cafe=mode==="cafe";
 
 
-    document.getElementById("orderFormScreen").innerHTML = `
+document.getElementById("orderFormScreen").innerHTML=`
 
-        <div class="order-form">
+<div class="order-form">
 
-            <div class="order-head">
+<div class="order-head">
 
-                <button
-                    type="button"
-                    onclick="closeOrderForm()"
-                >
-                    ×
-                </button>
+<button
+type="button"
+onclick="closeOrderForm()">
+×
+</button>
 
-                <h2>
+<h2>
+${language==="ar"
+?"بيانات الطلب"
+:"Order Details"}
+</h2>
 
-                    ${
-                        language === "ar"
-                        ? "بيانات الطلب"
-                        : "Order Details"
-                    }
-
-                </h2>
-
-            </div>
+</div>
 
 
-            ${
-                cafe
+${
+cafe
 
-                ?
+?
 
-                `
+`
 
-                <label>
+<label>
 
-                    ${
-                        language === "ar"
-                        ? "رقم الطاولة"
-                        : "Table Number"
-                    }
+${language==="ar"
+?"رقم الطاولة"
+:"Table Number"}
 
+<input
+id="orderTable"
+type="number"
+min="1"
+placeholder="${
+language==="ar"
+?"رقم الطاولة"
+:"Table number"
+}">
 
-                    <input
-                        id="orderTable"
-                        type="number"
-                        min="1"
-                        placeholder="${
-                            language === "ar"
-                            ? "رقم الطاولة"
-                            : "Table number"
-                        }"
-                    >
+</label>
 
-                </label>
+`
 
-                `
+:
 
-                :
+`
 
-                `
+<label>
 
-                <label>
+${language==="ar"
+?"وصف السيارة"
+:"Vehicle Description"}
 
-                    ${
-                        language === "ar"
-                        ? "رقم السيارة"
-                        : "Vehicle Number"
-                    }
+<input
+id="orderCar"
+type="text"
+placeholder="${
+language==="ar"
+?"مثال: لاندكروزر أبيض"
+:"Example: White Land Cruiser"
+}">
 
+</label>
 
-                    <input
-                        id="orderCar"
-                        type="text"
-                        placeholder="${
-                            language === "ar"
-                            ? "رقم السيارة"
-                            : "Vehicle number"
-                        }"
-                    >
-
-                </label>
-
-                `
-            }
-
-
-            <label>
-
-                ${
-                    language === "ar"
-                    ? "رقم الهاتف"
-                    : "Phone Number"
-                }
-
-
-                <input
-                    id="orderPhone"
-                    type="tel"
-                    placeholder="${
-                        language === "ar"
-                        ? "رقم الهاتف"
-                        : "Phone number"
-                    }"
-                >
-
-            </label>
-
-
-            <label>
-
-                ${
-                    language === "ar"
-                    ? "الملاحظات"
-                    : "Notes"
-                }
-
-
-                <textarea
-                    id="orderNote"
-                    placeholder="${
-                        language === "ar"
-                        ? "اكتب ملاحظتك هنا..."
-                        : "Write your note here..."
-                    }"
-                ></textarea>
-
-            </label>
-
-
-            <button
-                type="button"
-                class="confirm-order"
-                onclick="confirmOrder()"
-            >
-
-                ${
-                    language === "ar"
-                    ? "تأكيد الطلب ✓"
-                    : "Confirm Order ✓"
-                }
-
-            </button>
-
-        </div>
-
-    `;
-
+`
 }
 
 
-/* =========================
-   إغلاق بيانات الطلب
-========================= */
+<label>
+
+${language==="ar"
+?"رقم الهاتف"
+:"Phone Number"}
+
+<input
+id="orderPhone"
+type="tel"
+placeholder="${
+language==="ar"
+?"رقم الهاتف"
+:"Phone number"
+}">
+
+</label>
+
+
+<label>
+
+${language==="ar"
+?"الملاحظات"
+:"Notes"}
+
+<textarea
+id="orderNote"
+placeholder="${
+language==="ar"
+?"اكتب ملاحظتك هنا..."
+:"Write your note here..."
+}"
+></textarea>
+
+</label>
+
+
+<button
+type="button"
+class="confirm-order"
+onclick="confirmOrder()">
+
+${language==="ar"
+?"تأكيد الطلب ✓"
+:"Confirm Order ✓"}
+
+</button>
+
+</div>
+
+`;
+
+}
+
 
 function closeOrderForm(){
 
-    document
-        .getElementById("orderFormScreen")
-        .classList.add("hidden");
+document.getElementById("orderFormScreen")
+.classList.add("hidden");
 
 }
 
 
-/* =========================
-   تأكيد الطلب
-========================= */
+/* تأكيد الطلب */
 
 function confirmOrder(){
 
-    const table =
-        document.getElementById("orderTable");
+const table=
+document.getElementById("orderTable");
 
-    const car =
-        document.getElementById("orderCar");
+const car=
+document.getElementById("orderCar");
 
-    const phone =
-        document.getElementById("orderPhone");
+const phone=
+document.getElementById("orderPhone");
 
-    const note =
-        document.getElementById("orderNote");
-
-
-    if(
-        mode === "cafe" &&
-        !table.value.trim()
-    ){
-
-        alert(
-            language === "ar"
-            ? "املأ رقم الطاولة أولاً"
-            : "Enter the table number first"
-        );
-
-        return;
-
-    }
+const note=
+document.getElementById("orderNote");
 
 
-    if(
-        mode === "car" &&
-        !car.value.trim()
-    ){
+if(
+mode==="cafe"
+&&
+!table.value.trim()
+){
 
-        alert(
-            language === "ar"
-            ? "املأ رقم السيارة أولاً"
-            : "Enter the vehicle number first"
-        );
+alert(
+language==="ar"
+?"املأ رقم الطاولة أولاً"
+:"Enter the table number first"
+);
 
-        return;
-
-    }
-
-
-    if(!phone.value.trim()){
-
-        alert(
-            language === "ar"
-            ? "املأ رقم الهاتف أولاً"
-            : "Enter the phone number first"
-        );
-
-        return;
-
-    }
-
-
-    order = {
-
-        number:
-            "B" +
-            Math.floor(
-                10000 +
-                Math.random() * 90000
-            ),
-
-        mode:mode,
-
-        table:
-            table
-            ? table.value.trim()
-            : "",
-
-        car:
-            car
-            ? car.value.trim()
-            : "",
-
-        phone:
-            phone.value.trim(),
-
-        note:
-            note.value.trim(),
-
-        status:"received"
-
-    };
-
-
-    localStorage.setItem(
-        "barniOrder",
-        JSON.stringify(order)
-    );
-
-
-    cart = [];
-
-    updateCart();
-
-    closeOrderForm();
-
-    showConfirmation();
+return;
 
 }
 
 
-/* =========================
-   صفحة التأكيد
-========================= */
+if(
+mode==="car"
+&&
+!car.value.trim()
+){
+
+alert(
+language==="ar"
+?"اكتب وصف السيارة أولاً"
+:"Enter the vehicle description first"
+);
+
+return;
+
+}
+
+
+if(!phone.value.trim()){
+
+alert(
+language==="ar"
+?"املأ رقم الهاتف أولاً"
+:"Enter the phone number first"
+);
+
+return;
+
+}
+
+
+order={
+
+number:
+"B"+
+Math.floor(
+10000+
+Math.random()*90000
+),
+
+mode:mode,
+
+table:
+table
+?table.value.trim()
+:"",
+
+car:
+car
+?car.value.trim()
+:"",
+
+phone:
+phone.value.trim(),
+
+note:
+note.value.trim(),
+
+status:"received"
+
+};
+
+
+localStorage.setItem(
+"barniOrder",
+JSON.stringify(order)
+);
+
+
+cart=[];
+
+updateCart();
+
+closeOrderForm();
+
+showConfirmation();
+
+}
+
+
+/* صفحة التأكيد */
 
 function showConfirmation(){
 
-    const cafe =
-        order.mode === "cafe";
+const cafe=
+order.mode==="cafe";
 
 
-    document.getElementById("confirmationScreen").innerHTML = `
+document.getElementById("confirmationScreen").innerHTML=`
 
-        <div class="confirmation-card">
+<div class="confirmation-card">
 
-            <div class="success-check">
-                ✓
-            </div>
+<div class="success-check">
+✓
+</div>
 
+<div class="success-label">
 
-            <div class="success-label">
+${language==="ar"
+?"تم استلام طلبك"
+:"ORDER RECEIVED"}
 
-                ${
-                    language === "ar"
-                    ? "تم استلام طلبك"
-                    : "ORDER RECEIVED"
-                }
+</div>
 
-            </div>
+<h2>
 
+${language==="ar"
+?"تم استلام طلبك"
+:"Your Order Is Received"}
 
-            <h2>
+</h2>
 
-                ${
-                    language === "ar"
-                    ? "تم استلام طلبك"
-                    : "Your Order Is Received"
-                }
+<p style="color:#9a897b">
 
-            </h2>
+${language==="ar"
+?"احتفظ برقم الطلب لمتابعته"
+:"Keep your order number to track it"}
 
+</p>
 
-            <p style="color:#9a897b">
-
-                ${
-                    language === "ar"
-                    ? "احتفظ برقم الطلب لمتابعته"
-                    : "Keep your order number to track it"
-                }
-
-            </p>
+<div class="order-number">
+#${order.number}
+</div>
 
 
-            <div class="order-number">
-                #${order.number}
-            </div>
+<div class="order-details">
+
+<p>
+
+<strong>
+${language==="ar"
+?"رقم الطلب"
+:"Order Number"}
+</strong>
+
+<span>
+#${order.number}
+</span>
+
+</p>
 
 
-            <div class="order-details">
+<p>
+
+<strong>
+
+${
+cafe
+
+?
+
+(language==="ar"
+?"رقم الطاولة"
+:"Table Number")
+
+:
+
+(language==="ar"
+?"وصف السيارة"
+:"Vehicle Description")
+
+}
+
+</strong>
+
+<span>
+
+${
+cafe
+?order.table
+:order.car
+}
+
+</span>
+
+</p>
 
 
-                <p>
+<p>
 
-                    <strong>
-                        ${
-                            language === "ar"
-                            ? "رقم الطلب"
-                            : "Order Number"
-                        }
-                    </strong>
+<strong>
+${language==="ar"
+?"رقم الهاتف"
+:"Phone Number"}
+</strong>
 
-                    <span>
-                        #${order.number}
-                    </span>
+<span>
+${order.phone}
+</span>
 
-                </p>
+</p>
 
 
-                <p>
+<p>
 
-                    <strong>
+<strong>
+${language==="ar"
+?"الملاحظة"
+:"Note"}
+</strong>
 
-                        ${
-                            cafe
-                            ? (
-                                language === "ar"
-                                ? "رقم الطاولة"
-                                : "Table Number"
-                            )
-                            :
-                            (
-                                language === "ar"
-                                ? "رقم السيارة"
-                                : "Vehicle Number"
-                            )
-                        }
+<span>
 
-                    </strong>
+${
+order.note
+||
+(language==="ar"
+?"لا توجد"
+:"None")
+}
 
-                    <span>
+</span>
 
-                        ${
-                            cafe
-                            ? order.table
-                            : order.car
-                        }
+</p>
 
-                    </span>
-
-                </p>
+</div>
 
 
-                <p>
+<button
+class="track-order"
+onclick="showTracking()">
 
-                    <strong>
+${language==="ar"
+?"رؤية طلبك"
+:"View Your Order"}
 
-                        ${
-                            language === "ar"
-                            ? "رقم الهاتف"
-                            : "Phone Number"
-                        }
+</button>
 
-                    </strong>
+</div>
 
-                    <span>
-                        ${order.phone}
-                    </span>
+`;
 
-                </p>
-
-
-                <p>
-
-                    <strong>
-
-                        ${
-                            language === "ar"
-                            ? "الملاحظة"
-                            : "Note"
-                        }
-
-                    </strong>
-
-                    <span>
-
-                        ${
-                            order.note
-                            ||
-                            (
-                                language === "ar"
-                                ? "لا توجد"
-                                : "None"
-                            )
-                        }
-
-                    </span>
-
-                </p>
-
-
-            </div>
-
-
-            <button
-                type="button"
-                class="track-order"
-                onclick="showTracking()"
-            >
-
-                ${
-                    language === "ar"
-                    ? "رؤية طلبك"
-                    : "View Your Order"
-                }
-
-            </button>
-
-        </div>
-
-    `;
-
-
-    document
-        .getElementById("confirmationScreen")
-        .classList.remove("hidden");
+document.getElementById("confirmationScreen")
+.classList.remove("hidden");
 
 }
 
 
-/* =========================
-   تتبع الطلب
-========================= */
+/* تتبع الطلب */
 
 function showTracking(){
 
-    const statuses = [
-
-        "received",
-        "preparing",
-        "ready",
-        "delivered"
-
-    ];
+const statuses=[
+"received",
+"preparing",
+"ready",
+"delivered"
+];
 
 
-    const current =
-        statuses.indexOf(
-            order.status
-        );
+const current=
+statuses.indexOf(
+order.status
+);
 
 
-    const labels =
-        language === "ar"
+const labels=
 
-        ?
+language==="ar"
 
-        [
-            "تم استلام الطلب",
-            "جاري التحضير",
-            "جاهز",
-            "تم التسليم"
-        ]
+?
 
-        :
+[
+"تم استلام الطلب",
+"جاري التحضير",
+"جاهز",
+"تم التسليم"
+]
 
-        [
-            "Order Received",
-            "Preparing",
-            "Ready",
-            "Delivered"
-        ];
+:
 
-
-    document.getElementById("confirmationScreen").innerHTML = `
-
-        <div class="confirmation-card">
-
-            <div class="tracking-logo">
-                برني
-            </div>
+[
+"Order Received",
+"Preparing",
+"Ready",
+"Delivered"
+];
 
 
-            <h2>
+document.getElementById("confirmationScreen").innerHTML=`
 
-                ${
-                    language === "ar"
-                    ? "تتبع طلبك"
-                    : "Track Your Order"
-                }
+<div class="confirmation-card">
 
-            </h2>
+<div class="tracking-logo">
+برني
+</div>
 
+<h2>
 
-            <div class="tracking-number">
+${language==="ar"
+?"تتبع طلبك"
+:"Track Your Order"}
 
-                #${order.number}
+</h2>
 
-            </div>
+<div class="tracking-number">
+#${order.number}
+</div>
 
+<div class="steps">
 
-            <div class="steps">
+${labels.map(
+(label,index)=>`
 
+<div class="step
 
-                ${
+${
+index<current
+?"done"
+:
+index===current
+?"current"
+:""
+}
 
-                    labels.map(
-                        (label,index) => `
+">
 
-                            <div class="step
+<div class="step-circle">
 
-                                ${
-                                    index < current
-                                    ? "done"
-                                    : index === current
-                                    ? "current"
-                                    : ""
-                                }
+${
+index<current
+?"✓"
+:index+1
+}
 
-                            ">
+</div>
 
-                                <div class="step-circle">
+<span>
+${label}
+</span>
 
-                                    ${
-                                        index < current
-                                        ? "✓"
-                                        : index + 1
-                                    }
+</div>
 
-                                </div>
+`
+).join("")}
 
-                                <span>
-                                    ${label}
-                                </span>
+</div>
 
-                            </div>
+</div>
 
-                        `
-                    ).join("")
-
-                }
-
-
-            </div>
-
-        </div>
-
-    `;
+`;
 
 }
 
 
-/* =========================
-   تغيير اللغة
-========================= */
+/* اللغة */
 
 function toggleLanguage(){
 
-    language =
-        language === "ar"
-        ? "en"
-        : "ar";
+language=
+language==="ar"
+?"en"
+:"ar";
 
 
-    document.documentElement.lang =
-        language;
+document.documentElement.lang=
+language;
+
+document.documentElement.dir=
+language==="ar"
+?"rtl"
+:"ltr";
 
 
-    document.documentElement.dir =
-        language === "ar"
-        ? "rtl"
-        : "ltr";
+document.getElementById("langBtn")
+.textContent=
+language==="ar"
+?"EN"
+:"AR";
 
 
-    document.getElementById("langBtn")
-        .textContent =
-            language === "ar"
-            ? "EN"
-            : "AR";
+document.getElementById("menuTitle")
+.textContent=
+language==="ar"
+?"منيو برني"
+:"Barni Menu";
 
 
-    document.getElementById("menuTitle")
-        .textContent =
-            language === "ar"
-            ? "منيو برني"
-            : "Barni Menu";
+document.getElementById("menuSubtitle")
+.textContent=
+language==="ar"
+?"اختر قهوتك المفضلة"
+:"Choose your favorite coffee";
 
 
-    document.getElementById("menuSubtitle")
-        .textContent =
-            language === "ar"
-            ? "اختر قهوتك المفضلة"
-            : "Choose your favorite coffee";
+document.getElementById("viewCart")
+.textContent=
+language==="ar"
+?"السلة"
+:"Cart";
 
 
-    document.getElementById("viewCart")
-        .textContent =
-            language === "ar"
-            ? "السلة"
-            : "Cart";
+document.getElementById("cartTitle")
+.textContent=
+language==="ar"
+?"السلة"
+:"Cart";
 
 
-    document.getElementById("cartTitle")
-        .textContent =
-            language === "ar"
-            ? "السلة"
-            : "Cart";
+document.getElementById("totalText")
+.textContent=
+language==="ar"
+?"المجموع"
+:"Total";
 
 
-    document.getElementById("totalText")
-        .textContent =
-            language === "ar"
-            ? "المجموع"
-            : "Total";
+document.getElementById("checkoutBtn")
+.textContent=
+language==="ar"
+?"إتمام الطلب"
+:"Checkout";
 
 
-    document.getElementById("checkoutBtn")
-        .textContent =
-            language === "ar"
-            ? "إتمام الطلب"
-            : "Checkout";
-
-
-    renderCategories();
-
-    renderProducts();
-
-    updateCart();
+renderCategories();
+renderProducts();
+updateCart();
 
 }
 
