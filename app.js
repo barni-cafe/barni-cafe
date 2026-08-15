@@ -50,7 +50,7 @@ function renderReview(){
   document.querySelectorAll("[data-table]").forEach(b=>b.onclick=()=>{table=+b.dataset.table;renderReview()});
 }
 function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));$(id).classList.remove("hidden");window.scrollTo(0,0)}
-$("homeMenu").onclick=()=>show("menuScreen");
+$("homeMenu").onclick=$("heroMenu").onclick=()=>show("menuScreen");
 $("backHome").onclick=()=>show("home");
 $("openReview").onclick=()=>{if(!cart.length){add(1)}renderReview();show("reviewScreen")};
 $("backMenu").onclick=()=>show("menuScreen");
