@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>برني | لوحة الإدارة</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+background:#f5efe7;
+color:#302720;
+font-family:Arial,sans-serif;
+}
+
+header{
+background:#4a2b1d;
+color:white;
+padding:22px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+font-size:30px;
+font-weight:800;
+}
+
+.status{
+font-size:12px;
+opacity:.8;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:25px 18px 50px;
+}
+
+.title{
+margin-bottom:20px;
+}
+
+.title h1{
+margin:0;
+font-size:28px;
+}
+
+.title p{
+margin:5px 0;
+color:#927f70;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:25px;
+}
+
+.stat{
+background:#fffaf5;
+border-radius:20px;
+padding:20px;
+box-shadow:0 8px 25px rgba(70,45,25,.07);
+}
+
+.stat small{
+display:block;
+color:#927f70;
+}
+
+.stat strong{
+display:block;
+font-size:28px;
+margin-top:5px;
+}
+
+.orders{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.order{
+background:#fffaf5;
+border-radius:22px;
+padding:20px;
+box-shadow:0 8px 25px rgba(70,45,25,.07);
+}
+
+.order-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+.order-number{
+font-size:20px;
+font-weight:800;
+}
+
+.badge{
+padding:7px 12px;
+border-radius:20px;
+font-size:11px;
+font-weight:700;
+background:#eee3d7;
+}
+
+.details{
+margin-top:15px;
+border-top:1px solid #eadfd5;
+padding-top:12px;
+}
+
+.detail{
+display:flex;
+justify-content:space-between;
+gap:15px;
+padding:7px 0;
+font-size:13px;
+}
+
+.detail span:first-child{
+font-weight:700;
+}
+
+.items{
+margin-top:15px;
+background:#f5efe7;
+border-radius:15px;
+padding:12px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:6px 0;
+font-size:13px;
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-top:15px;
+}
+
+.actions button{
+border:0;
+border-radius:12px;
+padding:11px 7px;
+font-weight:700;
+font-size:11px;
+background:#eee3d7;
+color:#302720;
+}
+
+.actions button.active{
+background:#4a2b1d;
+color:white;
+}
+
+.empty{
+background:#fffaf5;
+border-radius:22px;
+padding:50px 20px;
+text-align:center;
+color:#927f70;
+}
+
+@media(max-width:650px){
+
+.stats{
+grid-template-columns:1fr 1fr;
+}
+
+.stats .stat:last-child{
+grid-column:1/-1;
+}
+
+.actions{
+grid-template-columns:1fr 1fr;
+}
+
+.order-top{
+align-items:flex-start;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+برني
+</div>
+
+<div class="status">
+لوحة الإدارة
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="title">
+
+<h1>
+الطلبات
+</h1>
+
+<p>
+إدارة طلبات برني
+</p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<small>
+الطلبات الجديدة
+</small>
+
+<strong id="newCount">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+قيد التحضير
+</small>
+
+<strong id="preparingCount">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+طلبات اليوم
+</small>
+
+<strong id="totalCount">
+0
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="orders" id="orders">
+
+<div class="empty">
+
+لا توجد طلبات حاليًا ☕
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/*
+حالياً هذه لوحة تجريبية.
+بعدها سنربطها بقاعدة البيانات.
+*/
+
+let demoOrders = [
+
+{
+number:"B10245",
+
+mode:"cafe",
+
+location:"طاولة 12",
+
+phone:"91234567",
+
+note:"بدون سكر",
+
+items:[
+{
+name:"سبانش لاتيه",
+qty:2,
+price:1.700
+},
+{
+name:"كرواسون",
+qty:1,
+price:1.200
+}
+],
+
+status:"received"
+
+},
+
+{
+number:"B10321",
+
+mode:"car",
+
+location:"لاندكروزر أبيض",
+
+phone:"99876543",
+
+note:"الطلب بدون ثلج",
+
+items:[
+{
+name:"آيس لاتيه",
+qty:1,
+price:1.600
+}
+],
+
+status:"preparing"
+
+}
+
+];
+
+
+function statusText(status){
+
+if(status==="received"){
+return "تم استلام الطلب";
+}
+
+if(status==="preparing"){
+return "جاري التحضير";
+}
+
+if(status==="ready"){
+return "جاهز";
+}
+
+if(status==="delivered"){
+return "تم التسليم";
+}
+
+}
+
+
+function calculateTotal(order){
+
+return order.items.reduce(
+
+(sum,item)=>{
+
+return sum+
+(item.price*item.qty);
+
+},
+
+0
+
+);
+
+}
+
+
+function renderOrders(){
+
+const container=
+document.getElementById("orders");
+
+
+if(demoOrders.length===0){
+
+container.innerHTML=`
+
+<div class="empty">
+
+لا توجد طلبات حاليًا ☕
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+container.innerHTML=
+
+demoOrders.map(
+
+(order,index)=>`
+
+<div class="order">
+
+
+<div class="order-top">
+
+<div class="order-number">
+
+#${order.number}
+
+</div>
+
+
+<div class="badge">
+
+${statusText(order.status)}
+
+</div>
+
+</div>
+
+
+<div class="details">
+
+
+<div class="detail">
+
+<span>
+
+${
+order.mode==="cafe"
+?"رقم الطاولة"
+:"وصف السيارة"
+}
+
+</span>
+
+<span>
+
+${order.location}
+
+</span>
+
+</div>
+
+
+<div class="detail">
+
+<span>
+رقم الهاتف
+</span>
+
+<span>
+${order.phone}
+</span>
+
+</div>
+
+
+<div class="detail">
+
+<span>
+الملاحظة
+</span>
+
+<span>
+${order.note || "لا توجد"}
+</span>
+
+</div>
+
+
+<div class="detail">
+
+<span>
+المجموع
+</span>
+
+<strong>
+
+${calculateTotal(order).toFixed(3)}
+ر.ع
+
+</strong>
+
+</div>
+
+
+</div>
+
+
+<div class="items">
+
+${
+order.items.map(
+
+item=>`
+
+<div class="item">
+
+<span>
+${item.name} × ${item.qty}
+</span>
+
+<span>
+
+${(item.price*item.qty).toFixed(3)}
+ر.ع
+
+</span>
+
+</div>
+
+`
+
+).join("")
+}
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="${order.status==="received"?"active":""}"
+onclick="changeStatus(${index},'received')">
+
+استلام
+
+</button>
+
+
+<button
+class="${order.status==="preparing"?"active":""}"
+onclick="changeStatus(${index},'preparing')">
+
+تحضير
+
+</button>
+
+
+<button
+class="${order.status==="ready"?"active":""}"
+onclick="changeStatus(${index},'ready')">
+
+جاهز
+
+</button>
+
+
+<button
+class="${order.status==="delivered"?"active":""}"
+onclick="changeStatus(${index},'delivered')">
+
+تم التسليم
+
+</button>
+
+</div>
+
+
+</div>
+
+`
+
+).join("");
+
+
+updateStats();
+
+}
+
+
+function changeStatus(index,status){
+
+demoOrders[index].status=status;
+
+renderOrders();
+
+}
+
+
+function updateStats(){
+
+const newOrders=
+demoOrders.filter(
+order=>order.status==="received"
+).length;
+
+
+const preparing=
+demoOrders.filter(
+order=>order.status==="preparing"
+).length;
+
+
+document.getElementById("newCount")
+.textContent=newOrders;
+
+
+document.getElementById("preparingCount")
+.textContent=preparing;
+
+
+document.getElementById("totalCount")
+.textContent=demoOrders.length;
+
+}
+
+
+renderOrders();
+
+</script>
+
+</body>
+</html>
