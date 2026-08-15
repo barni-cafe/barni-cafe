@@ -4,22 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>برني كافيه</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
-body{
+
+html,body{
 margin:0;
+min-height:100%;
 background:#f5efe7;
 color:#302720;
-font-family:"Cairo",sans-serif;
+font-family:"Cairo",sans-serif
 }
-button{font-family:inherit;cursor:pointer}
+
+button,input,textarea{font-family:inherit}
+button{cursor:pointer}
 .hidden{display:none!important}
 
-/* البداية */
+/* =========================
+   شاشة البداية
+========================= */
+
 .splash{
 position:fixed;
 inset:0;
@@ -28,45 +36,68 @@ background:#f5efe7;
 display:flex;
 align-items:center;
 justify-content:center;
-animation:fadeOut 1.2s ease 1.8s forwards;
+animation:splashOut 1.2s ease 1.8s forwards;
 pointer-events:none
 }
+
 .splash-logo{
-font-size:90px;
+font-size:clamp(70px,15vw,120px);
 font-weight:800;
 letter-spacing:-5px;
-animation:logoIn 1s ease forwards
-}
-@keyframes logoIn{
-from{opacity:0;transform:scale(.94)}
-to{opacity:1;transform:scale(1)}
-}
-@keyframes fadeOut{
-to{opacity:0;visibility:hidden}
+opacity:0;
+animation:logoIn 1.2s cubic-bezier(.22,1,.36,1) forwards
 }
 
-/* الرئيسية */
+@keyframes logoIn{
+from{
+opacity:0;
+transform:translateY(12px) scale(.96)
+}
+to{
+opacity:1;
+transform:translateY(0) scale(1)
+}
+}
+
+@keyframes splashOut{
+to{
+opacity:0;
+visibility:hidden
+}
+}
+
+/* =========================
+   الصفحة الرئيسية
+========================= */
+
 .home{
 min-height:100vh;
 padding:30px 18px;
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
+justify-content:center
 }
-.brand{text-align:center;margin-bottom:48px}
+
+.brand{
+text-align:center;
+margin-bottom:48px
+}
+
 .brand h1{
 margin:0;
-font-size:72px;
+font-size:clamp(60px,12vw,88px);
 line-height:1;
 font-weight:800;
 letter-spacing:-4px
 }
+
 .options{
 width:min(520px,100%);
 display:grid;
 gap:15px
 }
+
 .option{
 border:1px solid #e3d8cc;
 background:#fffaf5;
@@ -76,12 +107,18 @@ display:flex;
 align-items:center;
 gap:17px;
 text-align:right;
+color:#302720;
 box-shadow:0 10px 28px #4d392414;
 transition:.25s
 }
-.option:hover{transform:translateY(-3px)}
+
+.option:hover{
+transform:translateY(-3px)
+}
+
 .icon{
-width:58px;height:58px;
+width:58px;
+height:58px;
 flex:0 0 58px;
 border-radius:18px;
 background:#eee3d7;
@@ -89,15 +126,27 @@ display:grid;
 place-items:center;
 font-size:28px
 }
-.option strong{display:block;font-size:19px}
-.option small{color:#9a897b;font-size:11px}
 
-/* التطبيق */
+.option strong{
+display:block;
+font-size:19px
+}
+
+.option small{
+color:#9a897b;
+font-size:11px
+}
+
+/* =========================
+   المنيو
+========================= */
+
 .app{
 max-width:760px;
 margin:auto;
-padding-bottom:100px
+padding-bottom:110px
 }
+
 .top{
 height:70px;
 padding:0 16px;
@@ -107,10 +156,15 @@ justify-content:space-between;
 position:sticky;
 top:0;
 z-index:20;
-background:#f5efe7cc;
+background:#f5efe7dd;
 backdrop-filter:blur(12px)
 }
-.logo-small{font-size:30px;font-weight:800}
+
+.logo-small{
+font-size:30px;
+font-weight:800
+}
+
 .lang{
 border:1px solid #daccc0;
 background:#fffaf5;
@@ -127,10 +181,18 @@ padding:24px;
 text-align:center;
 box-shadow:0 10px 30px #4d392410
 }
-.hero h2{margin:0;font-size:28px}
-.hero p{margin:6px 0 0;color:#9b8a7b;font-size:12px}
 
-/* التصنيفات */
+.hero h2{
+margin:0;
+font-size:28px
+}
+
+.hero p{
+margin:6px 0 0;
+color:#9b8a7b;
+font-size:12px
+}
+
 .categories{
 display:flex;
 gap:8px;
@@ -138,7 +200,11 @@ overflow:auto;
 padding:0 16px 18px;
 scrollbar-width:none
 }
-.categories::-webkit-scrollbar{display:none}
+
+.categories::-webkit-scrollbar{
+display:none
+}
+
 .cat{
 white-space:nowrap;
 border:1px solid #dfd2c5;
@@ -147,25 +213,31 @@ border-radius:18px;
 padding:9px 15px;
 font-size:11px
 }
+
 .cat.active{
 background:#4a2b1d;
-color:white;
+color:#fff;
 border-color:#4a2b1d
 }
 
-/* المنتجات */
+/* =========================
+   المنتجات
+========================= */
+
 .products{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px;
 padding:0 16px
 }
+
 .product{
 background:#fffaf5;
 border-radius:20px;
 overflow:hidden;
 box-shadow:0 6px 20px #4d392410
 }
+
 .product-img{
 height:155px;
 display:grid;
@@ -173,35 +245,49 @@ place-items:center;
 font-size:72px;
 background:linear-gradient(135deg,#eaded1,#d5c2af)
 }
-.info{padding:12px}
+
+.info{
+padding:12px
+}
+
 .name{
 font-size:14px;
 font-weight:800
 }
+
 .desc{
 font-size:9px;
 color:#9a897b;
-height:28px;
+min-height:28px;
 margin-top:3px
 }
+
 .bottom{
 display:flex;
 align-items:center;
 justify-content:space-between;
 margin-top:10px
 }
-.price{font-weight:800;font-size:13px}
+
+.price{
+font-weight:800;
+font-size:13px
+}
+
 .add{
 width:34px;
 height:34px;
 border:0;
 border-radius:50%;
 background:#4a2b1d;
-color:white;
+color:#fff;
 font-size:20px
 }
 
-/* السلة */
+/* =========================
+   السلة
+========================= */
+
 .cart{
 position:fixed;
 bottom:15px;
@@ -209,7 +295,7 @@ left:50%;
 transform:translateX(-50%);
 width:min(500px,calc(100% - 25px));
 background:#4a2b1d;
-color:white;
+color:#fff;
 border-radius:20px;
 padding:10px 12px;
 display:flex;
@@ -218,9 +304,21 @@ gap:12px;
 z-index:50;
 box-shadow:0 12px 35px #0003
 }
-.cart-info{flex:1}
-.cart-info small{display:block;color:#d9c9bd;font-size:9px}
-.cart-total{font-weight:800}
+
+.cart-info{
+flex:1
+}
+
+.cart-info small{
+display:block;
+color:#d9c9bd;
+font-size:9px
+}
+
+.cart-total{
+font-weight:800
+}
+
 .cart button{
 border:0;
 background:#fffaf5;
@@ -230,13 +328,17 @@ padding:11px 15px;
 font-weight:800
 }
 
-/* نافذة السلة */
+/* =========================
+   نافذة السلة
+========================= */
+
 .overlay{
 position:fixed;
 inset:0;
 background:#0006;
 z-index:80
 }
+
 .sheet{
 position:fixed;
 bottom:0;
@@ -250,18 +352,22 @@ border-radius:28px 28px 0 0;
 padding:22px;
 z-index:81
 }
+
 .sheet-head{
 display:flex;
 justify-content:space-between;
 align-items:center
 }
+
 .close{
 border:0;
 background:#e9ded3;
 border-radius:50%;
-width:38px;height:38px;
+width:38px;
+height:38px;
 font-size:20px
 }
+
 .cart-item{
 background:#fffaf5;
 border-radius:16px;
@@ -271,51 +377,271 @@ display:flex;
 align-items:center;
 gap:10px
 }
-.cart-item .emoji{font-size:35px}
-.cart-item-info{flex:1}
+
+.cart-item .emoji{
+font-size:35px
+}
+
+.cart-item-info{
+flex:1
+}
+
 .qty{
 display:flex;
 align-items:center;
 gap:8px
 }
+
 .qty button{
-width:28px;height:28px;
+width:28px;
+height:28px;
 border:0;
 border-radius:50%;
 background:#4a2b1d;
-color:white
+color:#fff
 }
+
 .checkout{
 width:100%;
 border:0;
 background:#4a2b1d;
-color:white;
+color:#fff;
 padding:15px;
 border-radius:15px;
 font-weight:800;
 margin-top:10px
 }
 
-/* الجوال */
+/* =========================
+   بيانات الطلب
+========================= */
+
+.fullscreen{
+position:fixed;
+inset:0;
+z-index:200;
+background:#f5efe7;
+overflow:auto
+}
+
+.order-form{
+width:min(520px,100%);
+min-height:100vh;
+margin:auto;
+padding:28px 20px
+}
+
+.order-head{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:30px
+}
+
+.order-head h2{
+margin:0
+}
+
+.order-head button{
+width:40px;
+height:40px;
+border:0;
+border-radius:50%;
+background:#e9ded3;
+font-size:22px
+}
+
+.order-form label{
+display:block;
+font-weight:700;
+margin-bottom:18px
+}
+
+.order-form input,
+.order-form textarea{
+width:100%;
+margin-top:7px;
+padding:14px;
+border:1px solid #dfd2c6;
+border-radius:14px;
+background:#fffaf5;
+font:inherit;
+outline:none
+}
+
+.order-form textarea{
+min-height:110px;
+resize:none
+}
+
+.confirm-order,
+.track-order{
+width:100%;
+border:0;
+border-radius:15px;
+padding:15px;
+background:#4a2b1d;
+color:#fff;
+font-weight:800;
+font-size:15px
+}
+
+/* =========================
+   تأكيد الطلب
+========================= */
+
+.confirmation-card{
+width:min(500px,calc(100% - 30px));
+margin:60px auto;
+padding:30px 22px;
+background:#fffaf5;
+border-radius:28px;
+text-align:center;
+box-shadow:0 15px 40px #4d392418
+}
+
+.success-check{
+width:65px;
+height:65px;
+margin:auto;
+border-radius:50%;
+display:grid;
+place-items:center;
+background:#e5f2e5;
+color:#4c9656;
+font-size:35px;
+font-weight:800
+}
+
+.success-label{
+margin-top:15px;
+color:#4c9656;
+font-weight:800
+}
+
+.order-number,
+.tracking-number{
+display:inline-block;
+margin:15px 0;
+padding:12px 22px;
+border-radius:14px;
+background:#eee3d7;
+font-size:22px;
+font-weight:800
+}
+
+.order-details{
+text-align:right;
+margin:10px 0 22px
+}
+
+.order-details p{
+display:flex;
+justify-content:space-between;
+gap:15px;
+padding:10px 0;
+border-bottom:1px solid #eadfd5;
+font-size:12px
+}
+
+/* =========================
+   تتبع الطلب
+========================= */
+
+.tracking-logo{
+font-size:48px;
+font-weight:800
+}
+
+.steps{
+margin-top:30px;
+text-align:right
+}
+
+.step{
+display:flex;
+align-items:center;
+gap:14px;
+padding:14px 0;
+color:#aaa
+}
+
+.step div{
+width:38px;
+height:38px;
+border-radius:50%;
+background:#e8ded4;
+display:grid;
+place-items:center;
+font-weight:800
+}
+
+.step.active,
+.step.done{
+color:#4c9656;
+font-weight:800
+}
+
+.step.active div,
+.step.done div{
+background:#4c9656;
+color:#fff
+}
+
+.step.current{
+color:#4a2b1d;
+font-weight:800
+}
+
+.step.current div{
+background:#4a2b1d;
+color:#fff
+}
+
+/* =========================
+   الجوال
+========================= */
+
 @media(max-width:560px){
-.splash-logo{font-size:72px}
-.brand h1{font-size:60px}
-.products{grid-template-columns:1fr 1fr}
-.product-img{height:130px;font-size:58px}
-.hero h2{font-size:24px}
+
+.products{
+grid-template-columns:1fr 1fr
+}
+
+.product-img{
+height:130px;
+font-size:58px
+}
+
+.brand h1{
+font-size:62px
+}
+
+.hero h2{
+font-size:24px
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- البداية -->
+<!-- =========================
+     شاشة البداية
+========================= -->
+
 <div class="splash">
 <div class="splash-logo">برني</div>
 </div>
 
-<!-- الرئيسية -->
+
+<!-- =========================
+     الصفحة الرئيسية
+========================= -->
+
 <section class="home" id="home">
+
 <div class="brand">
 <h1>برني</h1>
 </div>
@@ -324,278 +650,1539 @@ margin-top:10px
 
 <button class="option" onclick="openMenu('cafe')">
 <div class="icon">☕</div>
+
 <div>
 <strong>داخل المقهى</strong>
 <small>اطلب واستمتع بجلستك</small>
 </div>
 </button>
 
+
 <button class="option" onclick="openMenu('car')">
+
 <div class="icon">🚗</div>
+
 <div>
 <strong>من السيارة</strong>
 <small>اطلب واستلم طلبك من السيارة</small>
 </div>
+
 </button>
 
 </div>
+
 </section>
 
-<!-- التطبيق -->
+
+<!-- =========================
+     المنيو
+========================= -->
+
 <section class="app hidden" id="app">
 
 <header class="top">
-<div class="logo-small">برني</div>
-<button class="lang" onclick="toggleLanguage()" id="langBtn">EN</button>
-</header>
 
-<div class="hero">
-<h2 id="menuTitle">منيو برني</h2>
-<p id="menuSubtitle">اختر قهوتك المفضلة</p>
+<div class="logo-small">
+برني
 </div>
 
-<div class="categories" id="categories"></div>
+<button class="lang"
+onclick="toggleLanguage()"
+id="langBtn">
+EN
+</button>
 
-<div class="products" id="products"></div>
+</header>
+
+
+<div class="hero">
+
+<h2 id="menuTitle">
+منيو برني
+</h2>
+
+<p id="menuSubtitle">
+اختر قهوتك المفضلة
+</p>
+
+</div>
+
+
+<div class="categories"
+id="categories">
+</div>
+
+
+<div class="products"
+id="products">
+</div>
 
 </section>
 
-<!-- السلة -->
+
+<!-- =========================
+     شريط السلة
+========================= -->
+
 <div class="cart hidden" id="cartBar">
+
 <div class="cart-info">
-<small><span id="cartCount">0</span> أصناف</small>
-<div class="cart-total" id="cartTotal">0.000 ر.ع</div>
-</div>
-<button onclick="openCart()" id="viewCart">السلة</button>
-</div>
 
-<!-- نافذة السلة -->
-<div class="overlay hidden" id="overlay" onclick="closeCart()"></div>
+<small>
+<span id="cartCount">0</span>
+أصناف
+</small>
 
-<div class="sheet hidden" id="sheet">
-
-<div class="sheet-head">
-<h2 id="cartTitle">السلة</h2>
-<button class="close" onclick="closeCart()">×</button>
+<div class="cart-total"
+id="cartTotal">
+0.000 ر.ع
 </div>
 
-<div id="cartItems"></div>
-
-<div style="display:flex;justify-content:space-between;margin-top:18px;font-weight:800">
-<span id="totalText">المجموع</span>
-<span id="sheetTotal">0.000 ر.ع</span>
 </div>
 
-<button class="checkout" onclick="checkout()" id="checkoutBtn">
-إتمام الطلب
+<button
+onclick="openCart()"
+id="viewCart">
+السلة
 </button>
 
 </div>
 
+
+<!-- =========================
+     السلة
+========================= -->
+
+<div class="overlay hidden"
+id="overlay"
+onclick="closeCart()">
+</div>
+
+
+<div class="sheet hidden"
+id="sheet">
+
+<div class="sheet-head">
+
+<h2 id="cartTitle">
+السلة
+</h2>
+
+<button
+class="close"
+onclick="closeCart()">
+×
+</button>
+
+</div>
+
+
+<div id="cartItems">
+</div>
+
+
+<div
+style="display:flex;justify-content:space-between;margin-top:18px;font-weight:800">
+
+<span id="totalText">
+المجموع
+</span>
+
+<span id="sheetTotal">
+0.000 ر.ع
+</span>
+
+</div>
+
+
+<button
+class="checkout"
+onclick="checkout()"
+id="checkoutBtn">
+
+إتمام الطلب
+
+</button>
+
+</div>
+
+
+<!-- =========================
+     بيانات الطلب
+========================= -->
+
+<div
+class="fullscreen hidden"
+id="orderFormScreen">
+</div>
+
+
+<!-- =========================
+     تأكيد الطلب + التتبع
+========================= -->
+
+<div
+class="fullscreen hidden"
+id="confirmationScreen">
+</div>
+
+
 <script>
 
+/* =========================
+   المتغيرات
+========================= */
+
 let language="ar";
+
 let mode="cafe";
+
 let currentCategory="hot";
+
 let cart=[];
 
+let order=null;
+
+
+/* =========================
+   التصنيفات
+========================= */
+
 const categories={
+
 ar:[
+
 ["hot","☕","القهوة الساخنة"],
+
 ["cold","🧊","القهوة الباردة"],
+
 ["tea","🍵","الشاي والمشروبات"],
+
 ["dessert","🥐","الحلويات"]
+
 ],
+
 en:[
+
 ["hot","☕","Hot Coffee"],
+
 ["cold","🧊","Cold Coffee"],
+
 ["tea","🍵","Tea & Drinks"],
+
 ["dessert","🥐","Desserts"]
+
 ]
+
 };
 
+
+/* =========================
+   المنتجات
+========================= */
+
 const products=[
-{id:1,cat:"hot",ar:"إسبريسو",en:"Espresso",descAr:"قهوة مركزة وغنية",descEn:"Rich and concentrated coffee",price:1.2,emoji:"☕"},
-{id:2,cat:"hot",ar:"أمريكانو",en:"Americano",descAr:"إسبريسو مع الماء الساخن",descEn:"Espresso with hot water",price:1.3,emoji:"☕"},
-{id:3,cat:"hot",ar:"لاتيه",en:"Latte",descAr:"إسبريسو وحليب ناعم",descEn:"Espresso with smooth milk",price:1.5,emoji:"🥛"},
-{id:4,cat:"hot",ar:"كابتشينو",en:"Cappuccino",descAr:"قهوة وحليب ورغوة",descEn:"Coffee, milk and foam",price:1.5,emoji:"☕"},
-{id:5,cat:"hot",ar:"فلات وايت",en:"Flat White",descAr:"قهوة بحليب كريمي",descEn:"Coffee with creamy milk",price:1.6,emoji:"☕"},
-{id:6,cat:"hot",ar:"سبانش لاتيه",en:"Spanish Latte",descAr:"لاتيه بطعم حلو وكريمي",descEn:"Sweet and creamy latte",price:1.7,emoji:"🥛"},
 
-{id:7,cat:"cold",ar:"آيس أمريكانو",en:"Iced Americano",descAr:"منعش وبارد",descEn:"Refreshing and cold",price:1.4,emoji:"🧊"},
-{id:8,cat:"cold",ar:"آيس لاتيه",en:"Iced Latte",descAr:"لاتيه بارد ومنعش",descEn:"Cold and refreshing latte",price:1.6,emoji:"🥤"},
-{id:9,cat:"cold",ar:"آيس سبانش لاتيه",en:"Iced Spanish Latte",descAr:"سبانش لاتيه بارد",descEn:"Cold Spanish latte",price:1.8,emoji:"🥤"},
-{id:10,cat:"cold",ar:"كولد برو",en:"Cold Brew",descAr:"قهوة مستخلصة على البارد",descEn:"Slow brewed cold coffee",price:1.8,emoji:"🧊"},
-{id:11,cat:"cold",ar:"آيس موكا",en:"Iced Mocha",descAr:"قهوة وشوكولاتة باردة",descEn:"Cold coffee and chocolate",price:1.9,emoji:"🍫"},
+{
+id:1,
+cat:"hot",
+ar:"إسبريسو",
+en:"Espresso",
+descAr:"قهوة مركزة وغنية",
+descEn:"Rich and concentrated coffee",
+price:1.2,
+emoji:"☕"
+},
 
-{id:12,cat:"tea",ar:"شاي كرك",en:"Karak Tea",descAr:"شاي بالحليب والهيل",descEn:"Milk tea with cardamom",price:0.8,emoji:"🍵"},
-{id:13,cat:"tea",ar:"شاي",en:"Tea",descAr:"شاي كلاسيكي",descEn:"Classic tea",price:0.6,emoji:"🍵"},
-{id:14,cat:"tea",ar:"ماتشا لاتيه",en:"Matcha Latte",descAr:"ماتشا مع حليب ناعم",descEn:"Matcha with smooth milk",price:1.7,emoji:"🍵"},
-{id:15,cat:"tea",ar:"هوت شوكليت",en:"Hot Chocolate",descAr:"شوكولاتة ساخنة وكريمية",descEn:"Rich hot chocolate",price:1.5,emoji:"🍫"},
+{
+id:2,
+cat:"hot",
+ar:"أمريكانو",
+en:"Americano",
+descAr:"إسبريسو مع الماء الساخن",
+descEn:"Espresso with hot water",
+price:1.3,
+emoji:"☕"
+},
 
-{id:16,cat:"dessert",ar:"كرواسون",en:"Croissant",descAr:"مخبوز طازج وهش",descEn:"Fresh and flaky pastry",price:1.2,emoji:"🥐"},
-{id:17,cat:"dessert",ar:"كوكيز",en:"Cookies",descAr:"كوكيز بالشوكولاتة",descEn:"Chocolate chip cookies",price:0.9,emoji:"🍪"},
-{id:18,cat:"dessert",ar:"براوني",en:"Brownie",descAr:"براوني شوكولاتة",descEn:"Rich chocolate brownie",price:1.2,emoji:"🍫"},
-{id:19,cat:"dessert",ar:"تشيزكيك",en:"Cheesecake",descAr:"تشيزكيك كريمي",descEn:"Creamy cheesecake",price:1.5,emoji:"🍰"},
-{id:20,cat:"dessert",ar:"كيكة اليوم",en:"Cake of the Day",descAr:"اختيارنا اليومي",descEn:"Our daily selection",price:1.4,emoji:"🍰"}
+{
+id:3,
+cat:"hot",
+ar:"لاتيه",
+en:"Latte",
+descAr:"إسبريسو وحليب ناعم",
+descEn:"Espresso with smooth milk",
+price:1.5,
+emoji:"🥛"
+},
+
+{
+id:4,
+cat:"hot",
+ar:"كابتشينو",
+en:"Cappuccino",
+descAr:"قهوة وحليب ورغوة",
+descEn:"Coffee, milk and foam",
+price:1.5,
+emoji:"☕"
+},
+
+{
+id:5,
+cat:"hot",
+ar:"فلات وايت",
+en:"Flat White",
+descAr:"قهوة بحليب كريمي",
+descEn:"Coffee with creamy milk",
+price:1.6,
+emoji:"☕"
+},
+
+{
+id:6,
+cat:"hot",
+ar:"سبانش لاتيه",
+en:"Spanish Latte",
+descAr:"لاتيه بطعم حلو وكريمي",
+descEn:"Sweet and creamy latte",
+price:1.7,
+emoji:"🥛"
+},
+
+{
+id:7,
+cat:"cold",
+ar:"آيس أمريكانو",
+en:"Iced Americano",
+descAr:"منعش وبارد",
+descEn:"Refreshing and cold",
+price:1.4,
+emoji:"🧊"
+},
+
+{
+id:8,
+cat:"cold",
+ar:"آيس لاتيه",
+en:"Iced Latte",
+descAr:"لاتيه بارد ومنعش",
+descEn:"Cold and refreshing latte",
+price:1.6,
+emoji:"🥤"
+},
+
+{
+id:9,
+cat:"cold",
+ar:"آيس سبانش لاتيه",
+en:"Iced Spanish Latte",
+descAr:"سبانش لاتيه بارد",
+descEn:"Cold Spanish latte",
+price:1.8,
+emoji:"🥤"
+},
+
+{
+id:10,
+cat:"cold",
+ar:"كولد برو",
+en:"Cold Brew",
+descAr:"قهوة مستخلصة على البارد",
+descEn:"Slow brewed cold coffee",
+price:1.8,
+emoji:"🧊"
+},
+
+{
+id:11,
+cat:"cold",
+ar:"آيس موكا",
+en:"Iced Mocha",
+descAr:"قهوة وشوكولاتة باردة",
+descEn:"Cold coffee and chocolate",
+price:1.9,
+emoji:"🍫"
+},
+
+{
+id:12,
+cat:"tea",
+ar:"شاي كرك",
+en:"Karak Tea",
+descAr:"شاي بالحليب والهيل",
+descEn:"Milk tea with cardamom",
+price:0.8,
+emoji:"🍵"
+},
+
+{
+id:13,
+cat:"tea",
+ar:"شاي",
+en:"Tea",
+descAr:"شاي كلاسيكي",
+descEn:"Classic tea",
+price:0.6,
+emoji:"🍵"
+},
+
+{
+id:14,
+cat:"tea",
+ar:"ماتشا لاتيه",
+en:"Matcha Latte",
+descAr:"ماتشا مع حليب ناعم",
+descEn:"Matcha with smooth milk",
+price:1.7,
+emoji:"🍵"
+},
+
+{
+id:15,
+cat:"tea",
+ar:"هوت شوكليت",
+en:"Hot Chocolate",
+descAr:"شوكولاتة ساخنة وكريمية",
+descEn:"Rich hot chocolate",
+price:1.5,
+emoji:"🍫"
+},
+
+{
+id:16,
+cat:"dessert",
+ar:"كرواسون",
+en:"Croissant",
+descAr:"مخبوز طازج وهش",
+descEn:"Fresh and flaky pastry",
+price:1.2,
+emoji:"🥐"
+},
+
+{
+id:17,
+cat:"dessert",
+ar:"كوكيز",
+en:"Cookies",
+descAr:"كوكيز بالشوكولاتة",
+descEn:"Chocolate chip cookies",
+price:0.9,
+emoji:"🍪"
+},
+
+{
+id:18,
+cat:"dessert",
+ar:"براوني",
+en:"Brownie",
+descAr:"براوني شوكولاتة",
+descEn:"Rich chocolate brownie",
+price:1.2,
+emoji:"🍫"
+},
+
+{
+id:19,
+cat:"dessert",
+ar:"تشيزكيك",
+en:"Cheesecake",
+descAr:"تشيزكيك كريمي",
+descEn:"Creamy cheesecake",
+price:1.5,
+emoji:"🍰"
+},
+
+{
+id:20,
+cat:"dessert",
+ar:"كيكة اليوم",
+en:"Cake of the Day",
+descAr:"اختيارنا اليومي",
+descEn:"Our daily selection",
+price:1.4,
+emoji:"🍰"
+}
+
 ];
 
+
+/* =========================
+   فتح المنيو
+========================= */
+
 function openMenu(selectedMode){
+
 mode=selectedMode;
-document.getElementById("home").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
+
+document
+.getElementById("home")
+.classList.add("hidden");
+
+document
+.getElementById("app")
+.classList.remove("hidden");
+
 renderCategories();
+
 renderProducts();
+
 }
+
+
+/* =========================
+   التصنيفات
+========================= */
 
 function renderCategories(){
-const list=language==="ar"?categories.ar:categories.en;
-document.getElementById("categories").innerHTML=list.map(c=>`
-<button class="cat ${c[0]===currentCategory?"active":""}" onclick="selectCategory('${c[0]}')">
+
+const list=
+language==="ar"
+?categories.ar
+:categories.en;
+
+document.getElementById("categories").innerHTML=
+
+list.map(c=>`
+
+<button
+class="cat ${c[0]===currentCategory?"active":""}"
+onclick="selectCategory('${c[0]}')">
+
 ${c[1]} ${c[2]}
-</button>`).join("");
+
+</button>
+
+`).join("");
+
 }
+
 
 function selectCategory(cat){
+
 currentCategory=cat;
+
 renderCategories();
+
 renderProducts();
+
 }
+
+
+/* =========================
+   المنتجات
+========================= */
 
 function renderProducts(){
-const items=products.filter(p=>p.cat===currentCategory);
 
-document.getElementById("products").innerHTML=items.map(p=>`
+const items=
+products.filter(
+p=>p.cat===currentCategory
+);
+
+document.getElementById("products").innerHTML=
+
+items.map(p=>`
+
 <article class="product">
-<div class="product-img">${p.emoji}</div>
+
+<div class="product-img">
+${p.emoji}
+</div>
+
 <div class="info">
-<div class="name">${language==="ar"?p.ar:p.en}</div>
-<div class="desc">${language==="ar"?p.descAr:p.descEn}</div>
+
+<div class="name">
+${language==="ar"?p.ar:p.en}
+</div>
+
+<div class="desc">
+${language==="ar"?p.descAr:p.descEn}
+</div>
+
 <div class="bottom">
-<span class="price">${p.price.toFixed(3)} ${language==="ar"?"ر.ع":"OMR"}</span>
-<button class="add" onclick="addToCart(${p.id})">+</button>
+
+<span class="price">
+
+${p.price.toFixed(3)}
+
+${language==="ar"?"ر.ع":"OMR"}
+
+</span>
+
+<button
+class="add"
+onclick="addToCart(${p.id})">
+
++
+
+</button>
+
 </div>
+
 </div>
+
 </article>
+
 `).join("");
+
 }
+
+
+/* =========================
+   إضافة للسلة
+========================= */
 
 function addToCart(id){
-const item=cart.find(x=>x.id===id);
-if(item)item.qty++;
-else cart.push({id,qty:1});
-updateCart();
+
+const item=
+cart.find(i=>i.id===id);
+
+if(item){
+
+item.qty++;
+
+}else{
+
+cart.push({
+id:id,
+qty:1
+});
+
 }
+
+updateCart();
+
+}
+
+
+/* =========================
+   تحديث السلة
+========================= */
 
 function updateCart(){
-const count=cart.reduce((a,b)=>a+b.qty,0);
-const total=cart.reduce((sum,item)=>{
-const p=products.find(x=>x.id===item.id);
-return sum+p.price*item.qty;
-},0);
 
-document.getElementById("cartCount").textContent=count;
-document.getElementById("cartTotal").textContent=
-total.toFixed(3)+" "+(language==="ar"?"ر.ع":"OMR");
+const count=
+cart.reduce(
+(a,b)=>a+b.qty,
+0
+);
 
-document.getElementById("sheetTotal").textContent=
-total.toFixed(3)+" "+(language==="ar"?"ر.ع":"OMR");
+const total=
+cart.reduce(
 
-document.getElementById("cartBar").classList.toggle("hidden",count===0);
+(sum,item)=>{
+
+const product=
+products.find(
+p=>p.id===item.id
+);
+
+return sum+
+product.price*
+item.qty;
+
+},
+
+0
+
+);
+
+
+document.getElementById(
+"cartCount"
+).textContent=count;
+
+
+document.getElementById(
+"cartTotal"
+).textContent=
+
+total.toFixed(3)
++
+" "
++
+(language==="ar"?"ر.ع":"OMR");
+
+
+document.getElementById(
+"sheetTotal"
+).textContent=
+
+total.toFixed(3)
++
+" "
++
+(language==="ar"?"ر.ع":"OMR");
+
+
+document.getElementById(
+"cartBar"
+).classList.toggle(
+"hidden",
+count===0
+);
+
+
 renderCartItems();
+
 }
+
+
+/* =========================
+   عناصر السلة
+========================= */
 
 function renderCartItems(){
-const box=document.getElementById("cartItems");
+
+const box=
+document.getElementById(
+"cartItems"
+);
 
 if(!cart.length){
-box.innerHTML=`<p style="text-align:center;color:#9a897b">
-${language==="ar"?"السلة فارغة":"Your cart is empty"}
-</p>`;
+
+box.innerHTML=`
+
+<p style="text-align:center;color:#9a897b">
+
+${language==="ar"
+?"السلة فارغة"
+:"Your cart is empty"}
+
+</p>
+
+`;
+
 return;
+
 }
 
-box.innerHTML=cart.map(item=>{
-const p=products.find(x=>x.id===item.id);
+
+box.innerHTML=
+
+cart.map(item=>{
+
+const p=
+products.find(
+x=>x.id===item.id
+);
 
 return `
+
 <div class="cart-item">
-<div class="emoji">${p.emoji}</div>
-<div class="cart-item-info">
-<strong>${language==="ar"?p.ar:p.en}</strong>
-<div>${(p.price*item.qty).toFixed(3)} ${language==="ar"?"ر.ع":"OMR"}</div>
+
+<div class="emoji">
+${p.emoji}
 </div>
+
+<div class="cart-item-info">
+
+<strong>
+${language==="ar"?p.ar:p.en}
+</strong>
+
+<div>
+
+${(
+p.price*
+item.qty
+).toFixed(3)}
+
+${language==="ar"?"ر.ع":"OMR"}
+
+</div>
+
+</div>
+
 
 <div class="qty">
-<button onclick="changeQty(${p.id},-1)">−</button>
-<span>${item.qty}</span>
-<button onclick="changeQty(${p.id},1)">+</button>
+
+<button
+onclick="changeQty(${p.id},-1)">
+−
+</button>
+
+<span>
+${item.qty}
+</span>
+
+<button
+onclick="changeQty(${p.id},1)">
++
+</button>
+
 </div>
-</div>`;
+
+</div>
+
+`;
+
 }).join("");
+
 }
 
+
+/* =========================
+   تغيير الكمية
+========================= */
+
 function changeQty(id,amount){
-const item=cart.find(x=>x.id===id);
+
+const item=
+cart.find(
+x=>x.id===id
+);
+
 if(!item)return;
 
 item.qty+=amount;
 
-if(item.qty<=0)
-cart=cart.filter(x=>x.id!==id);
+if(item.qty<=0){
+
+cart=
+cart.filter(
+x=>x.id!==id
+);
+
+}
 
 updateCart();
+
 }
+
+
+/* =========================
+   فتح السلة
+========================= */
 
 function openCart(){
-document.getElementById("overlay").classList.remove("hidden");
-document.getElementById("sheet").classList.remove("hidden");
+
+document
+.getElementById("overlay")
+.classList.remove("hidden");
+
+document
+.getElementById("sheet")
+.classList.remove("hidden");
+
 renderCartItems();
+
 }
+
+
+/* =========================
+   إغلاق السلة
+========================= */
 
 function closeCart(){
-document.getElementById("overlay").classList.add("hidden");
-document.getElementById("sheet").classList.add("hidden");
+
+document
+.getElementById("overlay")
+.classList.add("hidden");
+
+document
+.getElementById("sheet")
+.classList.add("hidden");
+
 }
 
-function toggleLanguage(){
-language=language==="ar"?"en":"ar";
 
-document.documentElement.lang=language;
-document.documentElement.dir=language==="ar"?"rtl":"ltr";
-
-document.getElementById("langBtn").textContent=
-language==="ar"?"EN":"AR";
-
-document.getElementById("menuTitle").textContent=
-language==="ar"?"منيو برني":"Barni Menu";
-
-document.getElementById("menuSubtitle").textContent=
-language==="ar"?"اختر قهوتك المفضلة":"Choose your favorite coffee";
-
-document.getElementById("viewCart").textContent=
-language==="ar"?"السلة":"Cart";
-
-document.getElementById("cartTitle").textContent=
-language==="ar"?"السلة":"Cart";
-
-document.getElementById("totalText").textContent=
-language==="ar"?"المجموع":"Total";
-
-document.getElementById("checkoutBtn").textContent=
-language==="ar"?"إتمام الطلب":"Checkout";
-
-renderCategories();
-renderProducts();
-updateCart();
-}
+/* =========================
+   إتمام الطلب
+========================= */
 
 function checkout(){
+
 if(!cart.length)return;
 
-alert(language==="ar"
-?"الخطوة التالية: بيانات الطلب"
-:"Next step: Order details");
+closeCart();
+
+renderOrderForm();
+
+document
+.getElementById("orderFormScreen")
+.classList.remove("hidden");
+
+}
+
+
+/* =========================
+   بيانات الطلب
+========================= */
+
+function renderOrderForm(){
+
+const cafe=
+mode==="cafe";
+
+
+document.getElementById(
+"orderFormScreen"
+).innerHTML=`
+
+<div class="order-form">
+
+<div class="order-head">
+
+<button
+onclick="closeOrderForm()">
+×
+</button>
+
+<h2>
+${language==="ar"
+?"بيانات الطلب"
+:"Order Details"}
+</h2>
+
+</div>
+
+
+${
+cafe
+
+?
+
+`
+
+<label>
+
+${language==="ar"
+?"رقم الطاولة"
+:"Table Number"}
+
+<input
+id="orderTable"
+type="number"
+min="1"
+placeholder="${language==="ar"
+?"مثال: 12"
+:"Example: 12"}">
+
+</label>
+
+`
+
+:
+
+`
+
+<label>
+
+${language==="ar"
+?"رقم السيارة"
+:"Vehicle Number"}
+
+<input
+id="orderCar"
+placeholder="${language==="ar"
+?"رقم السيارة"
+:"Vehicle number"}">
+
+</label>
+
+`
+}
+
+
+<label>
+
+${language==="ar"
+?"رقم الهاتف"
+:"Phone Number"}
+
+<input
+id="orderPhone"
+type="tel"
+placeholder="${language==="ar"
+?"رقم الهاتف"
+:"Phone number"}">
+
+</label>
+
+
+<label>
+
+${language==="ar"
+?"الملاحظات"
+:"Notes"}
+
+<textarea
+id="orderNote"
+placeholder="${language==="ar"
+?"أي ملاحظة للطلب؟"
+:"Any notes?"}>
+</textarea>
+
+</label>
+
+
+<button
+class="confirm-order"
+onclick="confirmOrder()">
+
+${language==="ar"
+?"تأكيد الطلب ✓"
+:"Confirm Order ✓"}
+
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   إغلاق بيانات الطلب
+========================= */
+
+function closeOrderForm(){
+
+document
+.getElementById(
+"orderFormScreen"
+)
+.classList.add("hidden");
+
+}
+
+
+/* =========================
+   تأكيد الطلب
+========================= */
+
+function confirmOrder(){
+
+const table=
+document.getElementById(
+"orderTable"
+);
+
+const car=
+document.getElementById(
+"orderCar"
+);
+
+const phone=
+document.getElementById(
+"orderPhone"
+);
+
+const note=
+document.getElementById(
+"orderNote"
+);
+
+
+if(
+mode==="cafe"
+&&
+!table.value
+){
+
+alert(
+language==="ar"
+?
+"اكتب رقم الطاولة أولًا"
+:
+"Enter the table number"
+);
+
+return;
+
+}
+
+
+if(
+mode==="car"
+&&
+!car.value.trim()
+){
+
+alert(
+language==="ar"
+?
+"اكتب رقم السيارة أولًا"
+:
+"Enter the vehicle number"
+);
+
+return;
+
+}
+
+
+if(!phone.value.trim()){
+
+alert(
+language==="ar"
+?
+"اكتب رقم الهاتف أولًا"
+:
+"Enter your phone number"
+);
+
+return;
+
+}
+
+
+order={
+
+number:
+"B"+
+Math.floor(
+10000+
+Math.random()*90000
+),
+
+mode:mode,
+
+table:
+table
+?
+table.value
+:
+"",
+
+car:
+car
+?
+car.value
+:
+"",
+
+phone:
+phone.value,
+
+note:
+note.value,
+
+status:
+"received"
+
+};
+
+
+localStorage.setItem(
+"barniOrder",
+JSON.stringify(order)
+);
+
+
+cart=[];
+
+updateCart();
+
+closeOrderForm();
+
+showConfirmation();
+
+}
+
+
+/* =========================
+   تأكيد الطلب
+========================= */
+
+function showConfirmation(){
+
+const cafe=
+order.mode==="cafe";
+
+
+document.getElementById(
+"confirmationScreen"
+).innerHTML=`
+
+<div class="confirmation-card">
+
+
+<div class="success-check">
+✓
+</div>
+
+
+<div class="success-label">
+
+${language==="ar"
+?"تم استلام طلبك"
+:"Order Received"}
+
+</div>
+
+
+<h2>
+
+${language==="ar"
+?"شكرًا لك"
+:"Thank you"}
+
+</h2>
+
+
+<div class="order-number">
+
+#${order.number}
+
+</div>
+
+
+<div class="order-details">
+
+
+<p>
+
+<strong>
+
+${language==="ar"
+?"رقم الطلب"
+:"Order Number"}
+
+</strong>
+
+<span>
+#${order.number}
+</span>
+
+</p>
+
+
+<p>
+
+<strong>
+
+${
+cafe
+
+?
+
+(language==="ar"
+?"رقم الطاولة"
+:"Table")
+
+:
+
+(language==="ar"
+?"رقم السيارة"
+:"Vehicle")
+
+}
+
+</strong>
+
+<span>
+
+${cafe
+?order.table
+:order.car}
+
+</span>
+
+</p>
+
+
+<p>
+
+<strong>
+
+${language==="ar"
+?"رقم الهاتف"
+:"Phone"}
+
+</strong>
+
+<span>
+${order.phone}
+</span>
+
+</p>
+
+
+<p>
+
+<strong>
+
+${language==="ar"
+?"الملاحظة"
+:"Note"}
+
+</strong>
+
+<span>
+
+${order.note
+||
+(language==="ar"
+?"لا توجد"
+:"None")}
+
+</span>
+
+</p>
+
+
+</div>
+
+
+<button
+class="track-order"
+onclick="showTracking()">
+
+${language==="ar"
+?"رؤية طلبك"
+:"View Your Order"}
+
+</button>
+
+
+</div>
+
+`;
+
+
+document
+.getElementById(
+"confirmationScreen"
+)
+.classList.remove(
+"hidden"
+);
+
+}
+
+
+/* =========================
+   تتبع الطلب
+========================= */
+
+function showTracking(){
+
+const statusList=[
+
+"received",
+"preparing",
+"ready",
+"delivered"
+
+];
+
+
+const current=
+statusList.indexOf(
+order.status
+);
+
+
+const labels=
+
+language==="ar"
+
+?
+
+[
+"تم استلام الطلب",
+"جاري التحضير",
+"جاهز",
+"تم التسليم"
+]
+
+:
+
+[
+"Order Received",
+"Preparing",
+"Ready",
+"Delivered"
+];
+
+
+document.getElementById(
+"confirmationScreen"
+).innerHTML=`
+
+<div class="confirmation-card">
+
+<div class="tracking-logo">
+برني
+</div>
+
+
+<h2>
+
+${language==="ar"
+?"تتبع طلبك"
+:"Track Your Order"}
+
+</h2>
+
+
+<div class="tracking-number">
+
+#${order.number}
+
+</div>
+
+
+<div class="steps">
+
+
+${labels.map(
+(label,index)=>`
+
+<div class="step
+
+${
+index<current
+?
+"done"
+:
+index===current
+?
+"current"
+:
+""
+}
+
+">
+
+<div>
+
+${
+index<current
+?
+"✓"
+:
+index+1
+}
+
+</div>
+
+<span>
+
+${label}
+
+</span>
+
+</div>
+
+`
+).join("")}
+
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   اللغة
+========================= */
+
+function toggleLanguage(){
+
+language=
+language==="ar"
+?
+"en"
+:
+"ar";
+
+
+document.documentElement.lang=
+language;
+
+
+document.documentElement.dir=
+language==="ar"
+?
+"rtl"
+:
+"ltr";
+
+
+document.getElementById(
+"langBtn"
+).textContent=
+language==="ar"
+?
+"EN"
+:
+"AR";
+
+
+document.getElementById(
+"menuTitle"
+).textContent=
+language==="ar"
+?
+"منيو برني"
+:
+"Barni Menu";
+
+
+document.getElementById(
+"menuSubtitle"
+).textContent=
+language==="ar"
+?
+"اختر قهوتك المفضلة"
+:
+"Choose your favorite coffee";
+
+
+document.getElementById(
+"viewCart"
+).textContent=
+language==="ar"
+?
+"السلة"
+:
+"Cart";
+
+
+document.getElementById(
+"cartTitle"
+).textContent=
+language==="ar"
+?
+"السلة"
+:
+"Cart";
+
+
+document.getElementById(
+"totalText"
+).textContent=
+language==="ar"
+?
+"المجموع"
+:
+"Total";
+
+
+document.getElementById(
+"checkoutBtn"
+).textContent=
+language==="ar"
+?
+"إتمام الطلب"
+:
+"Checkout";
+
+
+renderCategories();
+
+renderProducts();
+
+updateCart();
+
 }
 
 </script>
