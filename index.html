@@ -1,106 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f6efe5">
-<title>برني كافيه</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#24150e">
+  <title>برني كافيه | BARNI</title>
+  <meta name="description" content="برني كافيه. اطلب من طاولتك أو من السيارة وتابع طلبك لحظة بلحظة.">
+  <link rel="icon" href="assets/barni-logo.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="toast" class="toast" role="status"></div>
 
-<div id="splash"><div>برني</div></div>
-
-<section id="home" class="screen home-screen">
-  <div class="home-head">
-    <div class="brand">
-      <div class="brand-name">برني</div>
-      <div class="brand-en">B A R N I &nbsp; C A F E</div>
-      <div class="brand-tag">قهوتك على هلك</div>
-    </div>
-    <button class="ghost-pill" id="tableTop">طاولتك: اختر لاحقاً</button>
-  </div>
-
-  <div class="home-copy">
-    <div class="hello">هلا</div>
-    <h1>أهلاً بك في<br>برني كافيه</h1>
-    <p>نكهات مختارة، تحضير دقيق، وضيافة عمانية دافئة تصل إلى طاولتك.</p>
-  </div>
-
-  <div class="hero-wrap">
-    <img src="hero.jpg" alt="قهوة برني">
-    <button class="hero-label" id="heroMenu">عرض المنيو</button>
-  </div>
-
-  <button class="menu-main-btn" id="homeMenu">عرض المنيو</button>
-
-  <div class="notice">
-    <span class="dot"></span>
-    <span>اطلب من طاولتك مباشرة — متوسط التحضير من 7 إلى 10 دقائق.</span>
-  </div>
-</section>
-
-<section id="menuScreen" class="screen menu-screen hidden">
-  <header class="page-head">
-    <button class="back-btn" id="backHome">رجوع <span>←</span></button>
-    <div class="mini-brand"><b>برني</b><small>BARNI CAFE</small></div>
-    <button class="lang-btn">EN</button>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="برني كافيه">
+      <img src="assets/barni-logo.png" alt="برني كافيه">
+    </a>
+    <nav>
+      <a href="#menu">المنيو</a>
+      <a href="#track">تتبع الطلب</a>
+      <a href="#about">عن برني</a>
+    </nav>
+    <button class="icon-btn" id="openCart" aria-label="السلة">🛍️ <span id="cartBadge">0</span></button>
   </header>
 
-  <div class="menu-intro">
-    <h1>المنيو</h1>
-    <p>اختياراتك تحضر طازجة وتصل إلى طاولتك بكل عناية.</p>
-  </div>
+  <main id="home">
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <p class="eyebrow">BARNI CAFE · QURAYYAT</p>
+        <h1>قهوة تجمعنا،<br><span>وتفاصيل تخلّيها برني.</span></h1>
+        <p class="hero-copy">اطلب من طاولتك، من السيارة، وتابع طلبك من لحظة الإرسال إلى الاستلام.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#menu">شوف المنيو</a>
+          <button class="btn ghost" id="heroTrack">تتبع طلب سابق</button>
+        </div>
+        <div class="trust-row">
+          <span>☕ تحضير طازج</span>
+          <span>⚡ متابعة مباشرة</span>
+          <span>🚗 داخل المقهى أو السيارة</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="cup-art"><span>☕</span></div>
+        <div>
+          <small>مستعد لطلبك؟</small>
+          <strong>خلّها برني.</strong>
+        </div>
+      </div>
+    </section>
 
-  <div class="categories" id="categories"></div>
-  <div class="products" id="products"></div>
+    <section class="section" id="menu">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">OUR MENU</p>
+          <h2>المنيو</h2>
+          <p>اختيارات برني مرتبة، والأسعار بالريال العُماني.</p>
+        </div>
+        <div class="search-wrap">
+          <input id="search" type="search" placeholder="ابحث عن مشروب أو حلى..." aria-label="بحث">
+        </div>
+      </div>
+      <div id="categories" class="chips"></div>
+      <div id="products" class="product-grid"></div>
+    </section>
 
-  <div class="cart-bar">
-    <button id="openReview">عرض الطلب</button>
-    <div class="cart-total"><small><span id="cartCount">0</span> أصناف</small><strong id="cartTotal">0.000 ر.ع</strong></div>
-    <div class="bag">▢</div>
-  </div>
-</section>
+    <section class="section track-section" id="track">
+      <div class="track-card">
+        <div>
+          <p class="eyebrow">ORDER TRACKING</p>
+          <h2>طلبك وين وصل؟</h2>
+          <p>اكتب رقم الطلب ورقم الجوال وشوف حالته مباشرة.</p>
+        </div>
+        <form id="trackForm" class="track-form">
+          <input id="trackOrder" required placeholder="مثال: BRN-123456" autocomplete="off">
+          <input id="trackPhone" required inputmode="tel" placeholder="رقم الجوال">
+          <button class="btn primary" type="submit">تتبع الطلب</button>
+        </form>
+        <div id="trackResult"></div>
+      </div>
+    </section>
 
-<section id="reviewScreen" class="screen review-screen hidden">
-  <header class="page-head review-head">
-    <button class="round-back" id="backMenu">→</button>
-    <div class="review-title">
-      <h1>مراجعة الطلب</h1>
-      <small>ORDER REVIEW</small>
+    <section class="section about" id="about">
+      <div class="about-copy">
+        <p class="eyebrow">ABOUT BARNI</p>
+        <h2>برني مو مجرد كوب.</h2>
+        <p>تجربة بسيطة، دافئة، وسريعة. الموقع مصمم للجوال أولاً عشان العميل يفتح الكود، يطلب، ويعرف بالضبط وين وصل طلبه بدون اتصالات ولا تخمينات بشرية، لأننا اكتشفنا أن البشر يحبون معرفة حالة اللاتيه.</p>
+      </div>
+      <div class="about-stats">
+        <div><strong>01</strong><span>اختيار الطلب</span></div>
+        <div><strong>02</strong><span>تأكيد التفاصيل</span></div>
+        <div><strong>03</strong><span>تحضير الطلب</span></div>
+        <div><strong>04</strong><span>استلامه</span></div>
+      </div>
+    </section>
+  </main>
+
+  <aside id="cartDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div><p class="eyebrow">YOUR ORDER</p><h3>سلتك</h3></div>
+        <button class="close-btn" data-close>×</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-total"><span>الإجمالي</span><strong id="cartTotal">0.000 ر.ع</strong></div>
+      <button class="btn primary full" id="checkoutBtn">إتمام الطلب</button>
+      <button class="text-btn full" id="clearCart">تفريغ السلة</button>
     </div>
-  </header>
+  </aside>
 
-  <div class="review-body">
-    <h2><span id="reviewCount">3</span> أصناف في سلتك</h2>
-    <div id="reviewItems"></div>
-
-    <div class="table-card">
-      <h3>اختر رقم الطاولة</h3>
-      <p>سيتم تجهيز طلبك إلى طاولتك عند جهوزيته.</p>
-      <div class="tables" id="tables"></div>
-      <small class="table-note">بالضغط على «إرسال الطلب» تأكد أن رقم طاولتك هو <b id="chosenTable">6</b>، سيظهر رقم الطلب فور الإرسال.</small>
-    </div>
+  <div id="checkoutModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-checkout></div>
+    <section class="modal-card checkout">
+      <button class="close-btn modal-close" data-close-checkout>×</button>
+      <p class="eyebrow">CHECKOUT</p>
+      <h2>إتمام الطلب</h2>
+      <p class="muted">اختر طريقة الاستلام وأدخل بيانات التواصل. لن نطلب منك ألف معلومة، البشرية نجت بما يكفي.</p>
+      <div class="mode-toggle">
+        <button class="mode active" data-mode="cafe">داخل المقهى</button>
+        <button class="mode" data-mode="car">من السيارة</button>
+      </div>
+      <form id="checkoutForm">
+        <div id="cafeFields" class="form-grid">
+          <label>رقم الطاولة *
+            <input id="tableNumber" inputmode="numeric" placeholder="مثال: 12">
+          </label>
+        </div>
+        <div id="carFields" class="form-grid" hidden>
+          <label>رقم اللوحة *<input id="plateNumber" placeholder="مثال: 1234 أ ب"></label>
+          <label>نوع السيارة *<input id="carType" placeholder="مثال: تويوتا كامري"></label>
+          <label>اللون *<input id="carColor" placeholder="مثال: أبيض"></label>
+        </div>
+        <div class="form-grid">
+          <label>الاسم<input id="customerName" autocomplete="name" placeholder="اسمك"></label>
+          <label>رقم الجوال *<input id="phone" inputmode="tel" autocomplete="tel" placeholder="9XXXXXXX"></label>
+          <label class="wide">ملاحظة للبارستا<input id="notes" placeholder="مثال: بدون سكر، زيادة ثلج..."></label>
+        </div>
+        <div class="checkout-summary"><span>المجموع</span><strong id="checkoutTotal">0.000 ر.ع</strong></div>
+        <button class="btn primary full" type="submit" id="submitOrder">تأكيد وإرسال الطلب</button>
+      </form>
+    </section>
   </div>
 
-  <div class="review-footer">
-    <div><small>المجموع</small><strong id="reviewTotal">0.000 ر.ع</strong><small>شامل الضريبة</small></div>
-    <button id="submitOrder">إرسال الطلب</button>
+  <div id="successModal" class="modal" hidden>
+    <div class="modal-backdrop"></div>
+    <section class="modal-card success-card">
+      <div class="success-icon">✓</div>
+      <p class="eyebrow">ORDER RECEIVED</p>
+      <h2>تم استلام طلبك</h2>
+      <p class="muted">طلبك وصل لبرني. احتفظ برقم الطلب عشان تتابعه.</p>
+      <div class="order-number" id="successNumber"></div>
+      <div id="successMeta" class="success-meta"></div>
+      <button class="btn primary full" id="goTrack">رؤية طلبك</button>
+    </section>
   </div>
-</section>
 
-<div id="success" class="success hidden">
-  <div class="success-card">
-    <div class="check">✓</div>
-    <h2>تم إرسال طلبك</h2>
-    <p id="successText"></p>
-    <button id="successDone">تم</button>
-  </div>
-</div>
+  <footer>
+    <img src="assets/barni-logo.png" alt="" class="footer-logo">
+    <span>© 2026 برني كافيه · BARNI CAFE</span>
+    <a href="#home">العودة للأعلى ↑</a>
+  </footer>
 
-<script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
 </body>
 </html>
